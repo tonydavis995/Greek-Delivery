@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.reffera.greekdelivery" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="com.reffera.greekdelivery" version="0.0.2" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>Greek</name>
     <description>Fresh from Boat to Home .</description>
     <author email="tonydavis@techlytx.com" href="http://ionicframework.com/">Techlytx</author>
@@ -72,5 +72,4 @@
         <variable name="WEB_APPLICATION_CLIENT_ID" value="1065673085835-dcligpb01dujnahtasqs3shc14dljgj0.apps.googleusercontent.com" />
         <variable name="PLAY_SERVICES_VERSION" value="11.8.0" />
     </plugin>
-    <engine name="android" spec="6.4.0" />
 </widget>
