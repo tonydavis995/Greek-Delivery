@@ -58,12 +58,12 @@ export const BaseAppConfig: AppConfig = {
     name: 'Portuguese'
   }],
   firebaseConfig: {
-    webApplicationId: "476477636599-9s4vhej2tok73k70aeali8jb91045fdl.apps.googleusercontent.com",
-    apiKey: "AIzaSyDONlq7cxRN2lLv-iyfLA733cbaybeVJqY",
-    authDomain: "greek-74b58.firebaseapp.com",
-    databaseURL: "https://greek-74b58.firebaseio.com",
-    projectId: "greek-74b58",
-    storageBucket: "greek-74b58.appspot.com",
-    messagingSenderId: "476477636599"
+    webApplicationId: "1065673085835-dcligpb01dujnahtasqs3shc14dljgj0.apps.googleusercontent.com",
+    apiKey: "AIzaSyDFDQYtsQ6cVxkg-XMt1K_uk8oLJv0ej3Q",
+    authDomain: "greek-delivery.firebaseapp.com",
+    databaseURL: "https://greek-delivery.firebaseio.com",
+    projectId: "greek-delivery",
+    storageBucket: "greek-delivery.appspot.com",
+    messagingSenderId: "1065673085835"
   }
 };

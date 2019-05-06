@@ -1,28 +1,28 @@
 {
-  "_from": "cordova-plugin-googleplus@5.3.2",
-  "_id": "cordova-plugin-googleplus@5.3.2",
+  "_from": "cordova-plugin-googleplus",
+  "_id": "cordova-plugin-googleplus@7.0.1",
   "_inBundle": false,
-  "_integrity": "sha512-kpaNypLOjbZtexJ4J612uwAJaeD6BfWXqHOwIP35gHum4ipqJkE3NkE7eUyEJLvxk626rTC39ZLZHsUszPBe8w==",
+  "_integrity": "sha512-sinuUzfOEcyN93ahe3Z7v+d5z8h7yiF3Q6H3fdqNPbdvelfrVyPBZpryLpl82cwQDbr6vmY93FPd8SIdNNEY+Q==",
   "_location": "/cordova-plugin-googleplus",
   "_phantomChildren": {},
   "_requested": {
-    "type": "version",
+    "type": "tag",
     "registry": true,
-    "raw": "cordova-plugin-googleplus@5.3.2",
+    "raw": "cordova-plugin-googleplus",
     "name": "cordova-plugin-googleplus",
     "escapedName": "cordova-plugin-googleplus",
-    "rawSpec": "5.3.2",
+    "rawSpec": "",
     "saveSpec": null,
-    "fetchSpec": "5.3.2"
+    "fetchSpec": "latest"
   },
   "_requiredBy": [
     "#USER",
     "/"
   ],
-  "_resolved": "https://registry.npmjs.org/cordova-plugin-googleplus/-/cordova-plugin-googleplus-5.3.2.tgz",
-  "_shasum": "83bc80dc2b6e58c991e093661af655c52b9fa385",
-  "_spec": "cordova-plugin-googleplus@5.3.2",
-  "_where": "/Users/vinayaknair/Desktop/codecanyon-22364393-restaurant-woocommerce-android-ios-full-application-foodmall/App Source Code/Greek",
+  "_resolved": "https://registry.npmjs.org/cordova-plugin-googleplus/-/cordova-plugin-googleplus-7.0.1.tgz",
+  "_shasum": "8ec447e94d6f3d235c8b3542244bb7eadd523096",
+  "_spec": "cordova-plugin-googleplus",
+  "_where": "/Users/vinayaknair/Desktop/greeksourcecode/Greek-Delivery/Greek",
   "bundleDependencies": false,
   "cordova_name": "Google SignIn",
   "deprecated": false,
@@ -56,5 +56,5 @@
     "ios"
   ],
   "repo": "https://github.com/EddyVerbruggen/cordova-plugin-googleplus.git",
-  "version": "5.3.2"
+  "version": "7.0.1"
 }

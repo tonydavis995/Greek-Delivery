@@ -107,17 +107,6 @@
     "is_top_level": true,
     "variables": {}
   },
-  "cordova-plugin-googleplus": {
-    "source": {
-      "type": "registry",
-      "id": "cordova-plugin-googleplus@5.3.2"
-    },
-    "is_top_level": true,
-    "variables": {
-      "WEB_APPLICATION_CLIENT_ID": "476477636599-9s4vhej2tok73k70aeali8jb91045fdl.apps.googleusercontent.com",
-      "PLAY_SERVICES_VERSION": "11.8.0"
-    }
-  },
   "cordova-plugin-facebook4": {
     "source": {
       "type": "registry",
@@ -138,5 +127,15 @@
     },
     "is_top_level": true,
     "variables": {}
+  },
+  "cordova-plugin-googleplus": {
+    "source": {
+      "type": "registry",
+      "id": "cordova-plugin-googleplus"
+    },
+    "is_top_level": true,
+    "variables": {
+      "WEB_APPLICATION_CLIENT_ID": "1065673085835-dcligpb01dujnahtasqs3shc14dljgj0.apps.googleusercontent.com"
+    }
   }
 }
