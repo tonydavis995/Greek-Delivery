@@ -1,0 +1,22 @@
+page-signin {
+    .forgot {
+        position: absolute;
+        z-index: 1;
+        right: 20px;
+        margin-top: -46px;
+        font-size: 1.3rem;
+        @include rtl(){
+          right: unset;
+          left: 20px;
+        }
+    }
+    .btn-style{
+      button{
+        ion-icon{
+          @include rtl(){
+            transform: rotate(180deg);
+          }
+        }
+      }
+    }
+}

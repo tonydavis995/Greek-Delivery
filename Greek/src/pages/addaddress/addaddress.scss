@@ -1,0 +1,17 @@
+page-addaddress {
+    .list {
+        margin-bottom: 5px;
+        background: #fff;
+        padding-bottom: 10px;
+        padding-top: 10px;
+        .item {
+            padding: 0px 16px 0px 20px;
+            margin-bottom: 1.5rem;
+        }
+    }
+    .fixed-bottom {
+        position: relative;
+        bottom: 0;
+        width: 100%;
+    }
+}

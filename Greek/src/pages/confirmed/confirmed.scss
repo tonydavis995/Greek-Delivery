@@ -1,0 +1,51 @@
+page-confirmed {
+    .header {
+        .back-button {
+            color: #000;
+        }
+    }
+    figure {
+        margin: 22px !important;
+        img {
+            width: 100%;
+            margin-top: 30px;
+            border-radius: 50%;
+        }
+    }
+    h1 {
+        font-size: 3rem;
+        font-weight: 400;
+        margin-top: 30px;
+        color: #444444;
+    }
+    h2 {
+        font-size: 2rem;
+        color: #999999;
+        font-weight: 400;
+        margin-top: 25%;
+    }
+    p {
+        font-size: 2rem;
+        letter-spacing: .5px;
+        margin-bottom: 25px;
+        //        position: absolute;
+        //        width: 100%;
+        //        bottom: 50px;
+    }
+    .fixed-bottom {
+        .btn {
+            margin-bottom: 5px;
+            border-radius: 5px;
+            margin-left: 9px;
+            margin-right: 5px;
+            background-color: #73a1db;
+            width: 95%;
+            .icon {
+                padding-right: 5px;
+            }
+            .button-inner {
+                font-size: 1.8rem;
+            }
+        }
+    }
+}

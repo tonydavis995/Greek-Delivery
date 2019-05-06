@@ -1,0 +1,74 @@
+<ion-header>
+    <ion-navbar>
+        <ion-title>{{'order' | translate}} #{{order.id}}</ion-title>
+    </ion-navbar>
+</ion-header>
+
+
+<ion-content class="bg-light">
+    <ion-row padding class="order_status">
+        <ion-col col-5>
+            <p>{{'order_status'}}</p>
+            <h4>{{order.status}}</h4>
+        </ion-col>
+        <ion-col col-7 text-center>
+            <span>
+                <ion-icon name="md-restaurant" [ngClass]="(orderProgress > 0) ? 'active' : 'inactive'"></ion-icon>
+            </span>
+            <span>
+                <ion-icon name="md-bicycle" [ngClass]="(orderProgress > 1) ? 'active' : 'inactive'"></ion-icon>
+            </span>
+            <span>
+                <ion-icon name="md-home" [ngClass]="(orderProgress > 2) ? 'active' : 'inactive'"></ion-icon>
+            </span>
+        </ion-col>
+    </ion-row>
+    <ion-row>
+        <ion-col col-12>
+            <p padding style="margin-top: 6px; margin-bottom: 3px;">{{'order_detail' | translate}}
+                <span>{{order.date_created}}</span>
+            </p>
+        </ion-col>
+    </ion-row>
+    <ion-list no-lince>
+        <ion-item *ngFor="let item of order.line_items">
+            <ion-avatar item-start>
+                               <img src="assets/imgs/img_2.png">
+                <ion-icon name="md-images"></ion-icon>
+            </ion-avatar>
+            <h2>{{item.name}}</h2>
+            <p> </p>
+            <ion-row>
+                <ion-col col-6>
+                    <small>{{'quantity' | translate}} {{item.quantity}}</small>
+                </ion-col>
+                <ion-col col-6 text-right>
+                    <strong [innerHTML]="item.price_html"></strong>
+                </ion-col>
+            </ion-row>
+            <ion-row>
+                
+                    <p>{{'Share Your Location for Faster Delivery' | translate}}</p>
+                </ion-row>   
+                <ion-row>
+                
+                <a ion-button full class="btn btn-green" href="https://api.whatsapp.com/send?phone=917012800595">
+                    {{'Share to Whatsapp' | translate}}</a>
+                
+            </ion-row>
+        </ion-item>
+    </ion-list>
+
+    <div class="fixed-bottom" padding-left padding-right>
+        <ion-row>
+            <ion-col col-5>
+                <small>{{'Paid via' | translate}}</small>
+                <br>
+                <p>{{order.payment_method_title}}</p>
+            </ion-col>
+            <ion-col col-7 text-right class="text-green">
+                <h3 [innerHTML]="order.total_html"></h3>
+            </ion-col>
+        </ion-row>
+    </div>
+</ion-content>

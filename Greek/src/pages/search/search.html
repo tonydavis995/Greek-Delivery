@@ -1,0 +1,36 @@
+<ion-header class="bg-transparent">
+  <ion-navbar>
+    <ion-title>
+      <ion-searchbar (ionInput)="getItems($event)" [debounce]="1000" 
+      placeholder="{{'search_box' | translate}}?"></ion-searchbar>
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <div class="recent-searchs" padding-left padding-right padding-bottom margin-bottom>
+    <p>{{'Recent searches' | translate}}</p>
+    <ion-list no-lines>
+      <ion-item *ngFor="let query of queryHistory" (click)="search(query)">
+        {{query}}
+      </ion-item>
+    </ion-list>
+  </div>
+  <div class="offers">
+    <p padding-left padding-right *ngIf="products && products.length">{{'Search results' | translate}}</p>
+    <ion-scroll scrollX="true" style="height:195px;white-space: nowrap;">
+      <ion-card *ngFor="let pro of products" (click)="itemdetailPage(pro)">
+        <img *ngIf="pro.images && pro.images.length" data-src="{{pro.images[0].src}}">
+        <img *ngIf="pro.images == null || pro.images.length == 0" src="assets/imgs/img_1.png">
+        <div class="flex">
+          <p>
+            <small [innerHTML]="pro.name"></small>
+            <br [innerHTML]="pro.categories[0].name">
+          </p>
+          <span *ngIf="pro.type == 'simple'" [innerHTML]="pro.sale_price_html"></span>
+          <span *ngIf="pro.type == 'variable'" [innerHTML]="pro.price_html"></span>
+        </div>
+      </ion-card>
+    </ion-scroll>
+  </div>
+</ion-content>

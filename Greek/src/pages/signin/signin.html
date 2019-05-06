@@ -1,0 +1,45 @@
+<ion-header>
+    <ion-navbar>
+        <ion-title>{{'login' | translate}}</ion-title>
+    </ion-navbar>
+</ion-header>
+
+
+<ion-content padding-top>
+  <ion-list class="default-form" padding-right>
+    <ion-item>
+      <ion-label floating>{{'phone' | translate}}</ion-label>
+      <ion-input type="tel" [(ngModel)]="credentials.username" placeholder="{{'phone' | translate}}"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label floating>{{'password' | translate}}</ion-label>
+      <ion-input type="password" [(ngModel)]="credentials.password" placeholder="{{'password' | translate}}"></ion-input>
+    </ion-item>
+    <p text-center [innerHTML]="authError"></p>
+    <span class="forgot text-green" (click)="passwordPage()">{{'forgot' | translate}}?</span>
+  </ion-list>
+  <ion-row class="btn-style" padding>
+    <ion-col col-7>
+      <p class="text-light">{{'no_account' | translate}}?
+        <br>
+        <span (click)="signupPage()" class="text-green">{{'register' | translate}}</span>
+      </p>
+    </ion-col>
+    <ion-col col-5>
+      <button ion-button clear icon-end (click)="singIn()">
+        {{'login' | translate}}
+        <ion-icon name="arrow-forward"></ion-icon>
+      </button>
+    </ion-col>
+  </ion-row>
+  <p text-center style="margin-bottom:15px">{{'or_continue_with' | translate}}</p>
+  <ion-list class="default-form social-buttons" padding-right padding-left>
+   
+    <button ion-button full icon-left class="btn-social btn-google" (click)="loginGoogle()" style="margin-top:15px">
+      <ion-icon class="icon">
+        <img src="assets/imgs/google.png">
+      </ion-icon>
+      <span>Google</span>
+    </button>
+  </ion-list>
+</ion-content>

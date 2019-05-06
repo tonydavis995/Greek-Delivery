@@ -1,0 +1,36 @@
+<ion-header>
+
+    <ion-navbar>
+        <ion-title>{{'favorite' | translate}}</ion-title>
+    </ion-navbar>
+</ion-header>
+<ion-content>
+    <ion-list *ngIf="products && products.length" no-lines>
+        <ion-item *ngFor="let pro of products">
+            <ion-thumbnail item-start>
+                <figure *ngIf="pro.images && pro.images.length" (click)="itemsinfo(pro)">
+                    <img data-src="{{pro.images[0].src}}">
+                </figure>
+                <figure *ngIf="!pro.images || !pro.images.length" (click)="itemsinfo(pro)">
+                    <img src="assets/imgs/img_1.png">
+                </figure>
+            </ion-thumbnail>
+            <h2 (click)="itemsinfo(pro)">{{pro.name}}</h2>
+            <p (click)="itemsinfo(pro)" [innerHTML]="pro.short_description"></p>
+            <ion-row>
+                <ion-col col-12 class="text-green">
+                    <p *ngIf="pro.type == 'simple'" [innerHTML]="pro.sale_price_html"></p>
+                    <p *ngIf="pro.type == 'variable'" [innerHTML]="pro.price_html"></p>
+                </ion-col>
+            </ion-row>
+        </ion-item>
+    </ion-list>
+
+    <div *ngIf="!products || !products.length" class="empty">
+        <div>
+            <img src="assets/imgs/empty.png">
+            <p>{{'favorite_empty' | translate}}!</p>
+        </div>
+    </div>
+
+</ion-content>

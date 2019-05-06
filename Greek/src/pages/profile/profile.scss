@@ -1,0 +1,12 @@
+page-profile {
+    .default-form {
+        background: #fff;
+        .item {
+            padding-left: 7px;
+            padding-right: 8px;
+            &:last-child {
+                padding-bottom: 10px;
+            }
+        }
+    }
+}

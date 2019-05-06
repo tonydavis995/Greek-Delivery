@@ -1,0 +1,95 @@
+page-conaddress {
+    .header {
+        .bg-green {
+            padding: 10px 0;
+            color: #ffffff;
+            .not {
+                color: #749c1c;
+            }
+        }
+    }
+    h5 {
+        display: flex;
+        align-items: center;
+        margin: 5px 0 ! important;
+        font-size: 1.6rem;
+        font-weight: 500;
+        color: #444444;
+        span {
+            margin-left: auto;
+        }
+    }
+    .buttongreen {
+    background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #26b3ef), color-stop(1, #26b3ef));
+	background:-moz-linear-gradient(top, #26b3ef 5%, #26b3ef 100%);
+	background:-webkit-linear-gradient(top, #26b3ef 5%, #26b3ef 100%);
+	background:-o-linear-gradient(top, #26b3ef 5%, #26b3ef 100%);
+	background:-ms-linear-gradient(top, #26b3ef 5%, #26b3ef 100%);
+	background:linear-gradient(to bottom, #26b3ef 5%, #26b3ef 100%);
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#26b3ef', endColorstr='#26b3ef',GradientType=0);
+	background-color:#26b3ef;
+	-moz-border-radius:42px;
+	-webkit-border-radius:42px;
+	border-radius:42px;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:13px;
+	padding:15px 30px;
+	text-decoration:none;
+	text-shadow:0px 1px 0px #33bcf7;
+    }
+    .item {
+        padding-top: 10px;
+        padding-bottom: 10px;
+        color: #444444;
+        .label {
+            h2 {
+                margin-bottom: 10px;
+            }
+        }
+    }
+    .radio {
+        margin-bottom: auto !important;
+        margin-top: 18px !important;
+        margin-right: 20px !important;
+        .radio-checked {
+            border-color: #33bcf7;
+            .radio-inner {
+                background-color: #33bcf7;
+            }
+        }
+    }
+    .item-radio-checked ion-label {
+        color: #33bcf7 !important;
+    }
+    hr {
+        margin: 0;
+    }
+    .fixed-bottom {
+        p {
+            background: #ffffff;
+            display: flex;
+            align-items: center;
+            color: #444444;
+            margin: 0;
+            padding: 16px;
+            ion-icon {
+                margin-right: 10px;
+            }
+            strong {
+                font-weight: 500;
+                margin-left: auto;
+            }
+            &.btn {
+                display: block;
+                color: #ffffff;
+                background: #33bcf7;
+                text-align: center;
+                line-height: 18px;
+                font-size: 1.7rem;
+            }
+        }
+    }
+}

@@ -1,0 +1,84 @@
+page-conpayment {
+    .header {
+        .bg-green {
+            padding: 10px 0;
+            color: #ffffff;
+        }
+    }
+    h5 {
+        margin: 5px 0 ! important;
+        font-size: 1.6rem;
+        font-weight: 500;
+        color: #444444;
+    }
+    .fixed-bottom {
+        p {
+            background: #ffffff;
+            display: flex;
+            align-items: center;
+            color: #444444;
+            margin: 0;
+            padding: 16px;
+            ion-icon {
+                margin-right: 10px;
+            }
+            strong {
+                font-weight: 500;
+                margin-left: auto;
+            }
+            &.btn {
+                display: block;
+                color: #ffffff;
+                background: #33bcf7;
+                text-align: center;
+                line-height: 18px;
+                font-size: 1.7rem;
+            }
+        }
+    }
+    .item {
+        padding-top: 8px;
+        padding-bottom: 8px;
+        border-bottom: 1px solid #e0e0e0 !important;
+        h2 {
+            padding-left: 35px;
+        }
+    }
+    .radio {
+        position: absolute !important;
+        left: 17px;
+        margin-right: 20px !important;
+        top: 22px;
+        bottom: 0;
+        margin-right: 20px !important;
+        width: 100%;
+        .radio-checked {
+            border-color: #33bcf7;
+            .radio-inner {
+                background-color: #33bcf7;
+            }
+        }
+        &.radio-ios {
+            .radio-checked {
+                .radio-inner {
+                    background-color: rgba(0, 0, 0, 0);
+                    border-color: #33bcf7;
+                    left: -1px;
+                    top: -1px;
+                }
+            }
+        }
+    }
+    .item-radio-checked ion-label {
+        color: #33bcf7 !important;
+    }
+    ion-avatar {
+        width: 70px ! important;
+        text-align: right ! important;
+        margin-right: 15px !important;
+        img {
+            margin-left: auto ! important;
+            width: auto ! important;
+        }
+    }
+}

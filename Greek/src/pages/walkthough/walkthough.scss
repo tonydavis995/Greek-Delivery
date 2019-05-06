@@ -1,0 +1,26 @@
+page-walkthough {
+    .slide-image {
+        max-width: 90%;
+        margin: 20px auto;
+    }
+    .text-heading {
+        font-size: 2rem;
+    }
+    span {
+      text-transform: capitalize;
+        position: absolute;
+        bottom: 0px;
+        right: 0px;
+    }
+    .swiper-pagination {
+        bottom: 50px ! important;
+        .swiper-pagination-bullet {
+            height: 6px;
+            width: 6px;
+            margin: 0 6px ! important;
+            &.swiper-pagination-bullet-active {
+                background: #33bcf7;
+            }
+        }
+    }
+}

@@ -1,0 +1,15 @@
+<ion-content padding>
+    <ion-slides pager>
+        <ion-slide>
+            <img src="./assets/imgs/screen2.png" class="slide-image" />
+            <h2 class="text-heading" innerHTML="{{'walk_first_title' | translate}}"></h2>
+            <span (click)="finish()" class="text-light">{{ "skip" | translate }}</span>
+        </ion-slide>
+        <ion-slide>
+            <img src="./assets/imgs/screen1.png" class="slide-image" />
+            <h2 class="text-heading" innerHTML="{{'walk_second_title' | translate}}"></h2>
+            <span (click)="finish()" class="text-light">{{ "Finish" | translate }}</span>
+        </ion-slide>
+       
+    </ion-slides>
+</ion-content>

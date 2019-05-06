@@ -1,0 +1,34 @@
+<!--
+  Generated template for the AddressPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar>
+    <ion-title>{{'my_address' | translate}}</ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-content class="bg-light">
+  <ion-list no-lines *ngIf="addresses && addresses.length">
+    <ion-item *ngFor="let address of addresses">
+      <ion-label>
+        <h2>{{address.first_name}}
+          <ion-icon name="md-create" (click)="editAddress(address)" item-end></ion-icon>
+        </h2>
+        <p (click)="selectAddress(address)">{{address.phone}}
+          <br>{{address.address_1}}, {{address.address_2}}
+          <br>{{address.city}}</p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+  <div *ngIf="!addresses || !addresses.length" class="empty">
+    <div>
+      <img src="assets/imgs/empty.png">
+      <p>{{'address_empty' | translate}}!</p>
+    </div>
+  </div>
+  <div class="fixed-bottom">
+    <button ion-button full class="btn btn-green" (click)="addaddress()">{{'my_address_add_new' | translate}}</button>
+  </div>
+</ion-content>

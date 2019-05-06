@@ -1,0 +1,37 @@
+<ion-header>
+  <ion-navbar>
+      <ion-title text-center>{{'verification' | translate}}</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <div class="form" padding-left padding-right>
+    <div id="recaptcha-container"></div>
+    <p text-center>{{'otp_text' | translate}} <br/>{{'sent' | translate }} +{{dialCode}} {{registerRequest.username}}</p>
+    <ion-list>
+      <ion-item>
+        <ion-label>{{'otp' | translate}}</ion-label>
+        <ion-input type="text" text-right placeholder="{{'enter_otp' | translate}}" [(ngModel)]="otp"></ion-input>
+      </ion-item>
+    </ion-list>
+    <button ion-button full class="bg-thime btn-round btn-text"  (click)="verify()" [disabled]="otpNotSent || otp==''">
+      {{'verify' | translate}}       
+    </button>
+    <ion-item no-lines no-margin no-padding>
+      <button ion-button (click)="sendOTP()" clear  item-start (click)="sendOTP()" [disabled]="!resendCode"> {{'resend' | translate}} </button>
+      <ion-note item-end>
+        <ng-container *ngIf="minutes==0; else minuteTemplate">
+          00
+        </ng-container>
+        <ng-template #minuteTemplate>
+          {{minutes}}
+        </ng-template>:
+        <ng-container *ngIf="seconds==0; else secondTemplate">
+          00
+        </ng-container>
+        <ng-template #secondTemplate>
+          {{seconds}}
+        </ng-template> {{'min_left' | translate}}</ion-note>
+    </ion-item>
+  </div>
+</ion-content>

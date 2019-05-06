@@ -1,0 +1,73 @@
+<ion-header class="bg-transparent">
+    <ion-navbar>
+        <ion-title>&nbsp;</ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content class="bg-light">
+    <div class="map-box">
+        <img src="assets/imgs/map.png">
+        <ion-card>
+            <ion-row>
+                <ion-col col-9>
+                    <h2>{{'Greek Online Foods' | translate}}</h2>
+                    <p>{{'Kunnumchirayil building' | translate}}
+                    <br>{{'Manakkadu' | translate}}
+                    <br>{{'Thodupuzha ' | translate}}</p>
+                </ion-col>
+                <ion-col col-3 text-end>
+                    <ion-icon name="md-navigate" (click)="openMap()"></ion-icon>
+                </ion-col>
+            </ion-row>
+        </ion-card>
+    </div>
+    <ion-card>
+        <ion-row>
+            <ion-col col-9>
+                <p>{{'Call us' | translate}}</p>
+                <h2>+91 7012800595</h2>
+            </ion-col>
+            <ion-col col-3 text-end>
+                <ion-icon name="md-call" (click)="dial()"></ion-icon>
+            </ion-col>
+        </ion-row>
+
+        <ion-row>
+            <ion-col col-9>
+                <p>{{'Mail us' | translate}}</p>
+                <h2>help@greekdelivery.in</h2>
+            </ion-col>
+            <ion-col col-3 text-end>
+                <ion-icon name="md-mail" (click)="mail()"></ion-icon>
+            </ion-col>
+        </ion-row>
+
+        <!-- <ion-row class="social-media">
+            <ion-col col-12>
+                <p>{{'social_msg' | translate}}</p>
+            </ion-col>
+            <ion-col col-12>
+                <ion-row>
+                    <ion-col col-4>
+                        <h2 href="#" onclick="window.open('https://www.facebook.com/', '_system')">
+                            <ion-icon name="logo-facebook"></ion-icon>
+                            <span>{{'like' | translate}}</span>
+                        </h2>
+                    </ion-col>
+                    <ion-col col-4>
+                        <h2 href="#" onclick="window.open('https://www.instagram.com', '_system')">
+                            <ion-icon name="logo-instagram"></ion-icon>
+                            <span>{{'follow' | translate}}</span>
+                        </h2>
+                    </ion-col>
+                    <ion-col col-4>
+                        <h2 href="#" onclick="window.open('https://twitter.com/', '_system')">
+                            <ion-icon name="logo-twitter"></ion-icon>
+                            <span>{{'follow' | translate}}</span>
+                        </h2>
+                    </ion-col>
+                </ion-row>
+            </ion-col>
+        </ion-row> -->
+    </ion-card>
+</ion-content>

@@ -1,0 +1,50 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title *ngIf="user">
+      <span *ngIf="user.first_name !=='' && user.last_name !==''">
+        {{user.first_name}} {{user.last_name}}
+      </span>
+      <span *ngIf="user.first_name =='' || user.last_name ==''">
+        {{user.username}}
+      </span>
+    </ion-title>
+    <ion-title *ngIf="!user">{{'guest' | translate}}</ion-title>
+    <p *ngIf="user">{{user.email}}
+        <span (click)="logout()">{{'logout' | translate}}</span>
+    </p>
+    <p *ngIf="!user">
+        <span (click)="signIn()">{{'login' | translate}}</span>
+    </p>
+  </ion-navbar>
+</ion-header>
+
+<ion-content class="bg-light">
+  <ion-list *ngIf="user" no-lines>
+    <ion-item (click)="profile()">
+      <ion-icon name="md-person" item-start></ion-icon>
+         {{'profile' | translate}}
+    </ion-item>
+    <ion-item (click)="address()">
+      <ion-icon name="md-pin" item-start></ion-icon>
+        {{'my_address' | translate}}
+    </ion-item>
+    <ion-item (click)="orders()">
+      <ion-icon name="md-basket" item-start></ion-icon>
+        {{'my_orders' | translate}}
+    </ion-item>
+  </ion-list>
+  <p *ngIf="user" padding class="text-light">{{'More info' | translate}}</p>
+  <ion-list no-lines>
+   
+   
+    <ion-item (click)="contact()">
+      <ion-icon name="md-navigate" item-start></ion-icon>
+      {{'Connect us' | translate}}
+    </ion-item>
+    <ion-item (click)="shareApp()">
+      <ion-icon name="md-person-add" item-start></ion-icon>
+      {{'Share app' | translate}}
+        
+    </ion-item>
+  </ion-list>
+</ion-content>

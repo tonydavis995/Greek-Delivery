@@ -1,0 +1,97 @@
+page-contact {
+    .header {
+        .back-button {
+            color: #000!important;
+        }
+    }
+    .scroll-content {
+        margin-top: 0 !important;
+        .map-box {
+            .card {
+                .row {
+                    align-items: baseline;
+                    border-bottom: none!important;
+                }
+                margin-top: -5px;
+                ion-icon {
+                    transform: rotate(37deg);
+                    
+                }
+                p {
+                    color: #444444 !important;
+                    font-size: 1.4rem !important;
+                    line-height: 22px !important;
+                }
+            }
+        }
+        .card {
+            width: 100%;
+            margin: 0;
+            margin-bottom: 5px;
+            border-radius: 0;
+            background: #fff;
+            box-shadow: 0 1px 6px 0px #ccc;
+            padding: 0;
+            .row {
+                align-items: center;
+                border-bottom: 1px solid rgba(204, 204, 204, 0.56);
+                padding: 16px;
+                .col {
+                    ion-icon {
+                        font-size: 2.2rem;
+                        color: #fff;
+                        background: #33bcf7;
+                        width: 45px;
+                        text-align: center;
+                        line-height: 45px;
+                        border-radius: 50%;
+                        @include rtl(){
+                            margin-left: 5px;
+                        }
+                    }
+                    h2 {
+                        font-size: 1.6rem;
+                        font-weight: 500;
+                        margin: 0;
+                        margin-bottom: 4px;
+                    }
+                    p {
+                        font-size: 1.5rem;
+                        font-weight: 400;
+                        color: #b0bfbd;
+                        margin: 0;
+                        line-height: 17px;
+                        margin-bottom: 6px;
+                    }
+                }
+                &.social-media {
+                    padding-top: 0 !important;
+                    border-bottom: none!important;
+                    p {
+                        padding-top: 20px !important;
+                    }
+                    .row {
+                        padding: 0 !important;
+                        border-bottom: none!important;
+                        .col {
+                            padding: 0 !important;
+                            ion-icon {
+                                font-size: 1.5rem;
+                                width: 35px;
+                                line-height: 35px;
+                            }
+                            h2 {
+                                display: flex;
+                                align-items: center;
+                                span {
+                                    margin-left: 13px;
+                                    font-weight: 500;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

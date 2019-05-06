@@ -1,0 +1,48 @@
+{
+  "_from": "git+https://github.com/jwall149/cordova-multidex.git",
+  "_id": "cordova-multidex@1.0.0",
+  "_inBundle": false,
+  "_integrity": "",
+  "_location": "/cordova-multidex",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "git",
+    "raw": "https://github.com/jwall149/cordova-multidex",
+    "rawSpec": "https://github.com/jwall149/cordova-multidex",
+    "saveSpec": "git+https://github.com/jwall149/cordova-multidex.git",
+    "fetchSpec": "https://github.com/jwall149/cordova-multidex.git",
+    "gitCommittish": null
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "git+https://github.com/jwall149/cordova-multidex.git#f47d9387fa59c148c9a0f4dbc5273f1311f9b1bd",
+  "_spec": "https://github.com/jwall149/cordova-multidex",
+  "_where": "/Users/vinayaknair/Desktop/codecanyon-22364393-restaurant-woocommerce-android-ios-full-application-foodmall/App Source Code/Greek",
+  "author": {
+    "name": "jwal149"
+  },
+  "bugs": {
+    "url": "https://github.com/jwal149/cordova-multidex/issues"
+  },
+  "bundleDependencies": false,
+  "deprecated": false,
+  "description": "Enable android multidex mode",
+  "homepage": "https://github.com/jwal149/cordova-multidex#readme",
+  "keywords": [
+    "cordova",
+    "android",
+    "multidex"
+  ],
+  "main": "updateMultidexManifest.js",
+  "name": "cordova-multidex",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jwal149/cordova-multidex.git"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "version": "1.0.0"
+}

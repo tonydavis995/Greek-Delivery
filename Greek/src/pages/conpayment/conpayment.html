@@ -1,0 +1,39 @@
+<ion-header>
+    <ion-navbar>
+        <ion-title>{{"confirm_order" | translate}}</ion-title>
+    </ion-navbar>
+    <ion-row text-center class="bg-green">
+        
+        <ion-col col-12>
+            {{'payment' | translate}}
+        </ion-col>
+    </ion-row>
+</ion-header>
+
+
+<ion-content class="bg-light">
+    <ion-list radio-group no-lines>
+        <h5 padding>{{'select_method' | translate}}</h5>
+        <ion-item *ngFor="let item of paymentGateways">
+            <ion-radio value="{{item.title}}" (click)="paymentMethod(item)"></ion-radio>
+            <ion-label>
+                <h2>{{item.title}}</h2>
+            </ion-label>
+            <ion-avatar item-end>
+                <img *ngIf="item.id.indexOf('pum')!=-1" src="assets/imgs/payment_payu.png">
+                <img *ngIf="item.id.indexOf('paypal')!=-1" src="assets/imgs/payment_paypal.png">
+                <img *ngIf="item.id.indexOf('cod')!=-1" src="assets/imgs/payment_cod.png">
+                <img *ngIf="item.id.indexOf('cod')==-1 && item.id.indexOf('pum')==-1 && item.id.indexOf('paypal')==-1" src="assets/imgs/payment_cards.png">
+            </ion-avatar>
+        </ion-item>
+
+    </ion-list>
+    <div class="fixed-bottom">
+        <p>
+            {{cartItems.length}} {{'item' | translate}}{{'select_method' | translate}}
+            <strong [innerHTML]="totalToShow"></strong>
+        </p>
+        <p class="btn" (click)="placedPage()">{{'Place Order' | translate}}</p>
+    </div>
+
+</ion-content>

@@ -1,0 +1,42 @@
+<ion-header>
+    <ion-navbar>
+        <ion-title>{{'confirm_order' | translate}}</ion-title>
+    </ion-navbar>
+    <ion-row text-center class="bg-green">
+        <ion-col col-12>
+            {{'address' | translate}}
+        </ion-col>
+    </ion-row>
+</ion-header>
+
+<ion-content class="bg-light">
+    <ion-list radio-group no-lines>
+        <h5 padding>{{'Select Delivery Address' | translate}}
+            <span class="buttongreen" (click)="newAddress()">{{'Add New' | translate}}</span>
+        </h5>
+        <ion-item *ngIf="selectedAddress">
+            <!-- <ion-radio checked="address.id==selectedAddress.id" item-start></ion-radio> -->
+            <ion-label>
+                <h2>{{selectedAddress.first_name}}</h2>
+                <p>{{selectedAddress.phone}}
+                    <br>{{selectedAddress.address_1}}, {{selectedAddress.address_2}}
+                    <br>{{selectedAddress.city}} </p>
+            </ion-label>
+        </ion-item>
+        <ion-card-content *ngIf="!selectedAddress">
+            <div class="addres-detail">
+                <h3>{{'No address selected' | translate}}</h3>
+                <p>{{'Add an address to continue.' | translate}}</p>
+            </div>
+        </ion-card-content>
+        <hr>
+    </ion-list>
+
+    <div class="fixed-bottom">
+        <p>
+            {{cartItems.length}} {{'item' | translate}}{{'(s)' | translate}}
+            <strong [innerHTML]="totalToShow"></strong>
+        </p>
+        <p class="btn" (click)="paymentPage()">{{'Proceed to Payment' | translate}}</p>
+    </div>
+</ion-content>

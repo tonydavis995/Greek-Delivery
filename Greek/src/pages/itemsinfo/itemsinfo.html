@@ -1,0 +1,64 @@
+<ion-header class="">
+    <ion-navbar>
+        <ion-title text-start>
+            <ion-icon *ngIf="!favorite" name="md-heart" item-end (click)="toggleFavorite()"></ion-icon>
+            <ion-icon class="text-red" *ngIf="favorite" name="md-heart" item-end (click)="toggleFavorite()"></ion-icon>
+        </ion-title>
+    </ion-navbar>
+</ion-header>
+
+
+<ion-content class="no-scroll" >
+    <div text-center style="margin-top: 44px">
+        <img *ngIf="pro.images && pro.images.length" style="max-height: 20vh" data-src="{{pro.images[0].src}}">
+        <img *ngIf="pro.images == null || pro.images.length == 0" style="max-height: 30vh" src="assets/imgs/img_3.png">
+    </div>
+    <div class="text" padding>
+        <h1>{{pro.name}}
+        </h1>
+        <ion-row *ngIf="pro.type == 'simple'" class="add-remove">
+            <ion-col col-6 class="text-green">
+                <p [innerHTML]="pro.price_html"></p>
+            </ion-col>
+            <ion-col col-6 >
+                <ion-icon name="md-remove-circle" class="text-green" (click)="decrement()"></ion-icon>
+                <span>{{quantity}}</span>
+                <ion-icon name="md-add-circle" class="text-green" (click)="increment()"></ion-icon>
+            </ion-col>
+        </ion-row>
+        <!-- Variations start -->
+        <ion-list *ngIf="productVariations && productVariations.length" no-lince>
+            <ion-item *ngFor="let item of productVariations" class="your-items">
+                <ion-avatar item-start>
+                        <p [innerHTML]="pro.description"></p>
+                    <img *ngIf="!pro.description" src="assets/imgs/img_3.png">
+                </ion-avatar>
+                <h2 style="white-space: initial;">{{item.name}}</h2>
+                
+                <ion-row>
+                    <ion-col col-6>
+                        <ion-icon name="md-remove-circle" class="text-green" (click)="decrementItem(item)"></ion-icon>
+                        <span>{{item.quantity}}</span>
+                        <ion-icon name="md-add-circle" class="text-green" (click)="incrementItem(item)"></ion-icon>
+                    </ion-col>
+                    <ion-col col-6 class="text-green" text-right>
+                        <p style="text-decoration: line-through;" [innerHTML]="item.regular_price_html"></p>
+                        <p style="color: #33bcf7;"  [innerHTML]="item.sale_price_html"></p>
+                    </ion-col>
+                </ion-row>
+            </ion-item>
+        </ion-list>
+       
+        <!-- Variations end -->
+     
+    </div>
+
+    <div class="fixed-bottom">
+        <button ion-button full class="btn btn-green" (click)="goToCart()">
+          <span item-start>{{cartSize}} {{'items' | translate}} | {{cartTotal}}</span>
+          <strong item-end> {{'items' | translate}}
+              <ion-icon name="md-basket"></ion-icon>
+          </strong>
+        </button>
+    </div>
+</ion-content>

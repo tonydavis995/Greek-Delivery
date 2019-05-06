@@ -1,0 +1,21 @@
+<ion-header class="bg-transparent">
+    <ion-navbar>
+        <ion-title></ion-title>
+    </ion-navbar>
+</ion-header>
+
+
+
+<ion-content text-center>
+    <figure>
+        <img src="assets/imgs/fishing.gif">
+    </figure>
+    <h2>{{'order_confirmed' | translate}}!</h2>
+    <div  class="fixed-bottom" >
+        <h2>{{'Share Your Location for Faster Delivery'}}</h2>
+        <button ion-button full class="btn" (click)="proceed()">
+        <a  style="text-decoration: none;color:white;"  href="https://api.whatsapp.com/send?phone=917012800595"> <ion-icon class="icon" ios="ios-pin" md="md-pin"></ion-icon> 
+        {{'Share your location to Whatsapp'}}</a></button>
+    </div>
+    
+</ion-content>

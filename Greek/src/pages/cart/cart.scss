@@ -1,0 +1,133 @@
+page-cart {
+    .list {
+        margin-bottom: 177px;
+        .item {
+            padding: 16px;
+            border-bottom: 1px solid #dedede;
+            align-items: baseline;
+            ion-avatar {
+                position: relative;
+                overflow: hidden;
+                width: 70px;
+                height: 70px;
+                border-radius: 10px;
+                img {
+                    position: absolute;
+                    top: -10px;
+                    left: -10%;
+                    right: -10%;
+                    bottom: -10px;
+                    height: 100%;
+                    width: auto;
+                    max-width: unset !important;
+                    border-radius: 0;
+                    margin: auto !important;
+                }
+            }
+            .item-inner {
+                border-bottom: none !important;
+                padding-right: 0;
+                .label {
+                    margin: 0;
+                }
+                h2 {
+                    font-size: 1.5rem;
+                    margin-top: 7px;
+                    text-overflow: ellipsis;
+                    overflow: hidden;
+                }
+                p {
+                    color: #9c9c9c;
+                    font-size: 1.3rem;
+                    font-weight: 300;
+                    margin: 9px 0;
+                }
+                .row {
+                    align-items: center;
+                    margin: 0;
+                    .col {
+                        padding: 0;
+                        ion-icon {
+                            font-size: 2rem;
+                        }
+                        p {
+                            color: #33bcf7 !important;
+                            margin: 0;
+                            font-size: 1.5rem;
+                            font-weight: 500;
+                        }
+                        span {
+                            margin: 0 5px;
+                            width: 20px;
+                            display: inline-block;
+                            text-align: center;
+                            position: relative;
+                            top: -1px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    .fixed-bottom {
+        &.card {
+            box-shadow: 0 -12px 54px 0px rgba(204, 204, 204, 0.32);
+            width: 100%;
+            padding: 0;
+            padding-top: 16px;
+            margin: 0;
+            margin-bottom: 0vh;
+            p {
+                display: flex;
+                align-items: center;
+                padding: 0 16px;
+                font-weight: 500;
+                font-size: 1.5rem;
+                margin-bottom: 7px;
+                position: relative;
+                strong {
+                    margin-left: auto;
+                    font-size: 1.66rem !important;
+                    font-weight: 600;
+                    @include rtl() {
+                        position: absolute;
+                        left: 10px;
+                    }
+                }
+            }
+        }
+        .btn {
+            margin-top: 20px;
+            padding: 0 16px;
+            .button-inner {
+                text-align: justify;
+                width: 100%;
+                display: table-caption;
+                font-size: 1.8rem;
+                strong {
+                    text-align: right;
+                    position: absolute;
+                    right: 10px;
+                    padding-right: 16px;
+                    font-size: 1.8rem;
+                    font-weight: 500;
+                    @include rtl() {
+                        left: 10px;
+                        right: unset;
+                    }
+                }
+            }
+        }
+    }
+    .cross{
+        background: #f00;
+        color: #fff;
+        width: 15px;
+        height: 15px;
+        text-align: center;
+        border-radius: 50%;
+        line-height: 15px;
+        font-size: 1.3rem;
+        margin-left: 5px;
+    }
+}

@@ -1,0 +1,318 @@
+//font css
+@import url('https://fonts.googleapis.com/css?family=Roboto:400,500,700');
+* {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 400;
+    font-size: 1.5rem;
+}
+
+$app-direction: multi;
+
+ul {
+    padding: 0;
+    margin: 0;
+    * {
+        padding: 0 !important;
+        margin: 0 !important;
+        list-style: none;
+    }
+    li {
+        display: block;
+    }
+}
+
+//color css
+.text-green {
+    color: #33bcf7 !important;
+}
+
+.text-light {
+    color: #999999;
+}
+
+.text-heading {
+    color: #444444;
+}
+
+.text-red {
+    color: #ff0000;
+}
+
+.empty {
+    position: relative;
+    height: 100%;
+    width: 100%;
+    div {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0%;
+        right: 0;
+        width: 170px;
+        margin: auto;
+        height: 408px;
+        text-align: center;
+        img {
+            width: 100%;
+            // margin-bottom: 20px;
+        }
+        p {
+            font-size: 1.5rem;
+            color: #444444;
+        }
+    }
+}
+
+.bg-green {
+    background: #33bcf7;
+}
+
+.bg-light {
+    background: #f6f9f6 !important;
+}
+
+//header css
+.header {
+    &.bg-transparent {
+        .toolbar-background {
+            background: rgba(123, 164, 33, 0) !important;
+        }
+        &::after {
+            display: none !important;
+        }
+    }
+    .toolbar-background {
+        background: #26b3ef;
+    }
+    .back-button {
+        color: #ffffff;
+    }
+    .toolbar-content {
+        .toolbar-title {
+            color: #ffffff;
+        }
+    }
+}
+
+.btn {
+    height: 5rem;
+    font-size: 2rem;
+    letter-spacing: 2px;
+    font-weight: 400;
+    text-transform: none;
+    letter-spacing: .5px;
+    border-radius: 10px;
+    &.btn-green {
+        background: #33bcf7 !important;
+    }
+}
+
+.default-form {
+    .item {
+        box-shadow: none !important;
+        margin-bottom: 2rem;
+        &:last-child {
+            border-bottom: none;
+            .item-inner {
+                border-bottom: 1px solid #dedede !important;
+            }
+        }
+        &.input-has-focus {
+            .label {
+                color: #33bcf7;
+            }
+            .item-inner {
+                border-bottom-color: #33bcf7;
+                box-shadow: inset 0 -1px 0 0 #33bcf7 !important;
+            }
+        }
+        .text-input {
+            color: #1e1e1e;
+            font-weight: 500;
+        }
+    }
+}
+
+.btn-style {
+    align-items: center;
+    .button {
+        background: #33bcf7;
+        color: #ffffff;
+        display: block;
+        border-radius: 5rem;
+        height: 5rem;
+        width: 100%;
+    }
+}
+
+.tab-button-icon {
+    color: #d0d0cf !important;
+}
+
+.tab-button[aria-selected=true] {
+    position: relative;
+    .tab-button-icon {
+        color: #33bcf7 !important;
+    }
+    &::after {
+        position: absolute;
+        content: '';
+        width: 100%;
+        height: 3px;
+        top: 0;
+        left: 0;
+        right: 0;
+        margin: auto;
+        background: #33bcf7;
+    }
+}
+
+.tab-button-text {
+    position: absolute;
+    min-width: 15px !important;
+    min-height: 15px !important;
+    border-radius: 50%;
+    font-size: .95rem !important;
+    background: #ff0000;
+    color: #ffffff;
+    top: 6px;
+    right: 6px;
+    line-height: 15px;
+    text-align: center;
+}
+
+.fixed-bottom {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    .btn {
+        border-radius: 0;
+        margin: 0;
+    }
+}
+
+//some ios fixes
+.segment-ios .segment-button,
+.header-ios .toolbar-background-ios {
+    border: none;
+}
+
+.tabs-ios .tab-button.icon-only {
+    min-height: 49px;
+}
+
+.list-ios>.item-block:first-child {
+    border-top: none;
+}
+
+.back-button-text {
+    color: transparent;
+}
+
+.back-button.show-back-button {
+    margin-left: 10px;
+}
+ion-header .back-button .button-inner .back-button-icon{
+    @include rtl(){
+        transform: rotate(180deg);
+    }
+}
+.default-form .item .text-input{
+    @include rtl(){
+        // transform: rotate(180deg);
+        text-align: right;
+    }
+}
+.item-label-stacked .input-wrapper, 
+.item-label-floating .input-wrapper{
+    @include rtl(){
+        position: relative;
+    }
+}
+.item-label-stacked ion-label, .item-label-floating ion-label{
+    @include rtl(){
+        position: relative;
+        right: -55px;
+        margin-right: 0px;
+    }
+}
+.item-inner{
+    @include rtl(){
+        padding-right: 0 !important;
+    }
+}
+ion-item{
+    @include rtl(){
+        padding-right: 0 !important;
+    }
+}
+.tab-button-text {
+    @include rtl(){
+        left: 16px;
+        right: unset;
+    }
+}
+.searchbar-input{
+    @include rtl(){
+        text-align: right;
+        padding-right: 30px !important;
+    }
+}
+.searchbar-search-icon{
+    @include rtl(){
+        left: unset;
+        right: 0;
+    }
+}
+.btn-social{
+  background-color: white;
+  color: black;
+  border-radius: 3px;
+  border:1px solid #0091ea;
+  height: 50px;
+  text-transform: capitalize;
+  position: relative;
+}
+.btn-social .icon{
+  width:32px;
+  position:absolute;
+  left:10px;
+  @include rtl(){
+    left: unset;
+    right: 10px;
+  }
+}
+.btn-social>.button-inner>span{
+  /*float: right;*/
+  position: absolute;
+  left:40%;
+}
+.btn-google .icon{
+  width: 25px;
+  left: 15px;
+  margin-top: -2px;
+}
+.btn-google{
+  /*background-color: red;*/
+  background-color: white !important;
+}
+.btn-facebook{
+  background-color: #3c5a9a !important;
+  border-color: #3c5a9a;
+  color: white;
+}
+.btn-style{
+  button{
+    ion-icon{
+      @include rtl(){
+        transform: rotate(180deg);
+      }
+    }
+  }
+}
+.button-full{
+  background: #26b3ef;
+}
+.button-clear-ios,.button-clear-md{
+  color:  #26b3ef
+}

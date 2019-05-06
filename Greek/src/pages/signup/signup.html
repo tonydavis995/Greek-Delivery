@@ -1,0 +1,54 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>{{'register1' | translate}}</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding-top>
+  <ion-list class="default-form" padding-right>
+    <ion-item>
+      <ion-label floating>{{'address_first_name' | translate}}</ion-label>
+      <ion-input type="text" text-right [(ngModel)]="registerRequest.first_name" placeholder="{{'address_first_name' | translate}}"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label floating>{{'address_last_name' | translate}}</ion-label>
+      <ion-input type="text" text-right [(ngModel)]="registerRequest.last_name" placeholder="{{'address_last_name' | translate}}"></ion-input>
+    </ion-item>
+    <ion-item *ngIf="countries && countries.length">
+      <ion-label>{{ "address_country" | translate }}</ion-label>
+      <ion-select [(ngModel)]="countryCode"placeholder="{{'select' | translate}}" multiple="false" okText="{{'okay' | translate}}" cancelText="{{'cancel' | translate}}">
+        <ion-option [value]="country.callingCodes[0]" *ngFor="let country of countries" >{{country.name}}</ion-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label floating>{{'phone' | translate}}</ion-label>
+      <ion-input type="tel" text-right [(ngModel)]="registerRequest.username" placeholder="{{'phone' | translate}}"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label floating>{{'email' | translate}}</ion-label>
+      <ion-input type="email" text-right [(ngModel)]="registerRequest.email" placeholder="{{'email' | translate}}"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label floating>{{'password' | translate}}</ion-label>
+      <ion-input type="password" text-right [(ngModel)]="registerRequest.password" placeholder="{{'password' | translate}}"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label floating>{{'c_password' | translate}}</ion-label>
+      <ion-input type="password" text-right [(ngModel)]="registerRequestPasswordConfirm" placeholder=""></ion-input>
+    </ion-item>
+  </ion-list>
+  <p text-center [innerHTML]="authError"></p>
+  <ion-row class="btn-style" padding>
+    <ion-col col-7>
+      <p class="text-light">{{'already_account' | translate}}{{'c_password' | translate}}?
+        <br>
+        <span (click)="signinPage()" class="text-green">{{'signin_now' | translate}}</span>
+      </p>
+    </ion-col>
+    <ion-col col-5>
+      <button ion-button clear icon-end (click)="register()">{{'register' | translate}}
+          <ion-icon name="arrow-forward"></ion-icon>
+      </button>
+    </ion-col>
+  </ion-row>
+</ion-content>

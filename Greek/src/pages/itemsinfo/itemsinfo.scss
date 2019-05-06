@@ -1,0 +1,226 @@
+ page-itemsinfo {
+     .header {
+         .toolbar {
+             position: fixed;
+         }
+         .toolbar-background {
+            background: rgba(0,0,0,0.2);
+        }
+     }
+     h1 {
+         font-size: 2.3rem;
+         color: #444444;
+         line-height: 27px;
+         padding-top: 10px;
+         white-space: nowrap;
+         text-overflow: ellipsis;
+         overflow: hidden;
+         small {
+             display: block;
+             font-size: 1.4rem;
+             color: #999999;
+         }
+     }
+     .row {
+         margin: 0;
+         padding: 4px 0;
+         padding-bottom: 16px;
+         .col {
+             font-size: 2.3rem !important;
+             padding: 0;
+             ion-icon {
+                 font-size: 3rem !important;
+             }
+             span {
+                 margin: 0 5px 0 3px;
+                 font-size: 2.3rem !important;
+                 width: 40px;
+                 position: relative;
+                 top: -4px;
+                 display: inline-block;
+                 text-align: center;
+             }
+         }
+     }
+     .no-scroll {
+        div.scroll-content {
+            overflow-y: hidden;
+        }
+    }
+     .add-remove {
+         align-items: center;
+         .col {
+             &.text-green {
+                 p {
+                     margin: 0;
+                     font-size: 2.3rem !important;
+                 }
+             }
+         }
+     }
+     p {
+         font-size: 1.4rem;
+         line-height: 22px;
+         color: #444444;
+     }
+     .btn {
+         margin-top: 20px;
+         padding: 0 16px;
+         .button-inner {
+             text-align: justify;
+             width: 100%;
+             display: table-caption;
+             font-size: 1.4rem;
+             strong {
+                 text-align: right;
+                 position: absolute;
+                 right: 0px;
+                 padding-right: 16px;
+                 font-size: 1.4rem;
+                 font-weight: 500;
+                 ion-icon {
+                     font-size: 1.7rem !important;
+                     margin-left: 10px;
+                }
+                @include rtl(){
+                    text-align: unset;
+                    right: auto;
+                    left: 10px;
+                }
+             }
+         }
+     }
+     .header.bg-transparent .toolbar-background {
+         //         background: rgba(0, 0, 0, 0.3) !important;
+     }
+    ion-title {
+        @include ltr(){
+            padding-right: 16px !important;
+            .icon-ios {
+                float: right;
+           }
+        }
+        // padding-right: 16px !important;
+        
+        @include rtl(){
+            padding-right: auto !important;
+            .icon-ios {
+                float: left;
+           }
+           padding-left: 16px;
+        }
+         
+     }
+     .list {
+        margin-bottom: 177px;
+        .item {
+            padding: 16px;
+            border-bottom: 1px solid #dedede;
+            align-items: baseline;
+            ion-avatar {
+                position: relative;
+                overflow: hidden;
+                width: 70px;
+                height: 70px;
+                border-radius: 10px;
+                @include rtl(){
+                    margin-right: 0px;
+                }
+                img {
+                    position: absolute;
+                    top: -10px;
+                    left: -10%;
+                    right: -10%;
+                    bottom: -10px;
+                    height: 100%;
+                    width: auto;
+                    max-width: unset !important;
+                    border-radius: 0;
+                    margin: auto !important;
+                }
+            }
+            .item-inner {
+                border-bottom: none !important;
+                padding-right: 0;
+                @include rtl(){
+                    padding-right: 10px;
+                }
+                .label {
+                    margin: 0;
+                    @include rtl(){
+                        padding-right: 10px;
+                    }
+                }
+                h2 {
+                    font-size: 1.5rem;
+                    margin-top: 7px;
+                    text-overflow: ellipsis;
+                    overflow: hidden;
+                }
+                p {
+                    color: #9c9c9c;
+                    font-size: 1.3rem;
+                    font-weight: 300;
+                    margin: 9px 0;
+                }
+                // .row {
+                //     margin: 0 -5px;
+                //     .col {
+                //         padding: 0 5px;
+                //         font-size: 1.6rem;
+                //         &.text-green {
+                //             p {
+                //                 margin: 0;
+                //                 color: #33bcf7;
+                //                 font-size: 1.6rem;
+                //                 white-space: nowrap;
+                //                 overflow: visible;
+                //             }
+                //         }
+                //         h6 {
+                //             display: flex;
+                //             align-items: center;
+                //             float: right;
+                //             font-size: 1.8rem;
+                //             ion-icon {
+                //                 color: #d0d0cf;
+                //                 &.active {
+                //                     color: #33bcf7;
+                //                 }
+                //             }
+                //             span {
+                //                 margin: 0 15px;
+                //                 font-weight: 500;
+                //                 text-align: center;
+                //                 width: 20px;
+                //             }
+                //         }
+                //     }
+                // }
+                .row {
+                    align-items: center;
+                    margin: 0;
+                    .col {
+                        padding: 0;
+                        ion-icon {
+                            font-size: 2rem;
+                        }
+                        p {
+                            margin: 0;
+                            font-size: 1.5rem;
+                            font-weight: 500;
+                        }
+                        span {
+                            margin: 0 5px;
+                            width: 20px;
+                            display: inline-block;
+                            text-align: center;
+                            position: relative;
+                            top: -1px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+ }

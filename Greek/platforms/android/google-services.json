@@ -1,0 +1,56 @@
+{
+  "project_info": {
+    "project_number": "476477636599",
+    "firebase_url": "https://greek-74b58.firebaseio.com",
+    "project_id": "greek-74b58",
+    "storage_bucket": "greek-74b58.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:476477636599:android:7bbf46a4c31a2f43",
+        "android_client_info": {
+          "package_name": "com.techlytx.greekdelivery"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "476477636599-tr89pc55ki4ubvkrrqbegvmcdb4h5tga.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.techlytx.greekdelivery",
+            "certificate_hash": "ac0632649ae64172cacb2a55559b001b0274cd3d"
+          }
+        },
+        {
+          "client_id": "476477636599-no4f7h3mrjk6fgflks89tmrpp0mh8ksg.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.techlytx.greekdelivery",
+            "certificate_hash": "74870dd7d037af83b373e81489835400670dea5c"
+          }
+        },
+        {
+          "client_id": "476477636599-9s4vhej2tok73k70aeali8jb91045fdl.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA6cu6XnbXDAtGwpq-SW844mKzMOfVgNzY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "476477636599-9s4vhej2tok73k70aeali8jb91045fdl.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

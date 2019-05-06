@@ -1,0 +1,26 @@
+<ion-header>
+  <ion-navbar>
+      <ion-title text-center>FOODMALL</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <div class="form" padding-left padding-right>
+    <p text-center>{{'enter_phone_text' | translate}} <br/>{{'enter_phone_text1' | translate}}</p>
+    <ion-list>
+      <ion-item>
+        <ion-label>{{'address_country' | translate}}</ion-label>
+        <ion-select [(ngModel)]="countryCode" placeholder="{{'select' | translate}}"okText="{{'okay' | translate}}" cancelText="{{'cancel' | translate}}" multiple="false">
+          <ion-option [value]="country.callingCodes[0]" *ngFor="let country of countries" >{{country.name}}</ion-option>
+        </ion-select>
+      </ion-item>
+      <ion-item>
+        <ion-label>{{'phone' | translate}}</ion-label>
+        <ion-input type="text" text-right placeholder="{{'phone' | translate}}" [(ngModel)]="registerRequest.username" (ngModelChange)="checkNumber($event)"></ion-input>
+      </ion-item>
+    </ion-list>
+    <button ion-button full class="bg-thime btn-round btn-text" (click)="createUser()" [disabled]="buttonDisabled">
+      {{'Continue' | translate}}        
+    </button>
+  </div>
+</ion-content>

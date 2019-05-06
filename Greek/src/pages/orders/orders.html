@@ -1,0 +1,44 @@
+<ion-header>
+    <ion-navbar>
+        <ion-title>{{'my_orders' | translate}}</ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content class="bg-light">
+    <!-- <p padding-left>Pending Orders</p> -->
+    <ion-list  no-lines>
+        <ion-item *ngFor="let order of orders" class="preparing" (click)="orderDetail(order)">
+            <ion-avatar item-start>
+                <!-- <ion-icon name="md-restaurant"></ion-icon> -->
+            </ion-avatar>
+            <h2>{{'order'}} #{{order.id}}
+                <small>{{'view' | translate}} {{order.line_items.length}} {{'items' | translate}}</small>
+            </h2>
+            <p>{{order.status}}
+                <small>{{order.date_created}}</small>
+            </p>
+        </ion-item>
+        <!-- <ion-item class="preparing" >
+            <ion-avatar item-start>
+                <ion-icon name="md-restaurant"></ion-icon>
+            </ion-avatar>
+            <h2>Order #24565
+                <small>View 3 items</small>
+            </h2>
+            <p>Confirmed
+                <small>11/23/45</small>
+            </p>
+        </ion-item> -->
+    </ion-list>
+    <ion-infinite-scroll (ionInfinite)="doInfinite($event)">
+        <ion-infinite-scroll-content></ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+
+    <div *ngIf="!orders || !orders.length" class="empty">
+        <div>
+            <img src="assets/imgs/empty.png">
+            <p>{{'empty_orders' | translate}}!</p>
+        </div>
+    </div>
+
+</ion-content>

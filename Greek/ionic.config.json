@@ -1,0 +1,7 @@
+{
+  "name": "greek",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "ionic-angular"
+}
