@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ViewController, ToastController, Events, ModalController } from 'ionic-angular';
+import { IonicPage, NavController,Platform, NavParams,AlertController, ViewController, ToastController, Events, ModalController } from 'ionic-angular';
 import { ConaddressPage } from '../conaddress/conaddress';
 import { Global } from '../../providers/global';
 import { CartItem } from '../../models/cart-item.models';
@@ -33,8 +33,15 @@ export class CartPage {
   private coupon: Coupon;
 
   constructor(public modalCtrl: ModalController,public translateService:TranslateService,
-  private events: Events, private global: Global, public navCtrl: NavController, 
+  private events: Events,private alertCtrl: AlertController, public platform: Platform, private global: Global, public navCtrl: NavController, 
   private toastCtrl: ToastController) {
+    {
+      platform.ready().then(() => {
+        platform.registerBackButtonAction(() => {
+         this.makeExitAlert();
+        });
+      });
+    }
     let currency: Currency = JSON.parse(window.localStorage.getItem(Constants.CURRENCY));
     if (currency) {
       this.currencyText = currency.value;
@@ -71,6 +78,22 @@ export class CartPage {
     }
     this.cartItems = this.global.getCartItems();
     this.calculateTotal();
+  }
+  makeExitAlert(){
+    const alert = this.alertCtrl.create({
+      title: '',
+      message: 'Do you want to close the app?',
+      buttons: [{
+          text: 'Cancel',
+          role: 'cancel'
+      },{
+          text: 'Close App',
+          handler: () => {
+              this.platform.exitApp(); // Close this application
+          }
+      }]
+    });
+    alert.present();
   }
 
   calculateTotal() {

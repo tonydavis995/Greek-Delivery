@@ -31,8 +31,8 @@ export class ContactPage {
     this.emailComposer.isAvailable().then((available: boolean) => {
       if (available) {
         let email = {
-          to: 'help@foodmallrestro.com',
-          subject: 'Contact Foodmall',
+          to: 'thomas@greekdelivery.in',
+          subject: 'Contact Greek',
           body: '',
           isHtml: true
         };

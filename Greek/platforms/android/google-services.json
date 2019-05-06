@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "1065673085835",
+    "firebase_url": "https://greek-delivery.firebaseio.com",
+    "project_id": "greek-delivery",
+    "storage_bucket": "greek-delivery.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1065673085835:android:f84991e695e45577",
+        "android_client_info": {
+          "package_name": "com.reffera.greekdelivery"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1065673085835-ujtqadsc300l2bk096a2tul5np4jolvf.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.reffera.greekdelivery",
+            "certificate_hash": "ac0632649ae64172cacb2a55559b001b0274cd3d"
+          }
+        },
+        {
+          "client_id": "1065673085835-dcligpb01dujnahtasqs3shc14dljgj0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDSvdyXBZ90eYEYqhxH-Bl9x4bncnT_X7U"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1065673085835-dcligpb01dujnahtasqs3shc14dljgj0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

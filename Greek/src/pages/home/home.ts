@@ -202,26 +202,31 @@ export class HomePage {
       } else {
       nD = nowD;
      }
-      let nowvalue = Math.floor((nD*60*60)+(nowM*60)+(nowS))
+      var nowvalue = Math.floor((nD*60*60)+(nowM*60)+(nowS))
 
       // Find the distance between now and the count down date
-      let distance = countvalue - nowvalue;
-      // Time calculations for days, hours, minutes and seconds
-      let hours = Math.floor((distance) / (60 * 60));
-      let minutes = Math.floor((distance % ( 60 * 60)) / (60));
-      let seconds = Math.floor((distance % (60 * 60))%(60));
-      console.log( "distance", distance);
+    
 
       // Output the result in an element with id="demo"
     
 
       // If the count down is over, write some text 
       console.log(nowD)
-      if (nowD < 10 || nowD > 22) {
+      console.log(nowvalue)
+      console.log(countvalue)
+      var distance = countvalue - nowvalue;
+        // Time calculations for days, hours, minutes and seconds
+        let hours = Math.floor((distance) / (60 * 60));
+        let minutes = Math.floor((distance % ( 60 * 60)) / (60));
+        let seconds = Math.floor((distance % (60 * 60))%(60));
+        console.log( "distance", distance);
+      if (nowD <= 10 || nowD >= 22) {
         
+      
        
         document.getElementById("demo").innerHTML = "Order between 10am-10pm";
       } else {
+        
       
         document.getElementById("demo").innerHTML ="Time left to order " + hours + "h "
         + minutes + "m " + seconds + "s ";
