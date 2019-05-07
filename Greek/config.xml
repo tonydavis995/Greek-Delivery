@@ -50,7 +50,6 @@
     <plugin name="cordova-plugin-x-socialsharing" spec="^5.4.3">
         <variable name="ANDROID_SUPPORT_V4_VERSION" value="24.1.1+" />
     </plugin>
-    <plugin name="cordova-plugin-firebase" spec="^2.0.5" />
     <plugin name="onesignal-cordova-plugin" spec="^2.4.5" />
     <plugin name="cordova-plugin-facebook4" spec="3.2.0">
         <variable name="APP_ID" value="340020706833774" />
@@ -58,7 +57,6 @@
         <variable name="FACEBOOK_HYBRID_APP_EVENTS" value="false" />
         <variable name="FACEBOOK_ANDROID_SDK_VERSION" value="4.40.0" />
     </plugin>
-    <plugin name="me.tonny.cordova.plugins.multidex" spec="https://github.com/jwall149/cordova-multidex" />
     <plugin name="cordova-plugin-globalization" spec="^1.11.0" />
     <plugin name="cordova-plugin-whitelist" spec="^1.3.3" />
     <plugin name="cordova-plugin-device" spec="^2.0.2" />
@@ -72,5 +70,7 @@
         <variable name="WEB_APPLICATION_CLIENT_ID" value="1065673085835-dcligpb01dujnahtasqs3shc14dljgj0.apps.googleusercontent.com" />
         <variable name="PLAY_SERVICES_VERSION" value="11.8.0" />
     </plugin>
+    <plugin name="cordova-plugin-firebase" spec="https://github.com/dpa99c/cordova-plugin-firebase#GH-1057-April-05-android-build-issue" />
+    <plugin name="me.tonny.cordova.plugins.multidex" spec="https://github.com/jwall149/cordova-multidex" />
     <engine name="android" spec="6.4.0" />
 </widget>

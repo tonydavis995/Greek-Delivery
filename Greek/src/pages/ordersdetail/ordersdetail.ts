@@ -21,10 +21,13 @@ export class OrdersdetailPage {
     this.order = navParams.get('order');
     if (this.order.status.toLowerCase() == 'completed') {
       this.orderProgress = 3;
+      this.order.status = 'Completed'
     } else if (this.order.status.toLowerCase() == 'processing') {
       this.orderProgress = 2;
+      this.order.status = 'Fishing'
     } else if (this.order.status.toLowerCase() == 'pending') {
       this.orderProgress = 1;
+      this.order.status = 'Pending Approval at Greek'
     }
   }
 

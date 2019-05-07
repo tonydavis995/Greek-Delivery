@@ -16,12 +16,18 @@
                 <ion-icon name="md-restaurant" [ngClass]="(orderProgress > 0) ? 'active' : 'inactive'"></ion-icon>
             </span>
             <span>
-                <ion-icon name="md-bicycle" [ngClass]="(orderProgress > 1) ? 'active' : 'inactive'"></ion-icon>
+                <ion-icon name="md-boat" [ngClass]="(orderProgress > 1) ? 'active' : 'inactive'"></ion-icon>
             </span>
             <span>
                 <ion-icon name="md-home" [ngClass]="(orderProgress > 2) ? 'active' : 'inactive'"></ion-icon>
             </span>
         </ion-col>
+    </ion-row>
+    <ion-row style="padding-left:20px;padding-right:20px;">
+                
+        <a ion-button full  class="btn btn-green" href="https://api.whatsapp.com/send?phone=917012800595">
+            {{'Share Location in Whatsapp' | translate}}</a>
+        
     </ion-row>
     <ion-row>
         <ion-col col-12>
@@ -33,7 +39,7 @@
     <ion-list no-lince>
         <ion-item *ngFor="let item of order.line_items">
             <ion-avatar item-start>
-                               <img src="assets/imgs/img_2.png">
+                               <img src="assets/imgs/sss.jpeg">
                 <ion-icon name="md-images"></ion-icon>
             </ion-avatar>
             <h2>{{item.name}}</h2>
@@ -46,16 +52,8 @@
                     <strong [innerHTML]="item.price_html"></strong>
                 </ion-col>
             </ion-row>
-            <ion-row>
+           
                 
-                    <p>{{'Share Your Location for Faster Delivery' | translate}}</p>
-                </ion-row>   
-                <ion-row>
-                
-                <a ion-button full class="btn btn-green" href="https://api.whatsapp.com/send?phone=917012800595">
-                    {{'Share to Whatsapp' | translate}}</a>
-                
-            </ion-row>
         </ion-item>
     </ion-list>
 

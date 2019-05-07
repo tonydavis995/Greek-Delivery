@@ -170,6 +170,7 @@ export class CartPage {
           this.calculateTotal();
         }
       }
+      
     });
     modal.present();
   }

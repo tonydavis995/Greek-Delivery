@@ -1,5 +1,5 @@
 {
-  "_from": "cordova-plugin-x-socialsharing@^5.4.3",
+  "_from": "cordova-plugin-x-socialsharing@^5.4.4",
   "_id": "cordova-plugin-x-socialsharing@5.4.4",
   "_inBundle": false,
   "_integrity": "sha512-OWzgZS7ozzKe7Thj+gRM3avXg4l0cV+jdjrnQVtUtu4KWgHABnF6F0RerkaTxDV2jztxy2AvobY/ZfNYDvzB2w==",
@@ -8,12 +8,12 @@
   "_requested": {
     "type": "range",
     "registry": true,
-    "raw": "cordova-plugin-x-socialsharing@^5.4.3",
+    "raw": "cordova-plugin-x-socialsharing@^5.4.4",
     "name": "cordova-plugin-x-socialsharing",
     "escapedName": "cordova-plugin-x-socialsharing",
-    "rawSpec": "^5.4.3",
+    "rawSpec": "^5.4.4",
     "saveSpec": null,
-    "fetchSpec": "^5.4.3"
+    "fetchSpec": "^5.4.4"
   },
   "_requiredBy": [
     "#USER",
@@ -21,8 +21,8 @@
   ],
   "_resolved": "https://registry.npmjs.org/cordova-plugin-x-socialsharing/-/cordova-plugin-x-socialsharing-5.4.4.tgz",
   "_shasum": "01876a33a8dbd4e86e2f8cbd5055572cd56a24fb",
-  "_spec": "cordova-plugin-x-socialsharing@^5.4.3",
-  "_where": "/Users/vinayaknair/Desktop/codecanyon-22364393-restaurant-woocommerce-android-ios-full-application-foodmall/App Source Code/Greek",
+  "_spec": "cordova-plugin-x-socialsharing@^5.4.4",
+  "_where": "/Users/vinayaknair/Desktop/greeksourcecode/Greek-Delivery/Greek",
   "author": {
     "name": "Eddy Verbruggen - @EddyVerbruggen"
   },

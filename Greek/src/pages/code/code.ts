@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, ViewController, NavParams, ToastController, Loading, LoadingController } from 'ionic-angular';
+import { NavController, ViewController, NavParams,Events, ToastController, Loading, LoadingController } from 'ionic-angular';
 import { WordpressClient } from '../../providers/wordpress-client.service';
 import { Subscription } from '../../../node_modules/rxjs/Subscription';
 import { Constants } from '../../models/constants.models';
@@ -17,13 +17,19 @@ export class CodePage {
 	private loadingShown: Boolean = false;
 	private subscriptions: Array<Subscription> = [];
 
-	constructor(public translate:TranslateService,private service: WordpressClient, private loadingCtrl: LoadingController, private toastCtrl: ToastController, private navParams: NavParams, public viewCtrl: ViewController) {
+	constructor(public translate:TranslateService, private events: Events, public navCtrl: NavController,private service: WordpressClient, private loadingCtrl: LoadingController, private toastCtrl: ToastController, private navParams: NavParams, public viewCtrl: ViewController) {
+	}
+	close() {
+		this.navCtrl.pop();
+		this.events.publish('tab:index', 2);
 	}
 
 	checkCode() {
 		if (!this.cCode.length) {
       this.translate.get('valid_promo').subscribe(value => {
-        this.showToast(value);
+				this.showToast(value);
+				this.navCtrl.pop();
+				this.events.publish('tab:index', 2);
       });
 			// this.showToast('Enter valid coupon code.');
 		} else {
@@ -36,9 +42,14 @@ export class CodePage {
 				let coupons: Array<Coupon> = data;
 				if (!coupons.length) {
           this.translate.get('invalid_coupon').subscribe(value => {
-            this.presentLoading(value);
+						this.presentLoading(value);
+						this.dismissLoading();
+						this.showToast('Invalid coupon code');
+						this.navCtrl.pop();
+						this.events.publish('tab:index', 2);
+					
           });
-					// this.showToast('Invalid coupon code');
+					
 				} else {
 					window.localStorage.setItem(Constants.SELECTED_COUPON, JSON.stringify(coupons[0]));
 					this.dismiss();

@@ -44,6 +44,7 @@ export class ItemsinfoPage {
     private navParams: NavParams,public translateService:TranslateService) {
     this.pro = this.navParams.get('pro');
     if (this.pro) {
+      console.log(this.pro)
       this.pro.favorite = global.isFavorite(this.pro);
       this.cartItems = global.getCartItems();
       for (let ci of this.cartItems) {
@@ -66,6 +67,7 @@ export class ItemsinfoPage {
     });
     let subscription: Subscription = this.service.productVariations(window.localStorage.getItem(Constants.ADMIN_API_KEY), this.pro.id).subscribe(data => {
       let variations: Array<Product> = data;
+      console.log(variations)
       for (let vari of variations) {
         let variAttris = '';
         for (let i = 0; i < vari.attributes.length; i++) {
@@ -134,14 +136,14 @@ export class ItemsinfoPage {
   decrementItem(pro) {
     var decremented: boolean = this.global.decrementCartItem(pro);
     if (decremented) {
-      pro.quantity = pro.quantity - 1;
+      pro.quantity = pro.quantity - 0.5;
       this.calculateTotal();
     }
   }
 
   incrementItem(pro) {
     this.global.addCartItem(pro);
-    pro.quantity = pro.quantity + 1;
+    pro.quantity = pro.quantity + 0.5;
     this.calculateTotal();
   }
 

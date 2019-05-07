@@ -10,48 +10,48 @@
 <ion-content class="bg-light">
     <ion-list class="default-form">
         <ion-item>
-            <ion-label floating>{{ 'address_first_name' | translate }}</ion-label>
-            <ion-input type="text" text-right placeholder="{{ 'address_first_name' | translate }}" [(ngModel)]="address.first_name"></ion-input>
+            <ion-label floating>First Name</ion-label>
+            <ion-input type="text" text-left  [(ngModel)]="address.first_name"></ion-input>
         </ion-item>
         <ion-item>
-            <ion-label floating>{{ 'address_last_name' | translate }}</ion-label>
-            <ion-input type="text" text-right placeholder="{{ 'address_last_name' | translate }}" [(ngModel)]="address.last_name"></ion-input>
+            <ion-label floating>Last Name</ion-label>
+            <ion-input type="text" text-left  [(ngModel)]="address.last_name"></ion-input>
         </ion-item>
     </ion-list>
     <ion-list class="default-form">
         <ion-item>
-            <ion-label floating>{{ 'email' | translate }}</ion-label>
-            <ion-input type="email" text-right placeholder="{{ 'email' | translate }}" [(ngModel)]="address.email"></ion-input>
+            <ion-label floating>Email</ion-label>
+            <ion-input type="email" text-left  [(ngModel)]="address.email"></ion-input>
         </ion-item>
         <ion-item>
-            <ion-label floating>{{ 'phone' | translate }}</ion-label>
-            <ion-input type="tel" text-right placeholder="{{ 'phone' | translate }}" [(ngModel)]="address.phone"></ion-input>
+            <ion-label floating>Mobile Number</ion-label>
+            <ion-input type="tel" text-left  [(ngModel)]="address.phone"></ion-input>
         </ion-item>
     </ion-list>
     <ion-list>
         <ion-item>
-            <ion-label floating>{{ 'address_address_1' | translate }}</ion-label>
-            <ion-input type="text" text-right placeholder="{{ 'address_address_1' | translate }}" [(ngModel)]="address.address_1"></ion-input>
+            <ion-label floating>House No | Name</ion-label>
+            <ion-input type="text" text-left  [(ngModel)]="address.address_1"></ion-input>
         </ion-item>
         <ion-item>
-            <ion-label floating>{{ 'address_address_2' | translate }}</ion-label>
-            <ion-input type="text" text-right placeholder="{{ 'address_address_1' | translate }}" [(ngModel)]="address.address_2"></ion-input>
+            <ion-label floating>Street</ion-label>
+            <ion-input type="text" text-left  [(ngModel)]="address.address_2"></ion-input>
         </ion-item>
         <ion-item>
-            <ion-label floating>{{ 'city' | translate }}</ion-label>
-            <ion-input type="text" text-right placeholder="{{ 'city' | translate }}" [(ngModel)]="address.city"></ion-input>
+            <ion-label floating>City</ion-label>
+            <ion-input type="text" text-left  [(ngModel)]="address.city"></ion-input>
         </ion-item>
         <ion-item>
-            <ion-label floating>{{ 'state' | translate }}</ion-label>
-            <ion-input type="text" text-right placeholder="{{ 'state' | translate }}" [(ngModel)]="address.state"></ion-input>
+            <ion-label floating>Nearest LandMark</ion-label>
+            <ion-input type="text" text-left  [(ngModel)]="address.state"></ion-input>
         </ion-item>
-        <ion-item>
+        <!-- <ion-item>
             <ion-label floating>{{ 'country' | translate }}</ion-label>
             <ion-input type="text" text-right placeholder="{{ 'country' | translate }}" [(ngModel)]="address.country"></ion-input>
-        </ion-item>
+        </ion-item> -->
         <ion-item>
-            <ion-label floating>{{ 'postal_code' | translate }}</ion-label>
-            <ion-input type="number" text-right placeholder="{{ 'postal_code' | translate }}" [(ngModel)]="address.postcode"></ion-input>
+            <ion-label floating>Pincode</ion-label>
+            <ion-input type="number" text-left  [(ngModel)]="address.postcode"></ion-input>
         </ion-item>
     </ion-list>
     <!--    <p padding text-center class="fixed-bottom">Add New Address</p>-->

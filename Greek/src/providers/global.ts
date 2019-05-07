@@ -23,8 +23,8 @@ export class Global {
 			}
 		}
 		if (pos != -1) {
-			if (this.cartItems[pos].quantity > 1) {
-				this.cartItems[pos].quantity = this.cartItems[pos].quantity - 1;
+			if (this.cartItems[pos].quantity > 0.5) {
+				this.cartItems[pos].quantity = this.cartItems[pos].quantity - 0.5;
 			} else {
 				this.cartItems.splice(pos, 1);
 			}
@@ -45,7 +45,7 @@ export class Global {
 			}
 		}
 		if (pos != -1) {
-			this.cartItems[pos].quantity = this.cartItems[pos].quantity + 1;
+			this.cartItems[pos].quantity = this.cartItems[pos].quantity + 0.5;
 			increment = true;
 			window.localStorage.setItem('cartItems', JSON.stringify(this.cartItems));
 		} else { }
@@ -63,7 +63,7 @@ export class Global {
 			}
 		}
 		if (pos != -1) {
-			this.cartItems.splice(pos, 1);
+			this.cartItems.splice(pos, 0.5);
 			window.localStorage.setItem('cartItems', JSON.stringify(this.cartItems));
 			removed = true;
 		}
@@ -81,12 +81,12 @@ export class Global {
 			}
 		}
 		if (pos != -1) {
-			this.cartItems[pos].quantity = this.cartItems[pos].quantity + 1;
+			this.cartItems[pos].quantity = this.cartItems[pos].quantity + 0.5;
 		} else {
 			let cartItem = new CartItem();
 			cartItem.product = pro;
 			cartItem.product_id = pro.id;
-			cartItem.quantity = 1;
+			cartItem.quantity = 0.5;
 
 			this.cartItems.push(cartItem);
 			added = true;

@@ -34,7 +34,7 @@ buildscript {
     // and https://issues.apache.org/jira/browse/CB-8143
     dependencies {
         classpath 'com.android.tools.build:gradle:3.0.0'
-        classpath 'com.google.gms:google-services:4.1.0' // google-services dependency from cordova-plugin-firebase
+        classpath 'com.google.gms:google-services:4.2.0' // google-services dependency from cordova-plugin-firebase
         classpath 'io.fabric.tools:gradle:1.25.4' // fabric dependency from cordova-plugin-firebase
     }
 }
@@ -96,11 +96,11 @@ ext {
 }
 
 // PLUGIN GRADLE EXTENSIONS START
+apply from: "me.tonny.cordova.plugins.multidex/greekdelivery-build.gradle"
+apply from: "onesignal-cordova-plugin/greekdelivery-build-extras-onesignal.gradle"
 apply from: "card.io.cordova.mobilesdk/greekdelivery-build.gradle"
 apply from: "com.paypal.cordova.mobilesdk/greekdelivery-build.gradle"
 apply from: "cordova-plugin-firebase/greekdelivery-build.gradle"
-apply from: "me.tonny.cordova.plugins.multidex/greekdelivery-build.gradle"
-apply from: "onesignal-cordova-plugin/greekdelivery-build-extras-onesignal.gradle"
 // PLUGIN GRADLE EXTENSIONS END
 
 def hasBuildExtras = file('build-extras.gradle').exists()
@@ -261,17 +261,17 @@ dependencies {
     implementation fileTree(dir: 'libs', include: '*.jar')
     // SUB-PROJECT DEPENDENCIES START
     implementation(project(path: "CordovaLib"))
+    compile "com.android.support:support-v4:24.1.1+"
+    compile "com.onesignal:OneSignal:3.10.8"
     compile "com.facebook.android:facebook-android-sdk:4.40.0"
+    compile "com.android.support:support-annotations:27.+"
+    compile "com.google.android.gms:play-services-auth:11.8.0"
+    compile "com.google.android.gms:play-services-identity:11.8.0"
     compile "com.google.android.gms:play-services-tagmanager:+"
     compile "com.google.firebase:firebase-core:+"
     compile "com.google.firebase:firebase-messaging:+"
     compile "com.google.firebase:firebase-config:+"
     compile "com.google.firebase:firebase-perf:+"
-    compile "com.google.android.gms:play-services-auth:11.8.0"
-    compile "com.google.android.gms:play-services-identity:11.8.0"
-    compile "com.android.support:support-annotations:27.+"
-    compile "com.android.support:support-v4:24.1.1+"
-    compile "com.onesignal:OneSignal:3.10.8"
     // SUB-PROJECT DEPENDENCIES END
 }
 

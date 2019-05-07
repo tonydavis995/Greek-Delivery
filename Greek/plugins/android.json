@@ -7,10 +7,17 @@
     "files": {}
   },
   "installed_plugins": {
-    "com.paypal.cordova.mobilesdk": {
+    "me.tonny.cordova.plugins.multidex": {
       "PACKAGE_NAME": "com.reffera.greekdelivery"
     },
-    "cordova-plugin-device": {
+    "cordova-plugin-inappbrowser": {
+      "PACKAGE_NAME": "com.reffera.greekdelivery"
+    },
+    "cordova-plugin-x-socialsharing": {
+      "ANDROID_SUPPORT_V4_VERSION": "24.1.1+",
+      "PACKAGE_NAME": "com.reffera.greekdelivery"
+    },
+    "onesignal-cordova-plugin": {
       "PACKAGE_NAME": "com.reffera.greekdelivery"
     },
     "cordova-plugin-facebook4": {
@@ -19,48 +26,41 @@
       "FACEBOOK_ANDROID_SDK_VERSION": "4.40.0",
       "PACKAGE_NAME": "com.reffera.greekdelivery"
     },
-    "cordova-plugin-firebase": {
-      "PACKAGE_NAME": "com.reffera.greekdelivery"
-    },
     "cordova-plugin-globalization": {
       "PACKAGE_NAME": "com.reffera.greekdelivery"
     },
-    "cordova-plugin-googleplus": {
-      "PLAY_SERVICES_VERSION": "11.8.0",
+    "cordova-plugin-whitelist": {
       "PACKAGE_NAME": "com.reffera.greekdelivery"
     },
-    "cordova-plugin-inappbrowser": {
+    "cordova-plugin-device": {
       "PACKAGE_NAME": "com.reffera.greekdelivery"
     },
-    "cordova-plugin-ionic-keyboard": {
+    "cordova-plugin-splashscreen": {
       "PACKAGE_NAME": "com.reffera.greekdelivery"
     },
     "cordova-plugin-ionic-webview": {
       "ANDROID_SUPPORT_ANNOTATIONS_VERSION": "27.+",
       "PACKAGE_NAME": "com.reffera.greekdelivery"
     },
-    "cordova-plugin-splashscreen": {
+    "cordova-plugin-ionic-keyboard": {
       "PACKAGE_NAME": "com.reffera.greekdelivery"
     },
-    "cordova-plugin-whitelist": {
+    "com.paypal.cordova.mobilesdk": {
       "PACKAGE_NAME": "com.reffera.greekdelivery"
     },
-    "cordova-plugin-x-socialsharing": {
-      "ANDROID_SUPPORT_V4_VERSION": "24.1.1+",
+    "cordova-plugin-googleplus": {
+      "PLAY_SERVICES_VERSION": "11.8.0",
       "PACKAGE_NAME": "com.reffera.greekdelivery"
     },
-    "me.tonny.cordova.plugins.multidex": {
-      "PACKAGE_NAME": "com.reffera.greekdelivery"
-    },
-    "onesignal-cordova-plugin": {
+    "cordova-plugin-firebase": {
       "PACKAGE_NAME": "com.reffera.greekdelivery"
     }
   },
   "dependent_plugins": {
-    "card.io.cordova.mobilesdk": {
+    "es6-promise-plugin": {
       "PACKAGE_NAME": "com.reffera.greekdelivery"
     },
-    "es6-promise-plugin": {
+    "card.io.cordova.mobilesdk": {
       "PACKAGE_NAME": "com.reffera.greekdelivery"
     }
   }

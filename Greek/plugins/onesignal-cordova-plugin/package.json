@@ -1,5 +1,5 @@
 {
-  "_from": "onesignal-cordova-plugin@^2.4.5",
+  "_from": "onesignal-cordova-plugin@^2.4.7",
   "_id": "onesignal-cordova-plugin@2.4.7",
   "_inBundle": false,
   "_integrity": "sha512-gPCFdx/2+l34g5CWlH8LyC5RobJyiyHHFvuJIbHgeEagcL0ieE+hg5YS+3YzFl93Isnh/mhfV3LEYaUON3ZKuw==",
@@ -8,12 +8,12 @@
   "_requested": {
     "type": "range",
     "registry": true,
-    "raw": "onesignal-cordova-plugin@^2.4.5",
+    "raw": "onesignal-cordova-plugin@^2.4.7",
     "name": "onesignal-cordova-plugin",
     "escapedName": "onesignal-cordova-plugin",
-    "rawSpec": "^2.4.5",
+    "rawSpec": "^2.4.7",
     "saveSpec": null,
-    "fetchSpec": "^2.4.5"
+    "fetchSpec": "^2.4.7"
   },
   "_requiredBy": [
     "#USER",
@@ -21,8 +21,8 @@
   ],
   "_resolved": "https://registry.npmjs.org/onesignal-cordova-plugin/-/onesignal-cordova-plugin-2.4.7.tgz",
   "_shasum": "834dcbf6adf36ed989770320dc35c933e9568ea0",
-  "_spec": "onesignal-cordova-plugin@^2.4.5",
-  "_where": "/Users/vinayaknair/Desktop/codecanyon-22364393-restaurant-woocommerce-android-ios-full-application-foodmall/App Source Code/Greek",
+  "_spec": "onesignal-cordova-plugin@^2.4.7",
+  "_where": "/Users/vinayaknair/Desktop/greeksourcecode/Greek-Delivery/Greek",
   "author": {
     "name": "Josh Kasten & Brad Hesse"
   },
