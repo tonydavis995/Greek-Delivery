@@ -118,6 +118,23 @@ module.exports = [
     "clobbers": [
       "FirebasePlugin"
     ]
+  },
+  {
+    "id": "mx.ferreyra.callnumber.CallNumber",
+    "file": "plugins/mx.ferreyra.callnumber/www/CallNumber.js",
+    "pluginId": "mx.ferreyra.callnumber",
+    "clobbers": [
+      "call"
+    ]
+  },
+  {
+    "id": "cordova-plugin-email-composer.EmailComposer",
+    "file": "plugins/cordova-plugin-email-composer/www/email_composer.js",
+    "pluginId": "cordova-plugin-email-composer",
+    "clobbers": [
+      "cordova.plugins.email",
+      "plugin.email"
+    ]
   }
 ];
 module.exports.metadata = 
@@ -138,7 +155,9 @@ module.exports.metadata =
   "card.io.cordova.mobilesdk": "2.1.0",
   "com.paypal.cordova.mobilesdk": "3.5.0",
   "cordova-plugin-googleplus": "7.0.1",
-  "cordova-plugin-firebase": "2.0.5"
+  "cordova-plugin-firebase": "2.0.5",
+  "mx.ferreyra.callnumber": "0.0.2",
+  "cordova-plugin-email-composer": "0.8.5"
 };
 // BOTTOM OF METADATA
 });

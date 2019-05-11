@@ -6,6 +6,7 @@ import { CartItem } from '../../models/cart-item.models';
 import { Constants } from '../../models/constants.models';
 import { UserResponse } from '../../models/user-response.models';
 import { SigninPage } from '../signin/signin';
+import { HomePage } from '../home/home';
 import { Currency } from '../../models/currency.models';
 import { Coupon } from '../../models/coupon.models';
 import { CodePage } from '../code/code';
@@ -36,11 +37,22 @@ export class CartPage {
   private events: Events,private alertCtrl: AlertController, public platform: Platform, private global: Global, public navCtrl: NavController, 
   private toastCtrl: ToastController) {
     {
-      platform.ready().then(() => {
-        platform.registerBackButtonAction(() => {
-         this.makeExitAlert();
-        });
-      });
+     
+      // let backAction =  platform.registerBackButtonAction(() => {
+      //   console.log("second");
+      //   this.navCtrl.pop();
+      //   backAction();
+      //   let toast = this.toastCtrl.create({
+      //     message: 'Press Back Again to Exit',
+      //     duration: 3000,
+      //     position: 'bottom'
+      //   });
+      //   toast.onDidDismiss(() => {
+      //     console.log('Dismissed toast');
+      //   });
+      //   toast.present();
+      // },2)
+    
     }
     let currency: Currency = JSON.parse(window.localStorage.getItem(Constants.CURRENCY));
     if (currency) {
@@ -79,22 +91,9 @@ export class CartPage {
     this.cartItems = this.global.getCartItems();
     this.calculateTotal();
   }
-  makeExitAlert(){
-    const alert = this.alertCtrl.create({
-      title: '',
-      message: 'Do you want to close the app?',
-      buttons: [{
-          text: 'Cancel',
-          role: 'cancel'
-      },{
-          text: 'Close App',
-          handler: () => {
-              this.platform.exitApp(); // Close this application
-          }
-      }]
-    });
-    alert.present();
-  }
+  // makeExitAlert(){
+  //   this.navCtrl.setRoot(HomePage);
+  // }
 
   calculateTotal() {
     window.localStorage.setItem('changed', 'changed');

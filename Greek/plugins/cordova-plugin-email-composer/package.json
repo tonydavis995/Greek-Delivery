@@ -1,0 +1,84 @@
+{
+  "_from": "cordova-plugin-email-composer@0.8.5",
+  "_id": "cordova-plugin-email-composer@0.8.5",
+  "_inBundle": false,
+  "_integrity": "sha1-7wJtYfwjT9Xc7OA7mLHxYEJcFGQ=",
+  "_location": "/cordova-plugin-email-composer",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "version",
+    "registry": true,
+    "raw": "cordova-plugin-email-composer@0.8.5",
+    "name": "cordova-plugin-email-composer",
+    "escapedName": "cordova-plugin-email-composer",
+    "rawSpec": "0.8.5",
+    "saveSpec": null,
+    "fetchSpec": "0.8.5"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/cordova-plugin-email-composer/-/cordova-plugin-email-composer-0.8.5.tgz",
+  "_shasum": "ef026d61fc234fd5dcece03b98b1f160425c1464",
+  "_spec": "cordova-plugin-email-composer@0.8.5",
+  "_where": "/Users/vinayaknair/Desktop/greeksourcecode/Greek-Delivery/Greek",
+  "author": {
+    "name": "Sebastián Katzer"
+  },
+  "bugs": {
+    "url": "https://github.com/katzer/cordova-plugin-email-composer/issues"
+  },
+  "bundleDependencies": false,
+  "cordova": {
+    "id": "de.appplant.cordova.plugin.email-composer",
+    "platforms": [
+      "ios",
+      "android",
+      "osx",
+      "amazon-fireos",
+      "windows",
+      "browser"
+    ]
+  },
+  "deprecated": false,
+  "description": "Provides access to the standard interface that manages the editing and sending an email message",
+  "engines": [
+    {
+      "name": "cordova",
+      "version": ">=6.0.0"
+    },
+    {
+      "name": "cordova-android",
+      "version": ">=6.2.0"
+    },
+    {
+      "name": "cordova-ios",
+      "version": ">=4.0.0"
+    },
+    {
+      "name": "cordova-windows",
+      "version": ">=4.3.0"
+    }
+  ],
+  "homepage": "https://github.com/katzer/cordova-plugin-email-composer",
+  "keywords": [
+    "appplant",
+    "email",
+    "cordova",
+    "ecosystem:cordova",
+    "cordova-ios",
+    "cordova-osx",
+    "cordova-android",
+    "cordova-amazon-fireos",
+    "cordova-windows",
+    "cordova-browser"
+  ],
+  "license": "Apache 2.0",
+  "name": "cordova-plugin-email-composer",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/katzer/cordova-plugin-email-composer.git"
+  },
+  "version": "0.8.5"
+}

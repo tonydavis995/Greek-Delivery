@@ -31,189 +31,10 @@ var Constants = /** @class */ (function () {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return OrdersPage; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(5);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ordersdetail_ordersdetail__ = __webpack_require__(228);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__providers_wordpress_client_service__ = __webpack_require__(17);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__models_constants_models__ = __webpack_require__(11);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__models_order_update_request_models__ = __webpack_require__(229);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__node_modules_ngx_translate_core__ = __webpack_require__(12);
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-
-
-
-
-
-
-
-var OrdersPage = /** @class */ (function () {
-    function OrdersPage(translate, toastCtrl, navCtrl, service, loadingCtrl, alertCtrl) {
-        var _this = this;
-        this.translate = translate;
-        this.toastCtrl = toastCtrl;
-        this.navCtrl = navCtrl;
-        this.service = service;
-        this.loadingCtrl = loadingCtrl;
-        this.alertCtrl = alertCtrl;
-        this.loadingShown = false;
-        this.subscriptions = [];
-        this.orders = new Array();
-        this.pageNo = 1;
-        this.currencyIcon = '';
-        this.currencyText = '';
-        this.user = JSON.parse(window.localStorage.getItem(__WEBPACK_IMPORTED_MODULE_4__models_constants_models__["a" /* Constants */].USER_KEY));
-        this.translate.get('loading_orders').subscribe(function (value) {
-            _this.presentLoading(value);
-            _this.loadMyOrders();
-        });
-        // this.presentLoading('loading orders');
-        var currency = JSON.parse(window.localStorage.getItem(__WEBPACK_IMPORTED_MODULE_4__models_constants_models__["a" /* Constants */].CURRENCY));
-        if (currency) {
-            this.currencyText = currency.value;
-            var iconText = currency.options[currency.value];
-            this.currencyIcon = iconText.substring(iconText.indexOf('(') + 1, iconText.length - 1);
-        }
-    }
-    OrdersPage.prototype.loadMyOrders = function () {
-        var _this = this;
-        var subscription = this.service.myOrders(window.localStorage.getItem(__WEBPACK_IMPORTED_MODULE_4__models_constants_models__["a" /* Constants */].ADMIN_API_KEY), String(this.user.id), String(this.pageNo)).subscribe(function (data) {
-            for (var _i = 0, data_1 = data; _i < data_1.length; _i++) {
-                var order = data_1[_i];
-                order.status = order.status.charAt(0).toUpperCase() + order.status.substring(1);
-                order.total_html = _this.currencyIcon + ' ' + order.total;
-                for (var _a = 0, _b = order.line_items; _a < _b.length; _a++) {
-                    var line = _b[_a];
-                    line.price_html = _this.currencyIcon + ' ' + line.price;
-                }
-            }
-            _this.dismissLoading();
-            _this.orders = data;
-        }, function (err) {
-            _this.dismissLoading();
-        });
-        this.subscriptions.push(subscription);
-    };
-    OrdersPage.prototype.cancelOrder = function (order) {
-        var _this = this;
-        this.translate.get('cancelling_orders').subscribe(function (value) {
-            _this.presentLoading(value);
-        });
-        // this.presentLoading('Cancelling order');
-        var subscription = this.service.updateOrder(window.localStorage.getItem(__WEBPACK_IMPORTED_MODULE_4__models_constants_models__["a" /* Constants */].ADMIN_API_KEY), String(order.id), new __WEBPACK_IMPORTED_MODULE_5__models_order_update_request_models__["a" /* OrderUpdateRequest */]('cancelled')).subscribe(function (data) {
-            var orderRes = data;
-            order.status = 'cancelled';
-            order.status = order.status.charAt(0).toUpperCase() + order.status.substring(1);
-            /* for(let o of this.orders) {
-                console.log(String(o.id) == String(orderRes.id));
-                if(o.id == orderRes.id) {
-                    o = orderRes;
-                    console.log('here');
-                    this.orders = this.orders;
-                    break;
-                }
-            } */
-            _this.dismissLoading();
-            _this.translate.get('order_cancelled').subscribe(function (value) {
-                _this.showToast(value);
-            });
-            // this.showToast('Order cancelled');
-        }, function (err) {
-            console.log(err);
-        });
-        this.subscriptions.push(subscription);
-    };
-    OrdersPage.prototype.doInfinite = function (infiniteScroll) {
-        var _this = this;
-        this.pageNo++;
-        var subscription = this.service.myOrders(window.localStorage.getItem(__WEBPACK_IMPORTED_MODULE_4__models_constants_models__["a" /* Constants */].ADMIN_API_KEY), String(this.user.id), String(this.pageNo)).subscribe(function (data) {
-            var orders = data;
-            for (var _i = 0, data_2 = data; _i < data_2.length; _i++) {
-                var order = data_2[_i];
-                order.status = order.status.charAt(0).toUpperCase() + order.status.substring(1);
-                order.total_html = _this.currencyIcon + ' ' + order.total;
-                for (var _a = 0, _b = order.line_items; _a < _b.length; _a++) {
-                    var line = _b[_a];
-                    line.price_html = _this.currencyIcon + ' ' + line.price;
-                }
-            }
-            infiniteScroll.complete();
-        }, function (err) {
-            infiniteScroll.complete();
-            console.log(err);
-        });
-        this.subscriptions.push(subscription);
-    };
-    OrdersPage.prototype.presentLoading = function (message) {
-        this.loading = this.loadingCtrl.create({
-            content: message
-        });
-        this.loading.onDidDismiss(function () { });
-        this.loading.present();
-        this.loadingShown = true;
-    };
-    OrdersPage.prototype.dismissLoading = function () {
-        if (this.loadingShown) {
-            this.loadingShown = false;
-            this.loading.dismiss();
-        }
-    };
-    OrdersPage.prototype.presentErrorAlert = function (msg) {
-        var _this = this;
-        this.translate.get(['error', 'dismiss'])
-            .subscribe(function (text) {
-            var alert = _this.alertCtrl.create({
-                title: text['error'],
-                subTitle: msg,
-                buttons: [text['dismiss']]
-            });
-            alert.present();
-        });
-    };
-    OrdersPage.prototype.showToast = function (message) {
-        var toast = this.toastCtrl.create({
-            message: message,
-            duration: 3000,
-            position: 'bottom'
-        });
-        toast.onDidDismiss(function () {
-            console.log('Dismissed toast');
-        });
-        toast.present();
-    };
-    OrdersPage.prototype.orderDetail = function (order) {
-        this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_2__ordersdetail_ordersdetail__["a" /* OrdersdetailPage */], { order: order });
-    };
-    OrdersPage = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
-            selector: 'page-orders',template:/*ion-inline-start:"/Users/vinayaknair/Desktop/greeksourcecode/Greek-Delivery/Greek/src/pages/orders/orders.html"*/'<ion-header>\n\n    <ion-navbar>\n\n        <ion-title>{{\'my_orders\' | translate}}</ion-title>\n\n    </ion-navbar>\n\n</ion-header>\n\n\n\n<ion-content class="bg-light">\n\n    <!-- <p padding-left>Pending Orders</p> -->\n\n    <ion-list  no-lines>\n\n        <ion-item *ngFor="let order of orders" class="preparing" (click)="orderDetail(order)">\n\n            <ion-avatar item-start>\n\n                <!-- <ion-icon name="md-restaurant"></ion-icon> -->\n\n            </ion-avatar>\n\n            <h2>{{\'order\'}} #{{order.id}}\n\n                <small>{{\'view\' | translate}} {{order.line_items.length}} {{\'items\' | translate}}</small>\n\n            </h2>\n\n            <p>{{order.status}}\n\n                <small>{{order.date_created}}</small>\n\n            </p>\n\n        </ion-item>\n\n        <!-- <ion-item class="preparing" >\n\n            <ion-avatar item-start>\n\n                <ion-icon name="md-restaurant"></ion-icon>\n\n            </ion-avatar>\n\n            <h2>Order #24565\n\n                <small>View 3 items</small>\n\n            </h2>\n\n            <p>Confirmed\n\n                <small>11/23/45</small>\n\n            </p>\n\n        </ion-item> -->\n\n    </ion-list>\n\n    <ion-infinite-scroll (ionInfinite)="doInfinite($event)">\n\n        <ion-infinite-scroll-content></ion-infinite-scroll-content>\n\n    </ion-infinite-scroll>\n\n\n\n    <div *ngIf="!orders || !orders.length" class="empty">\n\n        <div>\n\n            <img src="assets/imgs/empty.png">\n\n            <p>{{\'empty_orders\' | translate}}!</p>\n\n        </div>\n\n    </div>\n\n\n\n</ion-content>'/*ion-inline-end:"/Users/vinayaknair/Desktop/greeksourcecode/Greek-Delivery/Greek/src/pages/orders/orders.html"*/,
-            providers: [__WEBPACK_IMPORTED_MODULE_3__providers_wordpress_client_service__["a" /* WordpressClient */]]
-        }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_6__node_modules_ngx_translate_core__["c" /* TranslateService */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["o" /* ToastController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavController */], __WEBPACK_IMPORTED_MODULE_3__providers_wordpress_client_service__["a" /* WordpressClient */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* LoadingController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */]])
-    ], OrdersPage);
-    return OrdersPage;
-}());
-
-//# sourceMappingURL=orders.js.map
-
-/***/ }),
-
-/***/ 120:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return SearchPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(5);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__itemsinfo_itemsinfo__ = __webpack_require__(63);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__itemsinfo_itemsinfo__ = __webpack_require__(64);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__providers_global__ = __webpack_require__(36);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__providers_wordpress_client_service__ = __webpack_require__(17);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__models_constants_models__ = __webpack_require__(11);
@@ -235,9 +56,9 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 var SearchPage = /** @class */ (function () {
-    function SearchPage(translate, navParams, platform, modalCtrl, toastCtrl, navCtrl, service, global, loadingCtrl, alertCtrl) {
-        var _this = this;
+    function SearchPage(translate, events, navParams, platform, modalCtrl, toastCtrl, navCtrl, service, global, loadingCtrl, alertCtrl) {
         this.translate = translate;
+        this.events = events;
         this.navParams = navParams;
         this.platform = platform;
         this.modalCtrl = modalCtrl;
@@ -253,11 +74,10 @@ var SearchPage = /** @class */ (function () {
         this.queryHistory = new Array();
         this.cantScroll = false;
         {
-            platform.ready().then(function () {
-                platform.registerBackButtonAction(function () {
-                    _this.makeExitAlert();
-                });
-            });
+            //   let bacbutton = platform.registerBackButtonAction(() => {
+            //     this.navCtrl.setRoot(TabsPage);
+            //     bacbutton();
+            // },2)
         }
     }
     SearchPage.prototype.doSearch = function () {
@@ -334,23 +154,9 @@ var SearchPage = /** @class */ (function () {
         });
         this.subscriptions.push(subscription);
     };
-    SearchPage.prototype.makeExitAlert = function () {
-        var _this = this;
-        var alert = this.alertCtrl.create({
-            title: '',
-            message: 'Do you want to close the app?',
-            buttons: [{
-                    text: 'Cancel',
-                    role: 'cancel'
-                }, {
-                    text: 'Close App',
-                    handler: function () {
-                        _this.platform.exitApp(); // Close this application
-                    }
-                }]
-        });
-        alert.present();
-    };
+    // makeExitAlert(){
+    //   this.navCtrl.setRoot(HomePage);
+    // }
     SearchPage.prototype.itemdetailPage = function (pro) {
         this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_2__itemsinfo_itemsinfo__["a" /* ItemsinfoPage */], { pro: pro });
     };
@@ -392,12 +198,208 @@ var SearchPage = /** @class */ (function () {
             selector: 'page-search',template:/*ion-inline-start:"/Users/vinayaknair/Desktop/greeksourcecode/Greek-Delivery/Greek/src/pages/search/search.html"*/'<ion-header class="bg-transparent">\n\n  <ion-navbar>\n\n    <ion-title>\n\n      <ion-searchbar (ionInput)="getItems($event)" [debounce]="1000" \n\n      placeholder="{{\'search_box\' | translate}}?"></ion-searchbar>\n\n    </ion-title>\n\n  </ion-navbar>\n\n</ion-header>\n\n\n\n<ion-content>\n\n  <div class="recent-searchs" padding-left padding-right padding-bottom margin-bottom>\n\n    <p>{{\'Recent searches\' | translate}}</p>\n\n    <ion-list no-lines>\n\n      <ion-item *ngFor="let query of queryHistory" (click)="search(query)">\n\n        {{query}}\n\n      </ion-item>\n\n    </ion-list>\n\n  </div>\n\n  <div class="offers">\n\n    <p padding-left padding-right *ngIf="products && products.length">{{\'Search results\' | translate}}</p>\n\n    <ion-scroll scrollX="true" style="height:195px;white-space: nowrap;">\n\n      <ion-card *ngFor="let pro of products" (click)="itemdetailPage(pro)">\n\n        <img *ngIf="pro.images && pro.images.length" data-src="{{pro.images[0].src}}">\n\n        <img *ngIf="pro.images == null || pro.images.length == 0" src="assets/imgs/img_1.png">\n\n        <div class="flex">\n\n          <p>\n\n            <small [innerHTML]="pro.name"></small>\n\n            <br [innerHTML]="pro.categories[0].name">\n\n          </p>\n\n          <span *ngIf="pro.type == \'simple\'" [innerHTML]="pro.sale_price_html"></span>\n\n          <span *ngIf="pro.type == \'variable\'" [innerHTML]="pro.price_html"></span>\n\n        </div>\n\n      </ion-card>\n\n    </ion-scroll>\n\n  </div>\n\n</ion-content>'/*ion-inline-end:"/Users/vinayaknair/Desktop/greeksourcecode/Greek-Delivery/Greek/src/pages/search/search.html"*/,
             providers: [__WEBPACK_IMPORTED_MODULE_4__providers_wordpress_client_service__["a" /* WordpressClient */], __WEBPACK_IMPORTED_MODULE_3__providers_global__["a" /* Global */]]
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_6__node_modules_ngx_translate_core__["c" /* TranslateService */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* NavParams */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* Platform */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* ModalController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["o" /* ToastController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavController */], __WEBPACK_IMPORTED_MODULE_4__providers_wordpress_client_service__["a" /* WordpressClient */], __WEBPACK_IMPORTED_MODULE_3__providers_global__["a" /* Global */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* LoadingController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */]])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_6__node_modules_ngx_translate_core__["c" /* TranslateService */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["b" /* Events */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* NavParams */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* Platform */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* ModalController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["o" /* ToastController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavController */], __WEBPACK_IMPORTED_MODULE_4__providers_wordpress_client_service__["a" /* WordpressClient */], __WEBPACK_IMPORTED_MODULE_3__providers_global__["a" /* Global */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* LoadingController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */]])
     ], SearchPage);
     return SearchPage;
 }());
 
 //# sourceMappingURL=search.js.map
+
+/***/ }),
+
+/***/ 120:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return CartPage; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__conaddress_conaddress__ = __webpack_require__(233);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__providers_global__ = __webpack_require__(36);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__models_constants_models__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__code_code__ = __webpack_require__(239);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__node_modules_ngx_translate_core__ = __webpack_require__(12);
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+
+
+
+var CartPage = /** @class */ (function () {
+    function CartPage(modalCtrl, translateService, events, alertCtrl, platform, global, navCtrl, toastCtrl) {
+        this.modalCtrl = modalCtrl;
+        this.translateService = translateService;
+        this.events = events;
+        this.alertCtrl = alertCtrl;
+        this.platform = platform;
+        this.global = global;
+        this.navCtrl = navCtrl;
+        this.toastCtrl = toastCtrl;
+        this.cartItems = new Array();
+        this.discount = 0;
+        this.couponAmount = '0';
+        this.total = 0;
+        this.total_items = 0;
+        this.total_items_html = '0';
+        this.total_html = '0';
+        this.currencyIcon = '';
+        this.currencyText = '';
+        {
+            // let backAction =  platform.registerBackButtonAction(() => {
+            //   console.log("second");
+            //   this.navCtrl.pop();
+            //   backAction();
+            //   let toast = this.toastCtrl.create({
+            //     message: 'Press Back Again to Exit',
+            //     duration: 3000,
+            //     position: 'bottom'
+            //   });
+            //   toast.onDidDismiss(() => {
+            //     console.log('Dismissed toast');
+            //   });
+            //   toast.present();
+            // },2)
+        }
+        var currency = JSON.parse(window.localStorage.getItem(__WEBPACK_IMPORTED_MODULE_4__models_constants_models__["a" /* Constants */].CURRENCY));
+        if (currency) {
+            this.currencyText = currency.value;
+            var iconText = currency.options[currency.value];
+            this.currencyIcon = iconText.substring(iconText.indexOf('(') + 1, iconText.length - 1);
+        }
+        this.discount_html = this.currencyIcon + this.discount;
+        window.localStorage.removeItem(__WEBPACK_IMPORTED_MODULE_4__models_constants_models__["a" /* Constants */].SELECTED_COUPON);
+    }
+    CartPage.prototype.ionViewDidEnter = function () {
+        this.global.refreshCartItems();
+        this.cartItems = this.global.getCartItems();
+        this.calculateTotal();
+    };
+    CartPage.prototype.removeItem = function (product) {
+        this.global.removeCartItem(product);
+        this.cartItems = this.global.getCartItems();
+        this.calculateTotal();
+    };
+    CartPage.prototype.decrementItem = function (product) {
+        var decremented = this.global.decrementCartItem(product);
+        this.cartItems = this.global.getCartItems();
+        this.calculateTotal();
+    };
+    CartPage.prototype.incrementItem = function (product) {
+        var incremented = this.global.incrementCartItem(product);
+        if (incremented) {
+            this.total = this.total + Number(product.sale_price);
+            window.localStorage.setItem('changed', 'changed');
+        }
+        this.cartItems = this.global.getCartItems();
+        this.calculateTotal();
+    };
+    // makeExitAlert(){
+    //   this.navCtrl.setRoot(HomePage);
+    // }
+    CartPage.prototype.calculateTotal = function () {
+        window.localStorage.setItem('changed', 'changed');
+        var sum = 0;
+        for (var _i = 0, _a = this.cartItems; _i < _a.length; _i++) {
+            var item = _a[_i];
+            sum = sum + Number(item.product.sale_price) * item.quantity;
+        }
+        this.total_items = sum;
+        this.total = (sum - (this.coupon ? this.coupon.discount_type == 'percent' ? (sum * Number(this.coupon.amount) / 100) : Number(this.coupon.amount) : 0));
+        this.total_items_html = this.currencyIcon + ' ' + this.total_items;
+        this.total_html = this.currencyIcon + ' ' + this.total;
+        this.events.publish('cart:count', this.cartItems.length);
+        if (!this.cartItems || !this.cartItems.length) {
+            this.checkoutText = 'Cart is empty';
+        }
+        else {
+            this.checkoutText = 'Proceed to confirm order';
+        }
+    };
+    CartPage.prototype.showToast = function (message) {
+        var toast = this.toastCtrl.create({
+            message: message,
+            duration: 3000,
+            position: 'bottom'
+        });
+        toast.onDidDismiss(function () {
+            console.log('Dismissed toast');
+        });
+        toast.present();
+    };
+    CartPage.prototype.proceedCheckout = function () {
+        if (this.cartItems != null && this.cartItems.length > 0) {
+            var user = JSON.parse(window.localStorage.getItem(__WEBPACK_IMPORTED_MODULE_4__models_constants_models__["a" /* Constants */].USER_KEY));
+            if (user != null) {
+                if (!this.coupon) {
+                    window.localStorage.removeItem(__WEBPACK_IMPORTED_MODULE_4__models_constants_models__["a" /* Constants */].SELECTED_COUPON);
+                }
+                this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_2__conaddress_conaddress__["a" /* ConaddressPage */], { cart: this.cartItems, totalItems: this.total_items, total: this.total });
+            }
+            else {
+                this.events.publish('tab:index', 0);
+                this.events.publish('go:to', 'auth');
+            }
+        }
+    };
+    CartPage.prototype.codePage = function () {
+        var _this = this;
+        var modal = this.modalCtrl.create(__WEBPACK_IMPORTED_MODULE_5__code_code__["a" /* CodePage */]);
+        modal.onDidDismiss(function () {
+            var coupon = JSON.parse(window.localStorage.getItem(__WEBPACK_IMPORTED_MODULE_4__models_constants_models__["a" /* Constants */].SELECTED_COUPON));
+            if (coupon) {
+                if (coupon.discount_type == 'fixed_product') {
+                    var allowed = false;
+                    for (var _i = 0, _a = coupon.product_ids; _i < _a.length; _i++) {
+                        var itemCA = _a[_i];
+                        for (var _b = 0, _c = _this.cartItems; _b < _c.length; _b++) {
+                            var item = _c[_b];
+                            if (itemCA == Number(item.product_id)) {
+                                allowed = true;
+                                break;
+                            }
+                        }
+                        if (allowed) {
+                            break;
+                        }
+                    }
+                    if (allowed) {
+                        _this.coupon = coupon;
+                        _this.couponAmount = _this.currencyIcon + ' ' + _this.coupon.amount + (_this.coupon.discount_type == 'percent' ? '%' : '');
+                        _this.calculateTotal();
+                    }
+                }
+                else {
+                    _this.coupon = coupon;
+                    _this.couponAmount = _this.currencyIcon + ' ' + _this.coupon.amount + (_this.coupon.discount_type == 'percent' ? '%' : '');
+                    _this.calculateTotal();
+                }
+            }
+        });
+        modal.present();
+    };
+    CartPage = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
+            selector: 'page-cart',template:/*ion-inline-start:"/Users/vinayaknair/Desktop/greeksourcecode/Greek-Delivery/Greek/src/pages/cart/cart.html"*/'<ion-header>\n\n  <ion-navbar>\n\n    <ion-title>{{\'cart_title\' | translate}}</ion-title>\n\n  </ion-navbar>\n\n</ion-header>\n\n\n\n<ion-content class="bg-light">\n\n  <div *ngIf="!cartItems || !cartItems.length" class="empty">\n\n    <div>\n\n      <img src="assets/imgs/empty.png">\n\n      <p>{{\'no_items\' | translate}}!</p>\n\n    </div>\n\n  </div>\n\n  <ion-list *ngIf="cartItems && cartItems.length" no-lince>\n\n    <ion-item *ngFor="let item of cartItems">\n\n      <ion-avatar item-start>\n\n        <img *ngIf="item.product.images && item.product.images.length" data-src="{{item.product.images[0].src}}">\n\n        <img *ngIf="item.product.images == null || item.product.images.length == 0" src="assets/imgs/img_2.png">\n\n      </ion-avatar>\n\n      <h2>{{item.product.name}}</h2>\n\n      <p>{{item.product.categories[0].name}}</p>\n\n      <ion-row>\n\n        <ion-col col-6>\n\n          <ion-icon name="md-remove-circle" class="text-green" (click)="decrementItem(item.product)"></ion-icon>\n\n          <span>{{item.quantity}}kg</span>\n\n          <ion-icon name="md-add-circle" style="padding-left:15px;" class="text-green" (click)="incrementItem(item.product)"></ion-icon>\n\n        </ion-col>\n\n        <ion-col col-6 class="text-green" text-right>\n\n          <p [innerHTML]="item.product.sale_price_html"></p>\n\n        </ion-col>\n\n      </ion-row>\n\n    </ion-item>\n\n  </ion-list>\n\n  <ion-card class="fixed-bottom">\n\n    <p>{{\'total\' | translate}}\n\n      <strong [innerHTML]="total_items_html"></strong>\n\n    </p>\n\n    <p>{{\'dlvr_charge\' | translate}}\n\n      <strong [innerHTML]="discount_html"></strong>\n\n    </p>\n\n    <p *ngIf="!coupon" class="text-green" (click)="codePage()">\n\n      {{\'have_promo\' | translate}}?\n\n    </p>\n\n    <p *ngIf="coupon">{{\'coupon\' | translate}}({{coupon.code}}) {{\'have_promo\' | translate}}\n\n      <strong [innerHTML]="couponAmount"></strong>\n\n      <ion-icon name="md-close" class="cross" (click)="removeCoupon()"></ion-icon>\n\n    </p>\n\n    <button ion-button full class="btn btn-green" (click)="proceedCheckout()">\n\n      <span item-start>{{checkoutText | translate}}</span>\n\n      <span item-end>\n\n        <strong [innerHTML]="total_html"></strong>\n\n      </span>\n\n    </button>\n\n  </ion-card>\n\n</ion-content>'/*ion-inline-end:"/Users/vinayaknair/Desktop/greeksourcecode/Greek-Delivery/Greek/src/pages/cart/cart.html"*/,
+            providers: [__WEBPACK_IMPORTED_MODULE_3__providers_global__["a" /* Global */]]
+        }),
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* ModalController */], __WEBPACK_IMPORTED_MODULE_6__node_modules_ngx_translate_core__["c" /* TranslateService */],
+            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["b" /* Events */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* Platform */], __WEBPACK_IMPORTED_MODULE_3__providers_global__["a" /* Global */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavController */],
+            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["o" /* ToastController */]])
+    ], CartPage);
+    return CartPage;
+}());
+
+//# sourceMappingURL=cart.js.map
 
 /***/ }),
 
@@ -930,11 +932,11 @@ webpackEmptyAsyncContext.id = 137;
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return WordpressClient; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_common_http__ = __webpack_require__(226);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_observable_from__ = __webpack_require__(324);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_observable_from__ = __webpack_require__(323);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_observable_from___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_rxjs_add_observable_from__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_observable_of__ = __webpack_require__(331);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_observable_of__ = __webpack_require__(330);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_observable_of___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_rxjs_add_observable_of__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_add_operator_concatMap__ = __webpack_require__(332);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_add_operator_concatMap__ = __webpack_require__(331);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_add_operator_concatMap___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_rxjs_add_operator_concatMap__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_rxjs_Observable__ = __webpack_require__(7);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_rxjs_Observable___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_rxjs_Observable__);
@@ -1271,10 +1273,9 @@ var OrdersdetailPage = /** @class */ (function () {
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
             selector: 'page-ordersdetail',template:/*ion-inline-start:"/Users/vinayaknair/Desktop/greeksourcecode/Greek-Delivery/Greek/src/pages/ordersdetail/ordersdetail.html"*/'<ion-header>\n\n    <ion-navbar>\n\n        <ion-title>{{\'order\' | translate}} #{{order.id}}</ion-title>\n\n    </ion-navbar>\n\n</ion-header>\n\n\n\n\n\n<ion-content class="bg-light">\n\n    <ion-row padding class="order_status">\n\n        <ion-col col-5>\n\n            <p>{{\'order_status\'}}</p>\n\n            <h4>{{order.status}}</h4>\n\n        </ion-col>\n\n        <ion-col col-7 text-center>\n\n            <span>\n\n                <ion-icon name="md-restaurant" [ngClass]="(orderProgress > 0) ? \'active\' : \'inactive\'"></ion-icon>\n\n            </span>\n\n            <span>\n\n                <ion-icon name="md-boat" [ngClass]="(orderProgress > 1) ? \'active\' : \'inactive\'"></ion-icon>\n\n            </span>\n\n            <span>\n\n                <ion-icon name="md-home" [ngClass]="(orderProgress > 2) ? \'active\' : \'inactive\'"></ion-icon>\n\n            </span>\n\n        </ion-col>\n\n    </ion-row>\n\n    <ion-row style="padding-left:20px;padding-right:20px;">\n\n                \n\n        <a ion-button full  class="btn btn-green" href="https://api.whatsapp.com/send?phone=917012800595">\n\n            {{\'Share Location in Whatsapp\' | translate}}</a>\n\n        \n\n    </ion-row>\n\n    <ion-row>\n\n        <ion-col col-12>\n\n            <p padding style="margin-top: 6px; margin-bottom: 3px;">{{\'order_detail\' | translate}}\n\n                <span>{{order.date_created}}</span>\n\n            </p>\n\n        </ion-col>\n\n    </ion-row>\n\n    <ion-list no-lince>\n\n        <ion-item *ngFor="let item of order.line_items">\n\n            <ion-avatar item-start>\n\n                               <img src="assets/imgs/sss.jpeg">\n\n                <ion-icon name="md-images"></ion-icon>\n\n            </ion-avatar>\n\n            <h2>{{item.name}}</h2>\n\n            <p> </p>\n\n            <ion-row>\n\n                <ion-col col-6>\n\n                    <small>{{\'quantity\' | translate}} {{item.quantity}}</small>\n\n                </ion-col>\n\n                <ion-col col-6 text-right>\n\n                    <strong [innerHTML]="item.price_html"></strong>\n\n                </ion-col>\n\n            </ion-row>\n\n           \n\n                \n\n        </ion-item>\n\n    </ion-list>\n\n\n\n    <div class="fixed-bottom" padding-left padding-right>\n\n        <ion-row>\n\n            <ion-col col-5>\n\n                <small>{{\'Paid via\' | translate}}</small>\n\n                <br>\n\n                <p>{{order.payment_method_title}}</p>\n\n            </ion-col>\n\n            <ion-col col-7 text-right class="text-green">\n\n                <h3 [innerHTML]="order.total_html"></h3>\n\n            </ion-col>\n\n        </ion-row>\n\n    </div>\n\n</ion-content>'/*ion-inline-end:"/Users/vinayaknair/Desktop/greeksourcecode/Greek-Delivery/Greek/src/pages/ordersdetail/ordersdetail.html"*/,
         }),
-        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* NavParams */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* NavParams */]) === "function" && _b || Object])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* NavParams */]])
     ], OrdersdetailPage);
     return OrdersdetailPage;
-    var _a, _b;
 }());
 
 //# sourceMappingURL=ordersdetail.js.map
@@ -1306,7 +1307,7 @@ var OrderUpdateRequest = /** @class */ (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(5);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__models_constants_models__ = __webpack_require__(11);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__tabs_tabs__ = __webpack_require__(35);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__walkthough_walkthough__ = __webpack_require__(257);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__walkthough_walkthough__ = __webpack_require__(256);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1365,12 +1366,12 @@ var MySplashPage = /** @class */ (function () {
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return HomePage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(5);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__itemsinfo_itemsinfo__ = __webpack_require__(63);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__search_search__ = __webpack_require__(120);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__itemsinfo_itemsinfo__ = __webpack_require__(64);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__search_search__ = __webpack_require__(119);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__providers_global__ = __webpack_require__(36);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__providers_wordpress_client_service__ = __webpack_require__(17);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__models_constants_models__ = __webpack_require__(11);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__cart_cart__ = __webpack_require__(64);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__cart_cart__ = __webpack_require__(120);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__signin_signin__ = __webpack_require__(240);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__app_app_config__ = __webpack_require__(41);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__node_modules_ngx_translate_core__ = __webpack_require__(12);
@@ -1399,6 +1400,8 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 
 var HomePage = /** @class */ (function () {
     function HomePage(config, platform, translateService, events, modalCtrl, toastCtrl, navCtrl, service, menu, global, loadingCtrl, alertCtrl) {
+        // this.navCtrl.push(SigninPage);
+        // this.presentErrorAlert("Hello");
         var _this = this;
         this.config = config;
         this.platform = platform;
@@ -1419,8 +1422,6 @@ var HomePage = /** @class */ (function () {
         this.banners = new Array();
         this.selectedCategoryIdx = 0;
         this.products = new Array();
-        // this.navCtrl.push(SigninPage);
-        // this.presentErrorAlert("Hello");
         this.appTitle = config.appName;
         var categories = JSON.parse(window.localStorage.getItem(__WEBPACK_IMPORTED_MODULE_6__models_constants_models__["a" /* Constants */].PRODUCT_CATEGORIES));
         var cats = new Array();
@@ -1549,28 +1550,14 @@ var HomePage = /** @class */ (function () {
         var countDownHour = new Date("Jun 7, 2019 22:00:00").getHours();
         var countDownMin = new Date("Jun 7, 2019 22:00:00").getMinutes();
         var countDownSec = new Date("Jun 7, 2019 22:00:00").getSeconds();
-        var cD = 0;
-        if (countDownHour > 12) {
-            cD = countDownHour - 12;
-        }
-        else {
-            cD = countDownHour;
-        }
-        var countvalue = Math.floor((cD * 60 * 60) + (countDownMin * 60) + (countDownSec));
+        var countvalue = Math.floor((countDownHour * 60 * 60) + (countDownMin * 60) + (countDownSec));
         // Update the count down every 1 second
         var x = setInterval(function () {
             // Get todays date and time
             var nowD = new Date().getHours();
             var nowM = new Date().getMinutes();
             var nowS = new Date().getSeconds();
-            var nD = 0;
-            if (nowD > 12) {
-                nD = nowD - 12;
-            }
-            else {
-                nD = nowD;
-            }
-            var nowvalue = Math.floor((nD * 60 * 60) + (nowM * 60) + (nowS));
+            var nowvalue = Math.floor((nowD * 60 * 60) + (nowM * 60) + (nowS));
             // Find the distance between now and the count down date
             // Output the result in an element with id="demo"
             // If the count down is over, write some text 
@@ -1908,7 +1895,7 @@ var ConaddressPage = /** @class */ (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(5);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__confirmed_confirmed__ = __webpack_require__(235);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__providers_wordpress_client_service__ = __webpack_require__(17);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__models_order_request_models__ = __webpack_require__(342);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__models_order_request_models__ = __webpack_require__(341);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__models_constants_models__ = __webpack_require__(11);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__ionic_native_in_app_browser__ = __webpack_require__(236);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__ionic_native_paypal__ = __webpack_require__(237);
@@ -2267,7 +2254,7 @@ var ConpaymentPage = /** @class */ (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(5);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__models_constants_models__ = __webpack_require__(11);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__cart_cart__ = __webpack_require__(64);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__orders_orders__ = __webpack_require__(63);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -2289,7 +2276,7 @@ var ConfirmedPage = /** @class */ (function () {
         this.user = JSON.parse(window.localStorage.getItem(__WEBPACK_IMPORTED_MODULE_2__models_constants_models__["a" /* Constants */].USER_KEY));
     }
     ConfirmedPage.prototype.proceed = function () {
-        this.navCtrl.setRoot(__WEBPACK_IMPORTED_MODULE_3__cart_cart__["a" /* CartPage */]);
+        this.navCtrl.setRoot(__WEBPACK_IMPORTED_MODULE_3__orders_orders__["a" /* OrdersPage */]);
     };
     ConfirmedPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
@@ -2311,7 +2298,7 @@ var ConfirmedPage = /** @class */ (function () {
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AddaddressPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(5);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__models_address_models__ = __webpack_require__(343);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__models_address_models__ = __webpack_require__(342);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__models_constants_models__ = __webpack_require__(11);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__node_modules_ngx_translate_core__ = __webpack_require__(12);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -2401,11 +2388,23 @@ var AddaddressPage = /** @class */ (function () {
             });
             // this.showToast('Enter city');
         }
+        else if (!this.address.state || !this.address.state.length) {
+            this.translate.get('field_error_state').subscribe(function (value) {
+                _this.showToast(value);
+            });
+            // this.showToast('Enter state');
+        }
         else if (!this.address.postcode || !this.address.postcode.length) {
             this.translate.get('field_error_postalcode').subscribe(function (value) {
                 _this.showToast(value);
             });
             // this.showToast('Enter postcode');
+        }
+        else if (!this.address.country || !this.address.country.length) {
+            this.translate.get('field_error_country').subscribe(function (value) {
+                _this.showToast(value);
+            });
+            // this.showToast('Enter country');
         }
         else {
             if (this.address.id == -1) {
@@ -2444,12 +2443,11 @@ var AddaddressPage = /** @class */ (function () {
     };
     AddaddressPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
-            selector: 'page-addaddress',template:/*ion-inline-start:"/Users/vinayaknair/Desktop/greeksourcecode/Greek-Delivery/Greek/src/pages/addaddress/addaddress.html"*/'<ion-header>\n\n\n\n    <ion-navbar>\n\n        <ion-title>{{ \'my_address_add_new\' | translate }}</ion-title>\n\n    </ion-navbar>\n\n\n\n</ion-header>\n\n\n\n\n\n<ion-content class="bg-light">\n\n    <ion-list class="default-form">\n\n        <ion-item>\n\n            <ion-label floating>First Name</ion-label>\n\n            <ion-input type="text" text-left  [(ngModel)]="address.first_name"></ion-input>\n\n        </ion-item>\n\n        <ion-item>\n\n            <ion-label floating>Last Name</ion-label>\n\n            <ion-input type="text" text-left  [(ngModel)]="address.last_name"></ion-input>\n\n        </ion-item>\n\n    </ion-list>\n\n    <ion-list class="default-form">\n\n        <ion-item>\n\n            <ion-label floating>Email</ion-label>\n\n            <ion-input type="email" text-left  [(ngModel)]="address.email"></ion-input>\n\n        </ion-item>\n\n        <ion-item>\n\n            <ion-label floating>Mobile Number</ion-label>\n\n            <ion-input type="tel" text-left  [(ngModel)]="address.phone"></ion-input>\n\n        </ion-item>\n\n    </ion-list>\n\n    <ion-list>\n\n        <ion-item>\n\n            <ion-label floating>House No | Name</ion-label>\n\n            <ion-input type="text" text-left  [(ngModel)]="address.address_1"></ion-input>\n\n        </ion-item>\n\n        <ion-item>\n\n            <ion-label floating>Street</ion-label>\n\n            <ion-input type="text" text-left  [(ngModel)]="address.address_2"></ion-input>\n\n        </ion-item>\n\n        <ion-item>\n\n            <ion-label floating>City</ion-label>\n\n            <ion-input type="text" text-left  [(ngModel)]="address.city"></ion-input>\n\n        </ion-item>\n\n        <ion-item>\n\n            <ion-label floating>Nearest LandMark</ion-label>\n\n            <ion-input type="text" text-left  [(ngModel)]="address.state"></ion-input>\n\n        </ion-item>\n\n        <!-- <ion-item>\n\n            <ion-label floating>{{ \'country\' | translate }}</ion-label>\n\n            <ion-input type="text" text-right placeholder="{{ \'country\' | translate }}" [(ngModel)]="address.country"></ion-input>\n\n        </ion-item> -->\n\n        <ion-item>\n\n            <ion-label floating>Pincode</ion-label>\n\n            <ion-input type="number" text-left  [(ngModel)]="address.postcode"></ion-input>\n\n        </ion-item>\n\n    </ion-list>\n\n    <!--    <p padding text-center class="fixed-bottom">Add New Address</p>-->\n\n    <div class="fixed-bottom">\n\n        <button ion-button full class="btn btn-green" (click)="saveAddress()">\n\n        {{ \'Save Address\' | translate }}</button>\n\n    </div>\n\n</ion-content>'/*ion-inline-end:"/Users/vinayaknair/Desktop/greeksourcecode/Greek-Delivery/Greek/src/pages/addaddress/addaddress.html"*/,
+            selector: 'page-addaddress',template:/*ion-inline-start:"/Users/vinayaknair/Desktop/greeksourcecode/Greek-Delivery/Greek/src/pages/addaddress/addaddress.html"*/'<ion-header>\n\n\n\n    <ion-navbar>\n\n        <ion-title>{{ \'my_address_add_new\' | translate }}</ion-title>\n\n    </ion-navbar>\n\n\n\n</ion-header>\n\n\n\n\n\n<ion-content class="bg-light">\n\n    <ion-list class="default-form">\n\n        <ion-item>\n\n            <ion-label floating>{{ \'address_first_name\' | translate }}</ion-label>\n\n            <ion-input type="text" text-left [(ngModel)]="address.first_name"></ion-input>\n\n        </ion-item>\n\n        <ion-item>\n\n            <ion-label floating>{{ \'address_last_name\' | translate }}</ion-label>\n\n            <ion-input type="text" text-left [(ngModel)]="address.last_name"></ion-input>\n\n        </ion-item>\n\n    </ion-list>\n\n    <ion-list class="default-form">\n\n        <ion-item>\n\n            <ion-label floating>{{ \'email\' | translate }}</ion-label>\n\n            <ion-input type="email" text-left [(ngModel)]="address.email"></ion-input>\n\n        </ion-item>\n\n        <ion-item>\n\n            <ion-label floating>{{ \'phone\' | translate }}</ion-label>\n\n            <ion-input type="tel" text-left  [(ngModel)]="address.phone"></ion-input>\n\n        </ion-item>\n\n    </ion-list>\n\n    <ion-list>\n\n        <ion-item>\n\n            <ion-label floating>{{ \'address_address_1\' | translate }}</ion-label>\n\n            <ion-input type="text" text-left  [(ngModel)]="address.address_1"></ion-input>\n\n        </ion-item>\n\n        <ion-item>\n\n            <ion-label floating>{{ \'address_address_2\' | translate }}</ion-label>\n\n            <ion-input type="text" text-left  [(ngModel)]="address.address_2"></ion-input>\n\n        </ion-item>\n\n        <ion-item>\n\n            <ion-label floating>{{ \'city\' | translate }}</ion-label>\n\n            <ion-input type="text" text-left  [(ngModel)]="address.city"></ion-input>\n\n        </ion-item>\n\n        <ion-item>\n\n            <ion-label floating>{{ \'state\' | translate }}</ion-label>\n\n            <ion-input disabled value="Kerala" type="text" text-left  [(ngModel)]="address.state"></ion-input>\n\n        </ion-item>\n\n        <ion-item>\n\n            <ion-label floating>{{ \'country\' | translate }}</ion-label>\n\n            <ion-input disabled value="India" type="text" text-left  [(ngModel)]="address.country"></ion-input>\n\n        </ion-item>\n\n        <ion-item>\n\n            <ion-label floating>{{ \'postal_code\' | translate }}</ion-label>\n\n            <ion-input type="number" text-left  [(ngModel)]="address.postcode"></ion-input>\n\n        </ion-item>\n\n    </ion-list>\n\n    <!--    <p padding text-center class="fixed-bottom">Add New Address</p>-->\n\n    <div class="fixed-bottom">\n\n        <button ion-button full class="btn btn-green" (click)="saveAddress()">\n\n        {{ \'Save Address\' | translate }}</button>\n\n    </div>\n\n</ion-content>'/*ion-inline-end:"/Users/vinayaknair/Desktop/greeksourcecode/Greek-Delivery/Greek/src/pages/addaddress/addaddress.html"*/,
         }),
-        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_4__node_modules_ngx_translate_core__["c" /* TranslateService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4__node_modules_ngx_translate_core__["c" /* TranslateService */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* NavParams */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* NavParams */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["o" /* ToastController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["o" /* ToastController */]) === "function" && _d || Object])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavController */], __WEBPACK_IMPORTED_MODULE_4__node_modules_ngx_translate_core__["c" /* TranslateService */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* NavParams */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["o" /* ToastController */]])
     ], AddaddressPage);
     return AddaddressPage;
-    var _a, _b, _c, _d;
 }());
 
 //# sourceMappingURL=addaddress.js.map
@@ -2572,10 +2570,9 @@ var CodePage = /** @class */ (function () {
             selector: 'page-code ',template:/*ion-inline-start:"/Users/vinayaknair/Desktop/greeksourcecode/Greek-Delivery/Greek/src/pages/code/code.html"*/'<ion-content class="bg-light">\n\n       \n\n    <div class="code">\n\n            <button style="padding-left:100%;background:#ffffff;font-size:2rem;" (click)="close()"><ion-icon style="color:#49B3F0;" name="ios-close-circle-outline"></ion-icon></button>\n\n        <h2>{{\'Add Promo code\' | translate}}</h2>\n\n        <ion-input type="text" value="" [(ngModel)]="cCode" placeholder="Enter promo code here"></ion-input>\n\n        <button ion-button full class="btn-round btn-text btn btn-green" (click)="checkCode()">{{\'submit\' | translate}}</button>\n\n    </div>\n\n</ion-content>'/*ion-inline-end:"/Users/vinayaknair/Desktop/greeksourcecode/Greek-Delivery/Greek/src/pages/code/code.html"*/,
             providers: [__WEBPACK_IMPORTED_MODULE_2__providers_wordpress_client_service__["a" /* WordpressClient */]]
         }),
-        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_4__node_modules_ngx_translate_core__["c" /* TranslateService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4__node_modules_ngx_translate_core__["c" /* TranslateService */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["b" /* Events */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["b" /* Events */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavController */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_2__providers_wordpress_client_service__["a" /* WordpressClient */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__providers_wordpress_client_service__["a" /* WordpressClient */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* LoadingController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* LoadingController */]) === "function" && _e || Object, typeof (_f = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["o" /* ToastController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["o" /* ToastController */]) === "function" && _f || Object, typeof (_g = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* NavParams */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* NavParams */]) === "function" && _g || Object, typeof (_h = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["p" /* ViewController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["p" /* ViewController */]) === "function" && _h || Object])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_4__node_modules_ngx_translate_core__["c" /* TranslateService */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["b" /* Events */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavController */], __WEBPACK_IMPORTED_MODULE_2__providers_wordpress_client_service__["a" /* WordpressClient */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* LoadingController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["o" /* ToastController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* NavParams */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["p" /* ViewController */]])
     ], CodePage);
     return CodePage;
-    var _a, _b, _c, _d, _e, _f, _g, _h;
 }());
 
 //# sourceMappingURL=code.js.map
@@ -3515,7 +3512,7 @@ var PhonePage = /** @class */ (function () {
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return FavoritesPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(5);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__itemsinfo_itemsinfo__ = __webpack_require__(63);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__itemsinfo_itemsinfo__ = __webpack_require__(64);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__providers_global__ = __webpack_require__(36);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -3567,12 +3564,12 @@ var FavoritesPage = /** @class */ (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(5);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__profile_profile__ = __webpack_require__(250);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__address_address__ = __webpack_require__(121);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__orders_orders__ = __webpack_require__(119);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__orders_orders__ = __webpack_require__(63);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__about_about__ = __webpack_require__(251);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__tnc_tnc__ = __webpack_require__(252);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__contact_contact__ = __webpack_require__(253);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__models_constants_models__ = __webpack_require__(11);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__node_modules_ionic_native_social_sharing__ = __webpack_require__(256);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__node_modules_ionic_native_social_sharing__ = __webpack_require__(255);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__node_modules_ngx_translate_core__ = __webpack_require__(12);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -3630,7 +3627,7 @@ var AccountPage = /** @class */ (function () {
         this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_7__contact_contact__["a" /* ContactPage */]);
     };
     AccountPage.prototype.shareApp = function () {
-        this.socialSharing.share('Hey, I found this delivery app.', null, null, 'https://play.google.com/store/apps/details?id=com.techlytx.greekdelivery')
+        this.socialSharing.share('Hey, I found this cool fish delivery app.', null, null, 'https://play.google.com/store/apps/details?id=com.reffera.greekdelivery')
             .then(function (res) {
             console.log("Shared");
         }).catch(function (err) {
@@ -3824,7 +3821,6 @@ var TncPage = /** @class */ (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(5);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__node_modules_ionic_native_call_number__ = __webpack_require__(254);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__node_modules_ionic_native_email_composer__ = __webpack_require__(255);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -3837,7 +3833,6 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
-
 /**
  * Generated class for the ContactPage page.
  *
@@ -3845,42 +3840,26 @@ var __metadata = (this && this.__metadata) || function (k, v) {
  * Ionic pages and navigation.
  */
 var ContactPage = /** @class */ (function () {
-    function ContactPage(emailComposer, callNumber, navCtrl, navParams) {
-        this.emailComposer = emailComposer;
+    function ContactPage(callNumber, navCtrl, navParams) {
         this.callNumber = callNumber;
         this.navCtrl = navCtrl;
         this.navParams = navParams;
-        this.latitude = 28.634418;
-        this.longitude = 77.219184;
+        this.latitude = 9.896735;
+        this.longitude = 76.707022;
     }
     ContactPage.prototype.dial = function () {
-        this.callNumber.callNumber("+19876543210", true)
+        this.callNumber.callNumber("+917012800595", true)
             .then(function (res) { return console.log('Launched dialer!', res); })
             .catch(function (err) { return console.log('Error launching dialer', err); });
-    };
-    ContactPage.prototype.mail = function () {
-        var _this = this;
-        this.emailComposer.isAvailable().then(function (available) {
-            if (available) {
-                var email = {
-                    to: 'thomas@greekdelivery.in',
-                    subject: 'Contact Greek',
-                    body: '',
-                    isHtml: true
-                };
-                // Send a text message using default options
-                _this.emailComposer.open(email);
-            }
-        });
     };
     ContactPage.prototype.openMap = function () {
         window.open('https://www.google.com/maps/dir/?api=1&destination=' + this.latitude + ',' + this.longitude);
     };
     ContactPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
-            selector: 'page-contact',template:/*ion-inline-start:"/Users/vinayaknair/Desktop/greeksourcecode/Greek-Delivery/Greek/src/pages/contact/contact.html"*/'<ion-header class="bg-transparent">\n\n    <ion-navbar>\n\n        <ion-title>&nbsp;</ion-title>\n\n    </ion-navbar>\n\n</ion-header>\n\n\n\n<ion-content class="bg-light">\n\n    <div class="map-box">\n\n        <img src="assets/imgs/map.png">\n\n        <ion-card>\n\n            <ion-row>\n\n                <ion-col col-9>\n\n                    <h2>{{\'Greek Online Foods\' | translate}}</h2>\n\n                    <p>{{\'Kunnumchirayil building\' | translate}}\n\n                    <br>{{\'Manakkadu\' | translate}}\n\n                    <br>{{\'Thodupuzha \' | translate}}</p>\n\n                </ion-col>\n\n                <ion-col col-3 text-end>\n\n                    <ion-icon name="md-navigate" (click)="openMap()"></ion-icon>\n\n                </ion-col>\n\n            </ion-row>\n\n        </ion-card>\n\n    </div>\n\n    <ion-card>\n\n        <ion-row>\n\n            <ion-col col-9>\n\n                <p>{{\'Call us\' | translate}}</p>\n\n                <h2>+91 7012800595</h2>\n\n            </ion-col>\n\n            <ion-col col-3 text-end>\n\n                <ion-icon name="md-call" (click)="dial()"></ion-icon>\n\n            </ion-col>\n\n        </ion-row>\n\n\n\n        <ion-row>\n\n            <ion-col col-9>\n\n                <p>{{\'Mail us\' | translate}}</p>\n\n                <h2>help@greekdelivery.in</h2>\n\n            </ion-col>\n\n            <ion-col col-3 text-end>\n\n                <ion-icon name="md-mail" (click)="mail()"></ion-icon>\n\n            </ion-col>\n\n        </ion-row>\n\n\n\n        <!-- <ion-row class="social-media">\n\n            <ion-col col-12>\n\n                <p>{{\'social_msg\' | translate}}</p>\n\n            </ion-col>\n\n            <ion-col col-12>\n\n                <ion-row>\n\n                    <ion-col col-4>\n\n                        <h2 href="#" onclick="window.open(\'https://www.facebook.com/\', \'_system\')">\n\n                            <ion-icon name="logo-facebook"></ion-icon>\n\n                            <span>{{\'like\' | translate}}</span>\n\n                        </h2>\n\n                    </ion-col>\n\n                    <ion-col col-4>\n\n                        <h2 href="#" onclick="window.open(\'https://www.instagram.com\', \'_system\')">\n\n                            <ion-icon name="logo-instagram"></ion-icon>\n\n                            <span>{{\'follow\' | translate}}</span>\n\n                        </h2>\n\n                    </ion-col>\n\n                    <ion-col col-4>\n\n                        <h2 href="#" onclick="window.open(\'https://twitter.com/\', \'_system\')">\n\n                            <ion-icon name="logo-twitter"></ion-icon>\n\n                            <span>{{\'follow\' | translate}}</span>\n\n                        </h2>\n\n                    </ion-col>\n\n                </ion-row>\n\n            </ion-col>\n\n        </ion-row> -->\n\n    </ion-card>\n\n</ion-content>'/*ion-inline-end:"/Users/vinayaknair/Desktop/greeksourcecode/Greek-Delivery/Greek/src/pages/contact/contact.html"*/,
+            selector: 'page-contact',template:/*ion-inline-start:"/Users/vinayaknair/Desktop/greeksourcecode/Greek-Delivery/Greek/src/pages/contact/contact.html"*/'<ion-header class="bg-transparent">\n\n    <ion-navbar>\n\n        <ion-title>&nbsp;</ion-title>\n\n    </ion-navbar>\n\n</ion-header>\n\n\n\n<ion-content class="bg-light">\n\n    <div class="map-box">\n\n        <img src="assets/imgs/map.png">\n\n        <ion-card>\n\n            <ion-row>\n\n                <ion-col col-9>\n\n                    <h2>{{\'Greek Online Foods\' | translate}}</h2>\n\n                    <p>{{\'Kunnumchirayil building\' | translate}}\n\n                    <br>{{\'Manakkadu\' | translate}}\n\n                    <br>{{\'Thodupuzha \' | translate}}</p>\n\n                </ion-col>\n\n                <ion-col col-3 text-end>\n\n                    <ion-icon name="md-navigate" (click)="openMap()"></ion-icon>\n\n                </ion-col>\n\n            </ion-row>\n\n        </ion-card>\n\n    </div>\n\n    <ion-card>\n\n        <ion-row>\n\n            <ion-col col-9>\n\n                <p>{{\'Call us\' | translate}}</p>\n\n                <h2>+91 7012800595</h2>\n\n            </ion-col>\n\n            <ion-col col-3 text-end>\n\n                <ion-icon name="md-call" (click)="dial()"></ion-icon>\n\n            </ion-col>\n\n        </ion-row>\n\n\n\n        <ion-row>\n\n            <ion-col col-9>\n\n                <p>{{\'Mail us\' | translate}}</p>\n\n                <h2>help@greekdelivery.in</h2>\n\n            </ion-col>\n\n            <ion-col col-3 text-end>\n\n            </ion-col>\n\n        </ion-row>\n\n\n\n        <!-- <ion-row class="social-media">\n\n            <ion-col col-12>\n\n                <p>{{\'social_msg\' | translate}}</p>\n\n            </ion-col>\n\n            <ion-col col-12>\n\n                <ion-row>\n\n                    <ion-col col-4>\n\n                        <h2 href="#" onclick="window.open(\'https://www.facebook.com/\', \'_system\')">\n\n                            <ion-icon name="logo-facebook"></ion-icon>\n\n                            <span>{{\'like\' | translate}}</span>\n\n                        </h2>\n\n                    </ion-col>\n\n                    <ion-col col-4>\n\n                        <h2 href="#" onclick="window.open(\'https://www.instagram.com\', \'_system\')">\n\n                            <ion-icon name="logo-instagram"></ion-icon>\n\n                            <span>{{\'follow\' | translate}}</span>\n\n                        </h2>\n\n                    </ion-col>\n\n                    <ion-col col-4>\n\n                        <h2 href="#" onclick="window.open(\'https://twitter.com/\', \'_system\')">\n\n                            <ion-icon name="logo-twitter"></ion-icon>\n\n                            <span>{{\'follow\' | translate}}</span>\n\n                        </h2>\n\n                    </ion-col>\n\n                </ion-row>\n\n            </ion-col>\n\n        </ion-row> -->\n\n    </ion-card>\n\n</ion-content>'/*ion-inline-end:"/Users/vinayaknair/Desktop/greeksourcecode/Greek-Delivery/Greek/src/pages/contact/contact.html"*/,
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_3__node_modules_ionic_native_email_composer__["a" /* EmailComposer */], __WEBPACK_IMPORTED_MODULE_2__node_modules_ionic_native_call_number__["a" /* CallNumber */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* NavParams */]])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2__node_modules_ionic_native_call_number__["a" /* CallNumber */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* NavParams */]])
     ], ContactPage);
     return ContactPage;
 }());
@@ -3889,7 +3868,7 @@ var ContactPage = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 257:
+/***/ 256:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -3952,13 +3931,13 @@ var WalkthoughPage = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 259:
+/***/ 258:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__ = __webpack_require__(260);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__app_module__ = __webpack_require__(273);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__ = __webpack_require__(259);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__app_module__ = __webpack_require__(272);
 
 
 Object(__WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__["a" /* platformBrowserDynamic */])().bootstrapModule(__WEBPACK_IMPORTED_MODULE_1__app_module__["a" /* AppModule */]);
@@ -3966,54 +3945,54 @@ Object(__WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__["a" /* pl
 
 /***/ }),
 
-/***/ 273:
+/***/ 272:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* unused harmony export createTranslateLoader */
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AppModule; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__app_component__ = __webpack_require__(274);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__app_component__ = __webpack_require__(273);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_platform_browser__ = __webpack_require__(39);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_common_http__ = __webpack_require__(226);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_ionic_angular__ = __webpack_require__(5);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__ngx_translate_core__ = __webpack_require__(12);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__ngx_translate_http_loader__ = __webpack_require__(355);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__ionic_native_globalization__ = __webpack_require__(258);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__ngx_translate_http_loader__ = __webpack_require__(354);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__ionic_native_globalization__ = __webpack_require__(257);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__app_config__ = __webpack_require__(41);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__pages_about_about__ = __webpack_require__(251);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__pages_account_account__ = __webpack_require__(249);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__pages_addaddress_addaddress__ = __webpack_require__(238);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__pages_address_address__ = __webpack_require__(121);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__pages_cart_cart__ = __webpack_require__(64);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__pages_cart_cart__ = __webpack_require__(120);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__pages_conaddress_conaddress__ = __webpack_require__(233);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__pages_conpayment_conpayment__ = __webpack_require__(234);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__pages_payment_payment__ = __webpack_require__(357);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__pages_payment_payment__ = __webpack_require__(356);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__pages_confirmed_confirmed__ = __webpack_require__(235);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__pages_contact_contact__ = __webpack_require__(253);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__pages_favorites_favorites__ = __webpack_require__(248);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_20__pages_home_home__ = __webpack_require__(232);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_21__pages_itemsinfo_itemsinfo__ = __webpack_require__(63);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_22__pages_orders_orders__ = __webpack_require__(119);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_21__pages_itemsinfo_itemsinfo__ = __webpack_require__(64);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_22__pages_orders_orders__ = __webpack_require__(63);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_23__pages_ordersdetail_ordersdetail__ = __webpack_require__(228);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_24__pages_password_password__ = __webpack_require__(241);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_25__pages_profile_profile__ = __webpack_require__(250);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_26__pages_search_search__ = __webpack_require__(120);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_26__pages_search_search__ = __webpack_require__(119);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_27__pages_signin_signin__ = __webpack_require__(240);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_28__pages_signup_signup__ = __webpack_require__(242);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_29__pages_tabs_tabs__ = __webpack_require__(35);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_30__pages_tnc_tnc__ = __webpack_require__(252);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_31__pages_walkthough_walkthough__ = __webpack_require__(257);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_31__pages_walkthough_walkthough__ = __webpack_require__(256);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_32__ionic_native_status_bar__ = __webpack_require__(221);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_33__ionic_native_splash_screen__ = __webpack_require__(223);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_34__ionic_native_social_sharing__ = __webpack_require__(256);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_34__ionic_native_social_sharing__ = __webpack_require__(255);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_35__ionic_native_in_app_browser__ = __webpack_require__(236);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_36__ionic_native_paypal__ = __webpack_require__(237);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_37__pages_mysplash_mysplash__ = __webpack_require__(231);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_38__pages_otp_otp__ = __webpack_require__(122);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_39__pages_phone_phone__ = __webpack_require__(245);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_40__ionic_native_call_number__ = __webpack_require__(254);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_41__ionic_native_email_composer__ = __webpack_require__(255);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_41__ionic_native_email_composer__ = __webpack_require__(357);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_42__pages_code_code__ = __webpack_require__(239);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_43__ionic_native_facebook__ = __webpack_require__(246);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_44__ionic_native_google_plus__ = __webpack_require__(247);
@@ -4177,7 +4156,7 @@ var AppModule = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 274:
+/***/ 273:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -4192,10 +4171,10 @@ var AppModule = /** @class */ (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__app_config__ = __webpack_require__(41);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__models_auth_credential_models__ = __webpack_require__(62);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__models_constants_models__ = __webpack_require__(11);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__pages_orders_orders__ = __webpack_require__(119);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__pages_orders_orders__ = __webpack_require__(63);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__pages_mysplash_mysplash__ = __webpack_require__(231);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__node_modules_ngx_translate_core__ = __webpack_require__(12);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__ionic_native_globalization__ = __webpack_require__(258);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__ionic_native_globalization__ = __webpack_require__(257);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_14_firebase__ = __webpack_require__(123);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_14_firebase___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_14_firebase__);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -4486,7 +4465,7 @@ var MyApp = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 341:
+/***/ 340:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -4501,7 +4480,7 @@ var CartItem = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 342:
+/***/ 341:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -4516,7 +4495,7 @@ var OrderRequest = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 343:
+/***/ 342:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -4539,8 +4518,8 @@ var Address = /** @class */ (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(5);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__home_home__ = __webpack_require__(232);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__search_search__ = __webpack_require__(120);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__cart_cart__ = __webpack_require__(64);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__search_search__ = __webpack_require__(119);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__cart_cart__ = __webpack_require__(120);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__favorites_favorites__ = __webpack_require__(248);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__account_account__ = __webpack_require__(249);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__providers_global__ = __webpack_require__(36);
@@ -4562,9 +4541,11 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 var TabsPage = /** @class */ (function () {
-    function TabsPage(events, global) {
+    function TabsPage(events, navCtrl, platform, global) {
         var _this = this;
         this.events = events;
+        this.navCtrl = navCtrl;
+        this.platform = platform;
         this.global = global;
         this.tab1Root = __WEBPACK_IMPORTED_MODULE_2__home_home__["a" /* HomePage */];
         this.tab2Root = __WEBPACK_IMPORTED_MODULE_3__search_search__["a" /* SearchPage */];
@@ -4572,6 +4553,11 @@ var TabsPage = /** @class */ (function () {
         this.tab4Root = __WEBPACK_IMPORTED_MODULE_5__favorites_favorites__["a" /* FavoritesPage */];
         this.tab5Root = __WEBPACK_IMPORTED_MODULE_6__account_account__["a" /* AccountPage */];
         this.cartCount = 0;
+        // let bacbutton = platform.registerBackButtonAction(() => {
+        //     let tabPrv = this.tabRef.previousTab(false);//Remember pass false
+        //     if (tabPrv) this.tabRef.select(tabPrv.index);//Here you go back to prv Tab
+        //     bacbutton();
+        //   },1)
         events.subscribe('cart:count', function (count) {
             _this.cartCount = count;
         });
@@ -4592,7 +4578,7 @@ var TabsPage = /** @class */ (function () {
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({template:/*ion-inline-start:"/Users/vinayaknair/Desktop/greeksourcecode/Greek-Delivery/Greek/src/pages/tabs/tabs.html"*/'<ion-tabs [selectedIndex]="0" #tabs>\n    <ion-tab [root]="tab1Root" tabTitle="" tabIcon="md-list-box" tabsHideOnSubPages="true"></ion-tab>\n    <ion-tab [root]="tab2Root" tabTitle="" tabIcon="md-search" tabsHideOnSubPages="true"></ion-tab>\n    <ion-tab [root]="tab3Root" tabTitle="{{cartCount}}" tabIcon="md-basket" tabsHideOnSubPages="true"></ion-tab>\n    <ion-tab [root]="tab4Root" tabTitle="" tabIcon="md-heart" tabsHideOnSubPages="true"></ion-tab>\n    <ion-tab [root]="tab5Root" tabTitle="" tabIcon="md-person" tabsHideOnSubPages="true"></ion-tab>\n</ion-tabs>\n'/*ion-inline-end:"/Users/vinayaknair/Desktop/greeksourcecode/Greek-Delivery/Greek/src/pages/tabs/tabs.html"*/,
             providers: [__WEBPACK_IMPORTED_MODULE_7__providers_global__["a" /* Global */]]
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["b" /* Events */], __WEBPACK_IMPORTED_MODULE_7__providers_global__["a" /* Global */]])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["b" /* Events */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* Platform */], __WEBPACK_IMPORTED_MODULE_7__providers_global__["a" /* Global */]])
     ], TabsPage);
     return TabsPage;
 }());
@@ -4601,7 +4587,7 @@ var TabsPage = /** @class */ (function () {
 
 /***/ }),
 
-/***/ 357:
+/***/ 356:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -4652,7 +4638,7 @@ var PaymentPage = /** @class */ (function () {
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return Global; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__models_cart_item_models__ = __webpack_require__(341);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__models_cart_item_models__ = __webpack_require__(340);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -4678,8 +4664,8 @@ var Global = /** @class */ (function () {
             }
         }
         if (pos != -1) {
-            if (this.cartItems[pos].quantity > 0.5) {
-                this.cartItems[pos].quantity = this.cartItems[pos].quantity - 0.5;
+            if (this.cartItems[pos].quantity > 1) {
+                this.cartItems[pos].quantity = this.cartItems[pos].quantity - 1;
             }
             else {
                 this.cartItems.splice(pos, 1);
@@ -4700,7 +4686,7 @@ var Global = /** @class */ (function () {
             }
         }
         if (pos != -1) {
-            this.cartItems[pos].quantity = this.cartItems[pos].quantity + 0.5;
+            this.cartItems[pos].quantity = this.cartItems[pos].quantity + 1;
             increment = true;
             window.localStorage.setItem('cartItems', JSON.stringify(this.cartItems));
         }
@@ -4718,7 +4704,7 @@ var Global = /** @class */ (function () {
             }
         }
         if (pos != -1) {
-            this.cartItems.splice(pos, 0.5);
+            this.cartItems.splice(pos, 1);
             window.localStorage.setItem('cartItems', JSON.stringify(this.cartItems));
             removed = true;
         }
@@ -4735,13 +4721,13 @@ var Global = /** @class */ (function () {
             }
         }
         if (pos != -1) {
-            this.cartItems[pos].quantity = this.cartItems[pos].quantity + 0.5;
+            this.cartItems[pos].quantity = this.cartItems[pos].quantity + 1;
         }
         else {
             var cartItem = new __WEBPACK_IMPORTED_MODULE_1__models_cart_item_models__["a" /* CartItem */]();
             cartItem.product = pro;
             cartItem.product_id = pro.id;
-            cartItem.quantity = 0.5;
+            cartItem.quantity = 1;
             this.cartItems.push(cartItem);
             added = true;
         }
@@ -4844,9 +4830,9 @@ var Global = /** @class */ (function () {
     };
     Global.prototype.checkSearchHistory = function () {
         if (this.searchHistory == null) {
-            var history = JSON.parse(window.localStorage.getItem('searchHistory'));
-            if (history != null) {
-                this.searchHistory = history;
+            var history_1 = JSON.parse(window.localStorage.getItem('searchHistory'));
+            if (history_1 != null) {
+                this.searchHistory = history_1;
             }
             else {
                 this.searchHistory = new Array();
@@ -4911,8 +4897,8 @@ var BaseAppConfig = {
     consumerSecret: "",
     adminUsername: "greekstoreadmin",
     adminPassword: "greekdelivery@123",
-    oneSignalAppId: "1eaf0b81-a060-4702-8b8e-2dd3e1884f35",
-    oneSignalGPSenderId: "104708265393",
+    oneSignalAppId: "bf19ee39-ba48-4160-9833-2fbdc26f81ce",
+    oneSignalGPSenderId: "1065673085835",
     paypalSandbox: "",
     paypalProduction: "",
     payuSalt: "",
@@ -4962,6 +4948,185 @@ var AuthCredential = /** @class */ (function () {
 /***/ }),
 
 /***/ 63:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return OrdersPage; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ordersdetail_ordersdetail__ = __webpack_require__(228);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__providers_wordpress_client_service__ = __webpack_require__(17);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__models_constants_models__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__models_order_update_request_models__ = __webpack_require__(229);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__node_modules_ngx_translate_core__ = __webpack_require__(12);
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+
+
+
+var OrdersPage = /** @class */ (function () {
+    function OrdersPage(translate, toastCtrl, navCtrl, service, loadingCtrl, alertCtrl) {
+        var _this = this;
+        this.translate = translate;
+        this.toastCtrl = toastCtrl;
+        this.navCtrl = navCtrl;
+        this.service = service;
+        this.loadingCtrl = loadingCtrl;
+        this.alertCtrl = alertCtrl;
+        this.loadingShown = false;
+        this.subscriptions = [];
+        this.orders = new Array();
+        this.pageNo = 1;
+        this.currencyIcon = '';
+        this.currencyText = '';
+        this.user = JSON.parse(window.localStorage.getItem(__WEBPACK_IMPORTED_MODULE_4__models_constants_models__["a" /* Constants */].USER_KEY));
+        this.translate.get('loading_orders').subscribe(function (value) {
+            _this.presentLoading(value);
+            _this.loadMyOrders();
+        });
+        // this.presentLoading('loading orders');
+        var currency = JSON.parse(window.localStorage.getItem(__WEBPACK_IMPORTED_MODULE_4__models_constants_models__["a" /* Constants */].CURRENCY));
+        if (currency) {
+            this.currencyText = currency.value;
+            var iconText = currency.options[currency.value];
+            this.currencyIcon = iconText.substring(iconText.indexOf('(') + 1, iconText.length - 1);
+        }
+    }
+    OrdersPage.prototype.loadMyOrders = function () {
+        var _this = this;
+        var subscription = this.service.myOrders(window.localStorage.getItem(__WEBPACK_IMPORTED_MODULE_4__models_constants_models__["a" /* Constants */].ADMIN_API_KEY), String(this.user.id), String(this.pageNo)).subscribe(function (data) {
+            for (var _i = 0, data_1 = data; _i < data_1.length; _i++) {
+                var order = data_1[_i];
+                order.status = order.status.charAt(0).toUpperCase() + order.status.substring(1);
+                order.total_html = _this.currencyIcon + ' ' + order.total;
+                for (var _a = 0, _b = order.line_items; _a < _b.length; _a++) {
+                    var line = _b[_a];
+                    line.price_html = _this.currencyIcon + ' ' + line.price;
+                }
+            }
+            _this.dismissLoading();
+            _this.orders = data;
+        }, function (err) {
+            _this.dismissLoading();
+        });
+        this.subscriptions.push(subscription);
+    };
+    OrdersPage.prototype.cancelOrder = function (order) {
+        var _this = this;
+        this.translate.get('cancelling_orders').subscribe(function (value) {
+            _this.presentLoading(value);
+        });
+        // this.presentLoading('Cancelling order');
+        var subscription = this.service.updateOrder(window.localStorage.getItem(__WEBPACK_IMPORTED_MODULE_4__models_constants_models__["a" /* Constants */].ADMIN_API_KEY), String(order.id), new __WEBPACK_IMPORTED_MODULE_5__models_order_update_request_models__["a" /* OrderUpdateRequest */]('cancelled')).subscribe(function (data) {
+            var orderRes = data;
+            order.status = 'cancelled';
+            order.status = order.status.charAt(0).toUpperCase() + order.status.substring(1);
+            /* for(let o of this.orders) {
+                console.log(String(o.id) == String(orderRes.id));
+                if(o.id == orderRes.id) {
+                    o = orderRes;
+                    console.log('here');
+                    this.orders = this.orders;
+                    break;
+                }
+            } */
+            _this.dismissLoading();
+            _this.translate.get('order_cancelled').subscribe(function (value) {
+                _this.showToast(value);
+            });
+            // this.showToast('Order cancelled');
+        }, function (err) {
+            console.log(err);
+        });
+        this.subscriptions.push(subscription);
+    };
+    OrdersPage.prototype.doInfinite = function (infiniteScroll) {
+        var _this = this;
+        this.pageNo++;
+        var subscription = this.service.myOrders(window.localStorage.getItem(__WEBPACK_IMPORTED_MODULE_4__models_constants_models__["a" /* Constants */].ADMIN_API_KEY), String(this.user.id), String(this.pageNo)).subscribe(function (data) {
+            var orders = data;
+            for (var _i = 0, data_2 = data; _i < data_2.length; _i++) {
+                var order = data_2[_i];
+                order.status = order.status.charAt(0).toUpperCase() + order.status.substring(1);
+                order.total_html = _this.currencyIcon + ' ' + order.total;
+                for (var _a = 0, _b = order.line_items; _a < _b.length; _a++) {
+                    var line = _b[_a];
+                    line.price_html = _this.currencyIcon + ' ' + line.price;
+                }
+            }
+            infiniteScroll.complete();
+        }, function (err) {
+            infiniteScroll.complete();
+            console.log(err);
+        });
+        this.subscriptions.push(subscription);
+    };
+    OrdersPage.prototype.presentLoading = function (message) {
+        this.loading = this.loadingCtrl.create({
+            content: message
+        });
+        this.loading.onDidDismiss(function () { });
+        this.loading.present();
+        this.loadingShown = true;
+    };
+    OrdersPage.prototype.dismissLoading = function () {
+        if (this.loadingShown) {
+            this.loadingShown = false;
+            this.loading.dismiss();
+        }
+    };
+    OrdersPage.prototype.presentErrorAlert = function (msg) {
+        var _this = this;
+        this.translate.get(['error', 'dismiss'])
+            .subscribe(function (text) {
+            var alert = _this.alertCtrl.create({
+                title: text['error'],
+                subTitle: msg,
+                buttons: [text['dismiss']]
+            });
+            alert.present();
+        });
+    };
+    OrdersPage.prototype.showToast = function (message) {
+        var toast = this.toastCtrl.create({
+            message: message,
+            duration: 3000,
+            position: 'bottom'
+        });
+        toast.onDidDismiss(function () {
+            console.log('Dismissed toast');
+        });
+        toast.present();
+    };
+    OrdersPage.prototype.orderDetail = function (order) {
+        this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_2__ordersdetail_ordersdetail__["a" /* OrdersdetailPage */], { order: order });
+    };
+    OrdersPage = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
+            selector: 'page-orders',template:/*ion-inline-start:"/Users/vinayaknair/Desktop/greeksourcecode/Greek-Delivery/Greek/src/pages/orders/orders.html"*/'<ion-header>\n\n    <ion-navbar>\n\n        <ion-title>{{\'my_orders\' | translate}}</ion-title>\n\n    </ion-navbar>\n\n</ion-header>\n\n\n\n<ion-content class="bg-light">\n\n    <!-- <p padding-left>Pending Orders</p> -->\n\n    <ion-list  no-lines>\n\n        <ion-item *ngFor="let order of orders" class="preparing" (click)="orderDetail(order)">\n\n            <ion-avatar item-start>\n\n                <!-- <ion-icon name="md-restaurant"></ion-icon> -->\n\n            </ion-avatar>\n\n            <h2>{{\'order\'}} #{{order.id}}\n\n                <small>{{\'view\' | translate}} {{order.line_items.length}} {{\'items\' | translate}}</small>\n\n            </h2>\n\n            <p>{{order.status}}\n\n                <small>{{order.date_created}}</small>\n\n            </p>\n\n        </ion-item>\n\n        <!-- <ion-item class="preparing" >\n\n            <ion-avatar item-start>\n\n                <ion-icon name="md-restaurant"></ion-icon>\n\n            </ion-avatar>\n\n            <h2>Order #24565\n\n                <small>View 3 items</small>\n\n            </h2>\n\n            <p>Confirmed\n\n                <small>11/23/45</small>\n\n            </p>\n\n        </ion-item> -->\n\n    </ion-list>\n\n    <ion-infinite-scroll (ionInfinite)="doInfinite($event)">\n\n        <ion-infinite-scroll-content></ion-infinite-scroll-content>\n\n    </ion-infinite-scroll>\n\n\n\n    <div *ngIf="!orders || !orders.length" class="empty">\n\n        <div>\n\n            <img src="assets/imgs/empty.png">\n\n            <p>{{\'empty_orders\' | translate}}!</p>\n\n        </div>\n\n    </div>\n\n\n\n</ion-content>'/*ion-inline-end:"/Users/vinayaknair/Desktop/greeksourcecode/Greek-Delivery/Greek/src/pages/orders/orders.html"*/,
+            providers: [__WEBPACK_IMPORTED_MODULE_3__providers_wordpress_client_service__["a" /* WordpressClient */]]
+        }),
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_6__node_modules_ngx_translate_core__["c" /* TranslateService */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["o" /* ToastController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavController */], __WEBPACK_IMPORTED_MODULE_3__providers_wordpress_client_service__["a" /* WordpressClient */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* LoadingController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */]])
+    ], OrdersPage);
+    return OrdersPage;
+}());
+
+//# sourceMappingURL=orders.js.map
+
+/***/ }),
+
+/***/ 64:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -5104,13 +5269,13 @@ var ItemsinfoPage = /** @class */ (function () {
     ItemsinfoPage.prototype.decrementItem = function (pro) {
         var decremented = this.global.decrementCartItem(pro);
         if (decremented) {
-            pro.quantity = pro.quantity - 0.5;
+            pro.quantity = pro.quantity - 1;
             this.calculateTotal();
         }
     };
     ItemsinfoPage.prototype.incrementItem = function (pro) {
         this.global.addCartItem(pro);
-        pro.quantity = pro.quantity + 0.5;
+        pro.quantity = pro.quantity + 1;
         this.calculateTotal();
     };
     ItemsinfoPage.prototype.calculateTotal = function () {
@@ -5155,217 +5320,18 @@ var ItemsinfoPage = /** @class */ (function () {
     };
     ItemsinfoPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
-            selector: 'page-itemsinfo',template:/*ion-inline-start:"/Users/vinayaknair/Desktop/greeksourcecode/Greek-Delivery/Greek/src/pages/itemsinfo/itemsinfo.html"*/'<ion-header class="">\n\n    <ion-navbar>\n\n        <ion-title text-start>\n\n            <ion-icon *ngIf="!favorite" name="md-heart" item-end (click)="toggleFavorite()"></ion-icon>\n\n            <ion-icon class="text-red" *ngIf="favorite" name="md-heart" item-end (click)="toggleFavorite()"></ion-icon>\n\n        </ion-title>\n\n    </ion-navbar>\n\n</ion-header>\n\n\n\n\n\n<ion-content  >\n\n    <div text-center style="margin-top: 44px">\n\n        <img *ngIf="pro.images && pro.images.length" style="max-height: 20vh" data-src="{{pro.images[0].src}}">\n\n        <img *ngIf="pro.images == null || pro.images.length == 0" style="max-height: 30vh" src="assets/imgs/img_3.png">\n\n    </div>\n\n    <div class="text" padding>\n\n        <h1>{{pro.name}}\n\n        </h1>\n\n        <ion-row *ngIf="pro.type == \'simple\'" class="add-remove">\n\n            <ion-col col-6 class="text-green">\n\n                <p [innerHTML]="pro.price_html"></p>\n\n            </ion-col>\n\n            <ion-col col-6 >\n\n                <ion-icon name="md-remove-circle" class="text-green" (click)="decrement()"></ion-icon>\n\n                <span>{{quantity}}</span>\n\n                <ion-icon name="md-add-circle" class="text-green" (click)="increment()"></ion-icon>\n\n            </ion-col>\n\n        </ion-row>\n\n        <!-- Variations start -->\n\n        <ion-list *ngIf="productVariations && productVariations.length" no-lince>\n\n            <ion-item *ngFor="let item of productVariations" class="your-items">\n\n                <ion-avatar item-start>\n\n                    <img  src="{{item.image.src}}">\n\n                    <img *ngIf="!item.image.src" src="assets/imgs/img_3.png">\n\n                </ion-avatar>\n\n                <h2 style="white-space: initial;">{{item.name}}</h2>\n\n                \n\n                <ion-row>\n\n                    <ion-col col-6>\n\n                        <ion-icon name="md-remove-circle" class="text-green" (click)="decrementItem(item)"></ion-icon>\n\n                        <span>{{item.quantity}}kg</span>\n\n                        <ion-icon name="md-add-circle" style="padding-left:15px;" class="text-green" (click)="incrementItem(item)"></ion-icon>\n\n                    </ion-col>\n\n                    <ion-col col-6 class="text-green" text-right>\n\n                        <p style="text-decoration: line-through;" [innerHTML]="item.regular_price_html"></p>\n\n                        <p style="color: #33bcf7;"  [innerHTML]="item.sale_price_html"></p><p>/kg</p>\n\n                    </ion-col>\n\n                </ion-row>\n\n            </ion-item>\n\n        </ion-list>\n\n       \n\n        <!-- Variations end -->\n\n     \n\n    </div>\n\n\n\n    <div style="position:sticky;" class="fixed-bottom">\n\n        <button ion-button full class="btn btn-green" (click)="goToCart()">\n\n          <span item-start>{{cartSize}} {{\'items\' | translate}} | {{cartTotal}}</span>\n\n          <strong item-end> {{\'items\' | translate}}\n\n              <ion-icon name="md-basket"></ion-icon>\n\n          </strong>\n\n        </button>\n\n    </div>\n\n</ion-content>\n\n'/*ion-inline-end:"/Users/vinayaknair/Desktop/greeksourcecode/Greek-Delivery/Greek/src/pages/itemsinfo/itemsinfo.html"*/,
+            selector: 'page-itemsinfo',template:/*ion-inline-start:"/Users/vinayaknair/Desktop/greeksourcecode/Greek-Delivery/Greek/src/pages/itemsinfo/itemsinfo.html"*/'<ion-header class="">\n\n    <ion-navbar>\n\n        <ion-title text-start>\n\n            <ion-icon *ngIf="!favorite" name="md-heart" item-end (click)="toggleFavorite()"></ion-icon>\n\n            <ion-icon class="text-red" *ngIf="favorite" name="md-heart" item-end (click)="toggleFavorite()"></ion-icon>\n\n        </ion-title>\n\n    </ion-navbar>\n\n</ion-header>\n\n\n\n\n\n<ion-content noscroll >\n\n    <div text-center style="margin-top: 44px">\n\n        <img *ngIf="pro.images && pro.images.length" style="max-height: 20vh" data-src="{{pro.images[0].src}}">\n\n        <img *ngIf="pro.images == null || pro.images.length == 0" style="max-height: 30vh" src="assets/imgs/img_3.png">\n\n    </div>\n\n    <div class="text" padding>\n\n        <h1>{{pro.name}}\n\n        </h1>\n\n        <ion-row *ngIf="pro.type == \'simple\'" class="add-remove">\n\n            <ion-col col-6 class="text-green">\n\n                <p [innerHTML]="pro.price_html"></p>\n\n            </ion-col>\n\n            <ion-col col-6 >\n\n                <ion-icon name="md-remove-circle" class="text-green" (click)="decrement()"></ion-icon>\n\n                <span>{{quantity}}</span>\n\n                <ion-icon name="md-add-circle" class="text-green" (click)="increment()"></ion-icon>\n\n            </ion-col>\n\n        </ion-row>\n\n        <!-- Variations start -->\n\n        <ion-list class="listitems" *ngIf="productVariations && productVariations.length" no-lince>\n\n            <ion-item *ngFor="let item of productVariations" class="your-items">\n\n                <ion-avatar item-start>\n\n                    <img  src="{{item.image.src}}">\n\n                    <img *ngIf="!item.image.src" src="assets/imgs/img_3.png">\n\n                </ion-avatar>\n\n                <h2 style="white-space: initial;">{{item.name}}</h2>\n\n                \n\n                <ion-row>\n\n                    <ion-col col-6>\n\n                        <ion-icon name="md-remove-circle" class="text-green" (click)="decrementItem(item)"></ion-icon>\n\n                        <span>{{item.quantity}}kg</span>\n\n                        <ion-icon name="md-add-circle" style="padding-left:15px;" class="text-green" (click)="incrementItem(item)"></ion-icon>\n\n                    </ion-col>\n\n                    <ion-col col-6 class="text-green" text-right>\n\n                        <p style="text-decoration: line-through;" [innerHTML]="item.regular_price_html"></p>\n\n                        <p style="color: #33bcf7;"  [innerHTML]="item.sale_price_html"></p><p>/kg</p>\n\n                    </ion-col>\n\n                </ion-row>\n\n            </ion-item>\n\n        </ion-list>\n\n       \n\n        <!-- Variations end -->\n\n     \n\n    </div>\n\n\n\n    <div  class="fixed-bottom">\n\n        <button ion-button full class="btn btn-green" (click)="goToCart()">\n\n          <span item-start>{{cartSize}} {{\'items\' | translate}} | {{cartTotal}}</span>\n\n          <strong item-end> {{\'items\' | translate}}\n\n              <ion-icon name="md-basket"></ion-icon>\n\n          </strong>\n\n        </button>\n\n    </div>\n\n</ion-content>\n\n'/*ion-inline-end:"/Users/vinayaknair/Desktop/greeksourcecode/Greek-Delivery/Greek/src/pages/itemsinfo/itemsinfo.html"*/,
             providers: [__WEBPACK_IMPORTED_MODULE_2__providers_global__["a" /* Global */], __WEBPACK_IMPORTED_MODULE_3__providers_wordpress_client_service__["a" /* WordpressClient */]]
         }),
-        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_3__providers_wordpress_client_service__["a" /* WordpressClient */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__providers_wordpress_client_service__["a" /* WordpressClient */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["b" /* Events */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["b" /* Events */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavController */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["o" /* ToastController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["o" /* ToastController */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* LoadingController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* LoadingController */]) === "function" && _e || Object, typeof (_f = typeof __WEBPACK_IMPORTED_MODULE_2__providers_global__["a" /* Global */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__providers_global__["a" /* Global */]) === "function" && _f || Object, typeof (_g = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* NavParams */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* NavParams */]) === "function" && _g || Object, typeof (_h = typeof __WEBPACK_IMPORTED_MODULE_5__node_modules_ngx_translate_core__["c" /* TranslateService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_5__node_modules_ngx_translate_core__["c" /* TranslateService */]) === "function" && _h || Object])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_3__providers_wordpress_client_service__["a" /* WordpressClient */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["b" /* Events */],
+            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["o" /* ToastController */],
+            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* LoadingController */], __WEBPACK_IMPORTED_MODULE_2__providers_global__["a" /* Global */],
+            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["k" /* NavParams */], __WEBPACK_IMPORTED_MODULE_5__node_modules_ngx_translate_core__["c" /* TranslateService */]])
     ], ItemsinfoPage);
     return ItemsinfoPage;
-    var _a, _b, _c, _d, _e, _f, _g, _h;
 }());
 
 //# sourceMappingURL=itemsinfo.js.map
-
-/***/ }),
-
-/***/ 64:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return CartPage; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(5);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__conaddress_conaddress__ = __webpack_require__(233);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__providers_global__ = __webpack_require__(36);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__models_constants_models__ = __webpack_require__(11);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__code_code__ = __webpack_require__(239);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__node_modules_ngx_translate_core__ = __webpack_require__(12);
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-
-
-
-
-
-
-
-var CartPage = /** @class */ (function () {
-    function CartPage(modalCtrl, translateService, events, alertCtrl, platform, global, navCtrl, toastCtrl) {
-        var _this = this;
-        this.modalCtrl = modalCtrl;
-        this.translateService = translateService;
-        this.events = events;
-        this.alertCtrl = alertCtrl;
-        this.platform = platform;
-        this.global = global;
-        this.navCtrl = navCtrl;
-        this.toastCtrl = toastCtrl;
-        this.cartItems = new Array();
-        this.discount = 0;
-        this.couponAmount = '0';
-        this.total = 0;
-        this.total_items = 0;
-        this.total_items_html = '0';
-        this.total_html = '0';
-        this.currencyIcon = '';
-        this.currencyText = '';
-        {
-            platform.ready().then(function () {
-                platform.registerBackButtonAction(function () {
-                    _this.makeExitAlert();
-                });
-            });
-        }
-        var currency = JSON.parse(window.localStorage.getItem(__WEBPACK_IMPORTED_MODULE_4__models_constants_models__["a" /* Constants */].CURRENCY));
-        if (currency) {
-            this.currencyText = currency.value;
-            var iconText = currency.options[currency.value];
-            this.currencyIcon = iconText.substring(iconText.indexOf('(') + 1, iconText.length - 1);
-        }
-        this.discount_html = this.currencyIcon + this.discount;
-        window.localStorage.removeItem(__WEBPACK_IMPORTED_MODULE_4__models_constants_models__["a" /* Constants */].SELECTED_COUPON);
-    }
-    CartPage.prototype.ionViewDidEnter = function () {
-        this.global.refreshCartItems();
-        this.cartItems = this.global.getCartItems();
-        this.calculateTotal();
-    };
-    CartPage.prototype.removeItem = function (product) {
-        this.global.removeCartItem(product);
-        this.cartItems = this.global.getCartItems();
-        this.calculateTotal();
-    };
-    CartPage.prototype.decrementItem = function (product) {
-        var decremented = this.global.decrementCartItem(product);
-        this.cartItems = this.global.getCartItems();
-        this.calculateTotal();
-    };
-    CartPage.prototype.incrementItem = function (product) {
-        var incremented = this.global.incrementCartItem(product);
-        if (incremented) {
-            this.total = this.total + Number(product.sale_price);
-            window.localStorage.setItem('changed', 'changed');
-        }
-        this.cartItems = this.global.getCartItems();
-        this.calculateTotal();
-    };
-    CartPage.prototype.makeExitAlert = function () {
-        var _this = this;
-        var alert = this.alertCtrl.create({
-            title: '',
-            message: 'Do you want to close the app?',
-            buttons: [{
-                    text: 'Cancel',
-                    role: 'cancel'
-                }, {
-                    text: 'Close App',
-                    handler: function () {
-                        _this.platform.exitApp(); // Close this application
-                    }
-                }]
-        });
-        alert.present();
-    };
-    CartPage.prototype.calculateTotal = function () {
-        window.localStorage.setItem('changed', 'changed');
-        var sum = 0;
-        for (var _i = 0, _a = this.cartItems; _i < _a.length; _i++) {
-            var item = _a[_i];
-            sum = sum + Number(item.product.sale_price) * item.quantity;
-        }
-        this.total_items = sum;
-        this.total = (sum - (this.coupon ? this.coupon.discount_type == 'percent' ? (sum * Number(this.coupon.amount) / 100) : Number(this.coupon.amount) : 0));
-        this.total_items_html = this.currencyIcon + ' ' + this.total_items;
-        this.total_html = this.currencyIcon + ' ' + this.total;
-        this.events.publish('cart:count', this.cartItems.length);
-        if (!this.cartItems || !this.cartItems.length) {
-            this.checkoutText = 'Cart is empty';
-        }
-        else {
-            this.checkoutText = 'Proceed to confirm order';
-        }
-    };
-    CartPage.prototype.showToast = function (message) {
-        var toast = this.toastCtrl.create({
-            message: message,
-            duration: 3000,
-            position: 'bottom'
-        });
-        toast.onDidDismiss(function () {
-            console.log('Dismissed toast');
-        });
-        toast.present();
-    };
-    CartPage.prototype.proceedCheckout = function () {
-        if (this.cartItems != null && this.cartItems.length > 0) {
-            var user = JSON.parse(window.localStorage.getItem(__WEBPACK_IMPORTED_MODULE_4__models_constants_models__["a" /* Constants */].USER_KEY));
-            if (user != null) {
-                if (!this.coupon) {
-                    window.localStorage.removeItem(__WEBPACK_IMPORTED_MODULE_4__models_constants_models__["a" /* Constants */].SELECTED_COUPON);
-                }
-                this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_2__conaddress_conaddress__["a" /* ConaddressPage */], { cart: this.cartItems, totalItems: this.total_items, total: this.total });
-            }
-            else {
-                this.events.publish('tab:index', 0);
-                this.events.publish('go:to', 'auth');
-            }
-        }
-    };
-    CartPage.prototype.codePage = function () {
-        var _this = this;
-        var modal = this.modalCtrl.create(__WEBPACK_IMPORTED_MODULE_5__code_code__["a" /* CodePage */]);
-        modal.onDidDismiss(function () {
-            var coupon = JSON.parse(window.localStorage.getItem(__WEBPACK_IMPORTED_MODULE_4__models_constants_models__["a" /* Constants */].SELECTED_COUPON));
-            if (coupon) {
-                if (coupon.discount_type == 'fixed_product') {
-                    var allowed = false;
-                    for (var _i = 0, _a = coupon.product_ids; _i < _a.length; _i++) {
-                        var itemCA = _a[_i];
-                        for (var _b = 0, _c = _this.cartItems; _b < _c.length; _b++) {
-                            var item = _c[_b];
-                            if (itemCA == Number(item.product_id)) {
-                                allowed = true;
-                                break;
-                            }
-                        }
-                        if (allowed) {
-                            break;
-                        }
-                    }
-                    if (allowed) {
-                        _this.coupon = coupon;
-                        _this.couponAmount = _this.currencyIcon + ' ' + _this.coupon.amount + (_this.coupon.discount_type == 'percent' ? '%' : '');
-                        _this.calculateTotal();
-                    }
-                }
-                else {
-                    _this.coupon = coupon;
-                    _this.couponAmount = _this.currencyIcon + ' ' + _this.coupon.amount + (_this.coupon.discount_type == 'percent' ? '%' : '');
-                    _this.calculateTotal();
-                }
-            }
-        });
-        modal.present();
-    };
-    CartPage = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
-            selector: 'page-cart',template:/*ion-inline-start:"/Users/vinayaknair/Desktop/greeksourcecode/Greek-Delivery/Greek/src/pages/cart/cart.html"*/'<ion-header>\n\n  <ion-navbar>\n\n    <ion-title>{{\'cart_title\' | translate}}</ion-title>\n\n  </ion-navbar>\n\n</ion-header>\n\n\n\n<ion-content class="bg-light">\n\n  <div *ngIf="!cartItems || !cartItems.length" class="empty">\n\n    <div>\n\n      <img src="assets/imgs/empty.png">\n\n      <p>{{\'no_items\' | translate}}!</p>\n\n    </div>\n\n  </div>\n\n  <ion-list *ngIf="cartItems && cartItems.length" no-lince>\n\n    <ion-item *ngFor="let item of cartItems">\n\n      <ion-avatar item-start>\n\n        <img *ngIf="item.product.images && item.product.images.length" data-src="{{item.product.images[0].src}}">\n\n        <img *ngIf="item.product.images == null || item.product.images.length == 0" src="assets/imgs/img_2.png">\n\n      </ion-avatar>\n\n      <h2>{{item.product.name}}</h2>\n\n      <p>{{item.product.categories[0].name}}</p>\n\n      <ion-row>\n\n        <ion-col col-6>\n\n          <ion-icon name="md-remove-circle" class="text-green" (click)="decrementItem(item.product)"></ion-icon>\n\n          <span>{{item.quantity}}kg</span>\n\n          <ion-icon name="md-add-circle" style="padding-left:15px;" class="text-green" (click)="incrementItem(item.product)"></ion-icon>\n\n        </ion-col>\n\n        <ion-col col-6 class="text-green" text-right>\n\n          <p [innerHTML]="item.product.sale_price_html"></p>\n\n        </ion-col>\n\n      </ion-row>\n\n    </ion-item>\n\n  </ion-list>\n\n  <ion-card class="fixed-bottom">\n\n    <p>{{\'total\' | translate}}\n\n      <strong [innerHTML]="total_items_html"></strong>\n\n    </p>\n\n    <p>{{\'dlvr_charge\' | translate}}\n\n      <strong [innerHTML]="discount_html"></strong>\n\n    </p>\n\n    <p *ngIf="!coupon" class="text-green" (click)="codePage()">\n\n      {{\'have_promo\' | translate}}?\n\n    </p>\n\n    <p *ngIf="coupon">{{\'coupon\' | translate}}({{coupon.code}}) {{\'have_promo\' | translate}}\n\n      <strong [innerHTML]="couponAmount"></strong>\n\n      <ion-icon name="md-close" class="cross" (click)="removeCoupon()"></ion-icon>\n\n    </p>\n\n    <button ion-button full class="btn btn-green" (click)="proceedCheckout()">\n\n      <span item-start>{{checkoutText | translate}}</span>\n\n      <span item-end>\n\n        <strong [innerHTML]="total_html"></strong>\n\n      </span>\n\n    </button>\n\n  </ion-card>\n\n</ion-content>'/*ion-inline-end:"/Users/vinayaknair/Desktop/greeksourcecode/Greek-Delivery/Greek/src/pages/cart/cart.html"*/,
-            providers: [__WEBPACK_IMPORTED_MODULE_3__providers_global__["a" /* Global */]]
-        }),
-        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* ModalController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* ModalController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_6__node_modules_ngx_translate_core__["c" /* TranslateService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_6__node_modules_ngx_translate_core__["c" /* TranslateService */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["b" /* Events */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["b" /* Events */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* Platform */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["l" /* Platform */]) === "function" && _e || Object, typeof (_f = typeof __WEBPACK_IMPORTED_MODULE_3__providers_global__["a" /* Global */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__providers_global__["a" /* Global */]) === "function" && _f || Object, typeof (_g = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["j" /* NavController */]) === "function" && _g || Object, typeof (_h = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["o" /* ToastController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["o" /* ToastController */]) === "function" && _h || Object])
-    ], CartPage);
-    return CartPage;
-    var _a, _b, _c, _d, _e, _f, _g, _h;
-}());
-
-//# sourceMappingURL=cart.js.map
 
 /***/ }),
 
@@ -5390,5 +5356,5 @@ var RegisterRequest = /** @class */ (function () {
 
 /***/ })
 
-},[259]);
+},[258]);
 //# sourceMappingURL=main.js.map

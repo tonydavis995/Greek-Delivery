@@ -83,6 +83,14 @@
             {
               "xml": "<feature name=\"FirebasePlugin\"><param name=\"android-package\" value=\"org.apache.cordova.firebase.FirebasePlugin\" /><param name=\"onload\" value=\"true\" /></feature>",
               "count": 1
+            },
+            {
+              "xml": "<feature name=\"CallNumber\"><param name=\"android-package\" value=\"mx.ferreyra.callnumber.CFCallNumber\" /></feature>",
+              "count": 1
+            },
+            {
+              "xml": "<feature name=\"EmailComposer\"><param name=\"android-package\" value=\"de.appplant.cordova.emailcomposer.EmailComposer\" /></feature>",
+              "count": 1
             }
           ]
         }
@@ -110,6 +118,14 @@
             },
             {
               "xml": "<uses-permission android:name=\"android.permission.WAKE_LOCK\" />",
+              "count": 1
+            },
+            {
+              "xml": "<uses-permission android:name=\"android.permission.CALL_PHONE\" />",
+              "count": 1
+            },
+            {
+              "xml": "<uses-feature android:name=\"android.hardware.telephony\" android:required=\"false\" />",
               "count": 1
             }
           ],
@@ -162,7 +178,7 @@
             },
             {
               "xml": "<uses-permission android:name=\"android.permission.GET_ACCOUNTS\" />",
-              "count": 1
+              "count": 2
             },
             {
               "xml": "<uses-permission android:name=\"android.permission.USE_CREDENTIALS\" />",
@@ -276,6 +292,12 @@
       "PACKAGE_NAME": "com.reffera.greekdelivery"
     },
     "cordova-plugin-firebase": {
+      "PACKAGE_NAME": "com.reffera.greekdelivery"
+    },
+    "mx.ferreyra.callnumber": {
+      "PACKAGE_NAME": "com.reffera.greekdelivery"
+    },
+    "cordova-plugin-email-composer": {
       "PACKAGE_NAME": "com.reffera.greekdelivery"
     }
   },
@@ -399,6 +421,23 @@
       "clobbers": [
         "FirebasePlugin"
       ]
+    },
+    {
+      "id": "mx.ferreyra.callnumber.CallNumber",
+      "file": "plugins/mx.ferreyra.callnumber/www/CallNumber.js",
+      "pluginId": "mx.ferreyra.callnumber",
+      "clobbers": [
+        "call"
+      ]
+    },
+    {
+      "id": "cordova-plugin-email-composer.EmailComposer",
+      "file": "plugins/cordova-plugin-email-composer/www/email_composer.js",
+      "pluginId": "cordova-plugin-email-composer",
+      "clobbers": [
+        "cordova.plugins.email",
+        "plugin.email"
+      ]
     }
   ],
   "plugin_metadata": {
@@ -417,6 +456,8 @@
     "card.io.cordova.mobilesdk": "2.1.0",
     "com.paypal.cordova.mobilesdk": "3.5.0",
     "cordova-plugin-googleplus": "7.0.1",
-    "cordova-plugin-firebase": "2.0.5"
+    "cordova-plugin-firebase": "2.0.5",
+    "mx.ferreyra.callnumber": "0.0.2",
+    "cordova-plugin-email-composer": "0.8.5"
   }
 }

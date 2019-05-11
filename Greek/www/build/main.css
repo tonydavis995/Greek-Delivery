@@ -26145,8 +26145,7 @@ page-addaddress .list .item {
 }
 
 page-addaddress .fixed-bottom {
-  position: -webkit-sticky;
-  position: sticky;
+  position: relative;
   bottom: 0;
   width: 100%;
 }
@@ -26193,10 +26192,6 @@ page-address .list .item .label h2 ion-icon {
 page-address .list .item .label p {
   font-size: 1.47rem;
   line-height: 22px;
-}
-
-page-cart .list {
-  margin-bottom: 177px;
 }
 
 page-cart .list .item {
@@ -26282,6 +26277,11 @@ page-cart .list .item .item-inner .row .col span {
   text-align: center;
   position: relative;
   top: -1px;
+}
+
+page-cart .fixed-bottom {
+  position: -webkit-sticky;
+  position: sticky;
 }
 
 page-cart .fixed-bottom.card {
@@ -27276,6 +27276,15 @@ page-itemsinfo .row .col span {
   top: -4px;
   display: inline-block;
   text-align: center;
+}
+
+page-itemsinfo .fixed-bottom {
+  position: -webkit-sticky !important;
+  position: sticky !important;
+}
+
+page-itemsinfo .listitems {
+  min-height: 50%;
 }
 
 page-itemsinfo .no-scroll div.scroll-content {

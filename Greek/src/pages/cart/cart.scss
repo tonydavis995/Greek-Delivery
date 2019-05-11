@@ -1,6 +1,6 @@
 page-cart {
     .list {
-        margin-bottom: 177px;
+        
         .item {
             padding: 16px;
             border-bottom: 1px solid #dedede;
@@ -70,6 +70,7 @@ page-cart {
         }
     }
     .fixed-bottom {
+        position: sticky;
         &.card {
             box-shadow: 0 -12px 54px 0px rgba(204, 204, 204, 0.32);
             width: 100%;

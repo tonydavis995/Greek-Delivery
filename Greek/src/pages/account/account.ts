@@ -55,7 +55,7 @@ export class AccountPage {
   }
 
   shareApp() {
-    this.socialSharing.share('Hey, I found this delivery app.', null, null, 'https://play.google.com/store/apps/details?id=com.techlytx.greekdelivery')
+    this.socialSharing.share('Hey, I found this cool fish delivery app.', null, null, 'https://play.google.com/store/apps/details?id=com.reffera.greekdelivery')
     .then((res) => {
       console.log("Shared");
     }).catch((err) => {

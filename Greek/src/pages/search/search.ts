@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import { IonicPage, Platform, NavController, NavParams, ViewController, ModalController, ToastController, LoadingController, AlertController } from 'ionic-angular';
+import { IonicPage, Platform, NavController,Events, NavParams, ViewController, ModalController, ToastController, LoadingController, AlertController } from 'ionic-angular';
 import { ItemsinfoPage } from '../itemsinfo/itemsinfo';
+import { TabsPage } from '../tabs/tabs';
 import { Global } from '../../providers/global';
 import { WordpressClient } from '../../providers/wordpress-client.service';
 import { Subscription } from '../../../node_modules/rxjs/Subscription';
@@ -23,13 +24,13 @@ export class SearchPage {
   private productsAllPage: number = 1;
   private queryHistory = new Array<string>();
   private cantScroll:Boolean=false;
-  constructor(public translate:TranslateService,private navParams: NavParams, public platform: Platform, public modalCtrl: ModalController, private toastCtrl: ToastController, public navCtrl: NavController, private service: WordpressClient, private global: Global, private loadingCtrl: LoadingController, private alertCtrl: AlertController) {
+  constructor(public translate:TranslateService,private events: Events,private navParams: NavParams, public platform: Platform, public modalCtrl: ModalController, private toastCtrl: ToastController, public navCtrl: NavController, private service: WordpressClient, private global: Global, private loadingCtrl: LoadingController, private alertCtrl: AlertController) {
     {
-      platform.ready().then(() => {
-        platform.registerBackButtonAction(() => {
-         this.makeExitAlert();
-        });
-      });
+      //   let bacbutton = platform.registerBackButtonAction(() => {
+      //     this.navCtrl.setRoot(TabsPage);
+      //     bacbutton();
+        
+      // },2)
     }
   }
 
@@ -102,22 +103,9 @@ export class SearchPage {
     });
     this.subscriptions.push(subscription);
   }
-  makeExitAlert(){
-    const alert = this.alertCtrl.create({
-      title: '',
-      message: 'Do you want to close the app?',
-      buttons: [{
-          text: 'Cancel',
-          role: 'cancel'
-      },{
-          text: 'Close App',
-          handler: () => {
-              this.platform.exitApp(); // Close this application
-          }
-      }]
-    });
-    alert.present();
-  }
+  // makeExitAlert(){
+  //   this.navCtrl.setRoot(HomePage);
+  // }
 
 
   itemdetailPage(pro) {

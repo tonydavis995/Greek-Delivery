@@ -45,6 +45,7 @@ export class HomePage {
    
     // this.navCtrl.push(SigninPage);
     // this.presentErrorAlert("Hello");
+    
     this.appTitle = config.appName;
     let categories: Array<Category> = JSON.parse(window.localStorage.getItem(Constants.PRODUCT_CATEGORIES));
     let cats = new Array<Category>();
@@ -177,14 +178,8 @@ export class HomePage {
     let countDownHour = new Date("Jun 7, 2019 22:00:00").getHours();
     let countDownMin = new Date("Jun 7, 2019 22:00:00").getMinutes();
     let countDownSec = new Date("Jun 7, 2019 22:00:00").getSeconds();
-    var cD = 0;
-    if(countDownHour > 12) {
-      cD = countDownHour - 12;
-
-    } else {
-      cD = countDownHour;
-    }
-    let countvalue = Math.floor((cD*60*60)+(countDownMin*60)+(countDownSec))
+ 
+    let countvalue = Math.floor((countDownHour*60*60)+(countDownMin*60)+(countDownSec))
    
     
 
@@ -195,14 +190,8 @@ export class HomePage {
       let nowD = new Date().getHours();
       let nowM = new Date().getMinutes();
       let nowS = new Date().getSeconds();
-      var nD = 0;
-      if(nowD > 12) {
-      nD = nowD - 12;
-
-      } else {
-      nD = nowD;
-     }
-      var nowvalue = Math.floor((nD*60*60)+(nowM*60)+(nowS))
+   
+      var nowvalue = Math.floor((nowD*60*60)+(nowM*60)+(nowS))
 
       // Find the distance between now and the count down date
     

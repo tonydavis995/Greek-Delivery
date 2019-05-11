@@ -54,6 +54,12 @@
     },
     "cordova-plugin-firebase": {
       "PACKAGE_NAME": "com.reffera.greekdelivery"
+    },
+    "mx.ferreyra.callnumber": {
+      "PACKAGE_NAME": "com.reffera.greekdelivery"
+    },
+    "cordova-plugin-email-composer": {
+      "PACKAGE_NAME": "com.reffera.greekdelivery"
     }
   },
   "dependent_plugins": {

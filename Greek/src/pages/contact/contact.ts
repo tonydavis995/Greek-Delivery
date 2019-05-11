@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { CallNumber } from '../../../node_modules/@ionic-native/call-number';
-import { EmailComposer } from '../../../node_modules/@ionic-native/email-composer';
 
 /**
  * Generated class for the ContactPage page.
@@ -15,32 +14,19 @@ import { EmailComposer } from '../../../node_modules/@ionic-native/email-compose
   templateUrl: 'contact.html',
 })
 export class ContactPage {
-  latitude:number = 28.634418;
-	longitude:number = 77.219184;
+  latitude:number = 9.896735;
+	longitude:number = 76.707022;
 
-  constructor(private emailComposer: EmailComposer, private callNumber: CallNumber, public navCtrl: NavController, public navParams: NavParams) {
+  constructor( private callNumber: CallNumber, public navCtrl: NavController, public navParams: NavParams) {
   }
 
   dial() {
-    this.callNumber.callNumber("+19876543210", true)
+    this.callNumber.callNumber("+917012800595", true)
       .then(res => console.log('Launched dialer!', res))
       .catch(err => console.log('Error launching dialer', err));
   }
 
-  mail() {
-    this.emailComposer.isAvailable().then((available: boolean) => {
-      if (available) {
-        let email = {
-          to: 'thomas@greekdelivery.in',
-          subject: 'Contact Greek',
-          body: '',
-          isHtml: true
-        };
-        // Send a text message using default options
-        this.emailComposer.open(email);
-      }
-    });
-  }
+ 
 
   openMap() {
 		window.open('https://www.google.com/maps/dir/?api=1&destination=' + this.latitude + ',' + this.longitude);

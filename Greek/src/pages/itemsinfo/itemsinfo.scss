@@ -42,6 +42,12 @@
              }
          }
      }
+     .fixed-bottom {
+         position: sticky !important;
+     }
+     .listitems {
+         min-height: 50%;
+     }
      .no-scroll {
         div.scroll-content {
             overflow-y: hidden;

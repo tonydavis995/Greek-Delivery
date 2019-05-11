@@ -136,14 +136,14 @@ export class ItemsinfoPage {
   decrementItem(pro) {
     var decremented: boolean = this.global.decrementCartItem(pro);
     if (decremented) {
-      pro.quantity = pro.quantity - 0.5;
+      pro.quantity = pro.quantity - 1;
       this.calculateTotal();
     }
   }
 
   incrementItem(pro) {
     this.global.addCartItem(pro);
-    pro.quantity = pro.quantity + 0.5;
+    pro.quantity = pro.quantity + 1;
     this.calculateTotal();
   }
 

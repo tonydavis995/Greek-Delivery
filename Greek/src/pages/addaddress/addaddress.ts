@@ -73,26 +73,22 @@ export class AddaddressPage {
         this.showToast(value);
       });
       // this.showToast('Enter city');
-    } 
-    // else if (!this.address.state || !this.address.state.length) {
-		// 	this.translate.get('field_error_state').subscribe(value => {
-    //     this.showToast(value);
-    //   });
-    //   // this.showToast('Enter state');
-    // } 
-    else if (!this.address.postcode || !this.address.postcode.length) {
+		} else if (!this.address.state || !this.address.state.length) {
+			this.translate.get('field_error_state').subscribe(value => {
+        this.showToast(value);
+      });
+      // this.showToast('Enter state');
+		} else if (!this.address.postcode || !this.address.postcode.length) {
 			this.translate.get('field_error_postalcode').subscribe(value => {
         this.showToast(value);
       });
       // this.showToast('Enter postcode');
-    } 
-    // else if (!this.address.country || !this.address.country.length) {
-		// 	this.translate.get('field_error_country').subscribe(value => {
-    //     this.showToast(value);
-    //   });
-    //   // this.showToast('Enter country');
-    // } 
-    else {
+		} else if (!this.address.country || !this.address.country.length) {
+			this.translate.get('field_error_country').subscribe(value => {
+        this.showToast(value);
+      });
+      // this.showToast('Enter country');
+		} else {
       if (this.address.id == -1) {
         if (!this.addresses) {
           this.addresses = new Array<Address>();

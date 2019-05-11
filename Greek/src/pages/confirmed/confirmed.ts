@@ -3,6 +3,7 @@ import { Events, NavController, NavParams } from 'ionic-angular';
 import { UserResponse } from '../../models/user-response.models';
 import { Constants } from '../../models/constants.models';
 import { TabsPage } from '../tabs/tabs';
+import { OrdersPage } from '../orders/orders';
 import { CartPage } from '../cart/cart';
 
 
@@ -18,7 +19,7 @@ export class ConfirmedPage {
   }
 
   proceed() {
-    this.navCtrl.setRoot(CartPage);
+    this.navCtrl.setRoot(OrdersPage);
   }
   
 }
