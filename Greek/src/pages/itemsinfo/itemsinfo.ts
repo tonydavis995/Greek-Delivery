@@ -63,7 +63,7 @@ export class ItemsinfoPage {
 
   loadVariations() {
     this.translateService.get('no_sign_in').subscribe(value => {
-      this.presentLoading(value);
+      this.presentLoading('');
     });
     let subscription: Subscription = this.service.productVariations(window.localStorage.getItem(Constants.ADMIN_API_KEY), this.pro.id).subscribe(data => {
       let variations: Array<Product> = data;

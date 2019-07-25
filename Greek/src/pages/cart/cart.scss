@@ -70,7 +70,7 @@ page-cart {
         }
     }
     .fixed-bottom {
-        position: sticky;
+        position: relative;
         &.card {
             box-shadow: 0 -12px 54px 0px rgba(204, 204, 204, 0.32);
             width: 100%;
@@ -99,7 +99,7 @@ page-cart {
             }
         }
         .btn {
-            margin-top: 20px;
+            margin-top: 0px;
             padding: 0 16px;
             .button-inner {
                 text-align: justify;

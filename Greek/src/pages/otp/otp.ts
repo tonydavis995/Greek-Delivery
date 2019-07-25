@@ -205,14 +205,16 @@ export class OtpPage {
     },(error)=>{
       if (error.message) { 
         this.showToast(error.message);
+        this.otpNotSent=false;
+        
       } else {
         this.translate.get('otp_err').subscribe(value => {
           this.showToast(value);
+          this.otpNotSent=false;
         });
         // this.showToast("Wrong OTP");
       }
       this.dismissLoading();
-      console.log(JSON.stringify(error));
     })
   }
 
@@ -234,9 +236,11 @@ export class OtpPage {
     }).catch(function (error) {
       if (error.message) { 
         component.showToast(error.message);
+        component.otpNotSent=false;
       } else {
         component.translate.get('otp_err').subscribe(value => {
           component.showToast(value);
+          component.otpNotSent=false;
         });
         // component.showToast("Wrong OTP");
       }

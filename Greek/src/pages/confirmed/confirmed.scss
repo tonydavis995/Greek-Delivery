@@ -5,24 +5,24 @@ page-confirmed {
         }
     }
     figure {
-        margin: 22px !important;
+        margin: 5% !important;
         img {
             width: 100%;
-            margin-top: 30px;
+            margin-top: 20px;
             border-radius: 50%;
         }
     }
     h1 {
         font-size: 3rem;
         font-weight: 400;
-        margin-top: 30px;
+        margin-top: 5px;
         color: #444444;
     }
     h2 {
         font-size: 2rem;
         color: #999999;
         font-weight: 400;
-        margin-top: 25%;
+        margin-top: 5px;
     }
     p {
         font-size: 2rem;
@@ -33,6 +33,7 @@ page-confirmed {
         //        bottom: 50px;
     }
     .fixed-bottom {
+        position: sticky;
         .btn {
             margin-bottom: 5px;
             border-radius: 5px;

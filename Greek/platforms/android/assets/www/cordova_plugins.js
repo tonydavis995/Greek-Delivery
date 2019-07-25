@@ -1,34 +1,36 @@
 cordova.define('cordova/plugin_list', function(require, exports, module) {
 module.exports = [
   {
-    "id": "cordova-plugin-inappbrowser.inappbrowser",
-    "file": "plugins/cordova-plugin-inappbrowser/www/inappbrowser.js",
-    "pluginId": "cordova-plugin-inappbrowser",
+    "id": "card.io.cordova.mobilesdk.CardIO",
+    "file": "plugins/card.io.cordova.mobilesdk/www/cdv-plugin-card-io.js",
+    "pluginId": "card.io.cordova.mobilesdk",
     "clobbers": [
-      "cordova.InAppBrowser.open",
-      "window.open"
+      "CardIO"
     ]
   },
   {
-    "id": "es6-promise-plugin.Promise",
-    "file": "plugins/es6-promise-plugin/www/promise.js",
-    "pluginId": "es6-promise-plugin",
-    "runs": true
-  },
-  {
-    "id": "cordova-plugin-x-socialsharing.SocialSharing",
-    "file": "plugins/cordova-plugin-x-socialsharing/www/SocialSharing.js",
-    "pluginId": "cordova-plugin-x-socialsharing",
+    "id": "com.paypal.cordova.mobilesdk.PayPalMobile",
+    "file": "plugins/com.paypal.cordova.mobilesdk/www/cdv-plugin-paypal-mobile-sdk.js",
+    "pluginId": "com.paypal.cordova.mobilesdk",
     "clobbers": [
-      "window.plugins.socialsharing"
+      "PayPalMobile"
     ]
   },
   {
-    "id": "onesignal-cordova-plugin.OneSignal",
-    "file": "plugins/onesignal-cordova-plugin/www/OneSignal.js",
-    "pluginId": "onesignal-cordova-plugin",
+    "id": "cordova-plugin-device.device",
+    "file": "plugins/cordova-plugin-device/www/device.js",
+    "pluginId": "cordova-plugin-device",
     "clobbers": [
-      "OneSignal"
+      "device"
+    ]
+  },
+  {
+    "id": "cordova-plugin-email-composer.EmailComposer",
+    "file": "plugins/cordova-plugin-email-composer/www/email_composer.js",
+    "pluginId": "cordova-plugin-email-composer",
+    "clobbers": [
+      "cordova.plugins.email",
+      "plugin.email"
     ]
   },
   {
@@ -37,6 +39,14 @@ module.exports = [
     "pluginId": "cordova-plugin-facebook4",
     "clobbers": [
       "facebookConnectPlugin"
+    ]
+  },
+  {
+    "id": "cordova-plugin-firebase.FirebasePlugin",
+    "file": "plugins/cordova-plugin-firebase/www/firebase.js",
+    "pluginId": "cordova-plugin-firebase",
+    "clobbers": [
+      "FirebasePlugin"
     ]
   },
   {
@@ -56,27 +66,20 @@ module.exports = [
     ]
   },
   {
-    "id": "cordova-plugin-device.device",
-    "file": "plugins/cordova-plugin-device/www/device.js",
-    "pluginId": "cordova-plugin-device",
+    "id": "cordova-plugin-googleplus.GooglePlus",
+    "file": "plugins/cordova-plugin-googleplus/www/GooglePlus.js",
+    "pluginId": "cordova-plugin-googleplus",
     "clobbers": [
-      "device"
+      "window.plugins.googleplus"
     ]
   },
   {
-    "id": "cordova-plugin-splashscreen.SplashScreen",
-    "file": "plugins/cordova-plugin-splashscreen/www/splashscreen.js",
-    "pluginId": "cordova-plugin-splashscreen",
+    "id": "cordova-plugin-inappbrowser.inappbrowser",
+    "file": "plugins/cordova-plugin-inappbrowser/www/inappbrowser.js",
+    "pluginId": "cordova-plugin-inappbrowser",
     "clobbers": [
-      "navigator.splashscreen"
-    ]
-  },
-  {
-    "id": "cordova-plugin-ionic-webview.IonicWebView",
-    "file": "plugins/cordova-plugin-ionic-webview/src/www/util.js",
-    "pluginId": "cordova-plugin-ionic-webview",
-    "clobbers": [
-      "Ionic.WebView"
+      "cordova.InAppBrowser.open",
+      "window.open"
     ]
   },
   {
@@ -88,35 +91,33 @@ module.exports = [
     ]
   },
   {
-    "id": "card.io.cordova.mobilesdk.CardIO",
-    "file": "plugins/card.io.cordova.mobilesdk/www/cdv-plugin-card-io.js",
-    "pluginId": "card.io.cordova.mobilesdk",
+    "id": "cordova-plugin-ionic-webview.IonicWebView",
+    "file": "plugins/cordova-plugin-ionic-webview/src/www/util.js",
+    "pluginId": "cordova-plugin-ionic-webview",
     "clobbers": [
-      "CardIO"
+      "Ionic.WebView"
     ]
   },
   {
-    "id": "com.paypal.cordova.mobilesdk.PayPalMobile",
-    "file": "plugins/com.paypal.cordova.mobilesdk/www/cdv-plugin-paypal-mobile-sdk.js",
-    "pluginId": "com.paypal.cordova.mobilesdk",
+    "id": "cordova-plugin-splashscreen.SplashScreen",
+    "file": "plugins/cordova-plugin-splashscreen/www/splashscreen.js",
+    "pluginId": "cordova-plugin-splashscreen",
     "clobbers": [
-      "PayPalMobile"
+      "navigator.splashscreen"
     ]
   },
   {
-    "id": "cordova-plugin-googleplus.GooglePlus",
-    "file": "plugins/cordova-plugin-googleplus/www/GooglePlus.js",
-    "pluginId": "cordova-plugin-googleplus",
-    "clobbers": [
-      "window.plugins.googleplus"
-    ]
+    "id": "es6-promise-plugin.Promise",
+    "file": "plugins/es6-promise-plugin/www/promise.js",
+    "pluginId": "es6-promise-plugin",
+    "runs": true
   },
   {
-    "id": "cordova-plugin-firebase.FirebasePlugin",
-    "file": "plugins/cordova-plugin-firebase/www/firebase.js",
-    "pluginId": "cordova-plugin-firebase",
+    "id": "cordova-plugin-x-socialsharing.SocialSharing",
+    "file": "plugins/cordova-plugin-x-socialsharing/www/SocialSharing.js",
+    "pluginId": "cordova-plugin-x-socialsharing",
     "clobbers": [
-      "FirebasePlugin"
+      "window.plugins.socialsharing"
     ]
   },
   {
@@ -128,36 +129,35 @@ module.exports = [
     ]
   },
   {
-    "id": "cordova-plugin-email-composer.EmailComposer",
-    "file": "plugins/cordova-plugin-email-composer/www/email_composer.js",
-    "pluginId": "cordova-plugin-email-composer",
+    "id": "onesignal-cordova-plugin.OneSignal",
+    "file": "plugins/onesignal-cordova-plugin/www/OneSignal.js",
+    "pluginId": "onesignal-cordova-plugin",
     "clobbers": [
-      "cordova.plugins.email",
-      "plugin.email"
+      "OneSignal"
     ]
   }
 ];
 module.exports.metadata = 
 // TOP OF METADATA
 {
-  "me.tonny.cordova.plugins.multidex": "0.1.0",
-  "cordova-plugin-inappbrowser": "3.0.0",
-  "es6-promise-plugin": "4.2.2",
-  "cordova-plugin-x-socialsharing": "5.4.4",
-  "onesignal-cordova-plugin": "2.4.7",
-  "cordova-plugin-facebook4": "3.2.0",
-  "cordova-plugin-globalization": "1.11.0",
-  "cordova-plugin-whitelist": "1.3.3",
-  "cordova-plugin-device": "2.0.2",
-  "cordova-plugin-splashscreen": "5.0.2",
-  "cordova-plugin-ionic-webview": "2.4.1",
-  "cordova-plugin-ionic-keyboard": "2.1.3",
   "card.io.cordova.mobilesdk": "2.1.0",
   "com.paypal.cordova.mobilesdk": "3.5.0",
-  "cordova-plugin-googleplus": "7.0.1",
+  "cordova-plugin-device": "2.0.2",
+  "cordova-plugin-email-composer": "0.8.5",
+  "cordova-plugin-facebook4": "3.2.0",
   "cordova-plugin-firebase": "2.0.5",
+  "cordova-plugin-globalization": "1.11.0",
+  "cordova-plugin-googleplus": "7.0.1",
+  "cordova-plugin-inappbrowser": "3.0.0",
+  "cordova-plugin-ionic-keyboard": "2.1.3",
+  "cordova-plugin-ionic-webview": "2.4.1",
+  "cordova-plugin-splashscreen": "5.0.2",
+  "cordova-plugin-whitelist": "1.3.3",
+  "es6-promise-plugin": "4.2.2",
+  "cordova-plugin-x-socialsharing": "5.4.4",
+  "me.tonny.cordova.plugins.multidex": "0.1.0",
   "mx.ferreyra.callnumber": "0.0.2",
-  "cordova-plugin-email-composer": "0.8.5"
+  "onesignal-cordova-plugin": "2.4.7"
 };
 // BOTTOM OF METADATA
 });

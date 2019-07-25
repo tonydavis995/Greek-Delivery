@@ -39,7 +39,8 @@ export class SearchPage {
       let response: Array<Product> = data;
       let products = new Array<Product>();
       for (let pro of response) {
-        if (pro.type == 'grouped' || pro.type == 'external' || !pro.purchasable)
+        console.log(pro)
+        if (pro.type == 'grouped' || pro.type == 'external' || !pro.purchasable || !pro.in_stock)
           continue;
         if (!this.currencyText) {
           let currency: Currency = JSON.parse(window.localStorage.getItem(Constants.CURRENCY));

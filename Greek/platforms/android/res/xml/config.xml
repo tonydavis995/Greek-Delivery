@@ -1,13 +1,16 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.reffera.greekdelivery" version="0.0.7" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-    <feature name="InAppBrowser">
-        <param name="android-package" value="org.apache.cordova.inappbrowser.InAppBrowser" />
+<widget id="com.reffera.greekdelivery" version="0.1.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+    <feature name="CardIO">
+        <param name="android-package" value="io.card.cordova.sdk.CardIOCordovaPlugin" />
     </feature>
-    <feature name="SocialSharing">
-        <param name="android-package" value="nl.xservices.plugins.SocialSharing" />
+    <feature name="PayPalMobile">
+        <param name="android-package" value="com.paypal.cordova.sdk.PayPalMobileCordovaPlugin" />
     </feature>
-    <feature name="OneSignalPush">
-        <param name="android-package" value="com.plugin.gcm.OneSignalPush" />
+    <feature name="Device">
+        <param name="android-package" value="org.apache.cordova.device.Device" />
+    </feature>
+    <feature name="EmailComposer">
+        <param name="android-package" value="de.appplant.cordova.emailcomposer.EmailComposer" />
     </feature>
     <feature name="FacebookConnectPlugin">
         <param name="android-package" value="org.apache.cordova.facebook.ConnectPlugin" />
@@ -18,47 +21,44 @@
     <access origin="https://api.facebook.com" />
     <access origin="https://*.fbcdn.net" />
     <access origin="https://*.akamaihd.net" />
+    <feature name="FirebasePlugin">
+        <param name="android-package" value="org.apache.cordova.firebase.FirebasePlugin" />
+        <param name="onload" value="true" />
+    </feature>
     <feature name="Globalization">
         <param name="android-package" value="org.apache.cordova.globalization.Globalization" />
-    </feature>
-    <feature name="Whitelist">
-        <param name="android-package" value="org.apache.cordova.whitelist.WhitelistPlugin" />
-        <param name="onload" value="true" />
-    </feature>
-    <feature name="Device">
-        <param name="android-package" value="org.apache.cordova.device.Device" />
-    </feature>
-    <feature name="SplashScreen">
-        <param name="android-package" value="org.apache.cordova.splashscreen.SplashScreen" />
-        <param name="onload" value="true" />
-    </feature>
-    <feature name="CardIO">
-        <param name="android-package" value="io.card.cordova.sdk.CardIOCordovaPlugin" />
-    </feature>
-    <feature name="PayPalMobile">
-        <param name="android-package" value="com.paypal.cordova.sdk.PayPalMobileCordovaPlugin" />
     </feature>
     <feature name="GooglePlus">
         <param name="android-package" value="nl.xservices.plugins.GooglePlus" />
         <param name="onload" value="true" />
     </feature>
     <access origin="https://accounts.google.com/*" />
-    <feature name="FirebasePlugin">
-        <param name="android-package" value="org.apache.cordova.firebase.FirebasePlugin" />
+    <feature name="InAppBrowser">
+        <param name="android-package" value="org.apache.cordova.inappbrowser.InAppBrowser" />
+    </feature>
+    <feature name="SplashScreen">
+        <param name="android-package" value="org.apache.cordova.splashscreen.SplashScreen" />
         <param name="onload" value="true" />
+    </feature>
+    <feature name="Whitelist">
+        <param name="android-package" value="org.apache.cordova.whitelist.WhitelistPlugin" />
+        <param name="onload" value="true" />
+    </feature>
+    <feature name="SocialSharing">
+        <param name="android-package" value="nl.xservices.plugins.SocialSharing" />
     </feature>
     <feature name="CallNumber">
         <param name="android-package" value="mx.ferreyra.callnumber.CFCallNumber" />
     </feature>
-    <feature name="EmailComposer">
-        <param name="android-package" value="de.appplant.cordova.emailcomposer.EmailComposer" />
+    <feature name="OneSignalPush">
+        <param name="android-package" value="com.plugin.gcm.OneSignalPush" />
+    </feature>
+    <feature name="Keyboard">
+        <param name="android-package" onload="true" value="io.ionic.keyboard.IonicKeyboard" />
     </feature>
     <allow-navigation href="http://localhost:8080/*" />
     <feature name="IonicWebView">
         <param name="android-package" value="com.ionicframework.cordova.webview.IonicWebView" />
-    </feature>
-    <feature name="Keyboard">
-        <param name="android-package" onload="true" value="io.ionic.keyboard.IonicKeyboard" />
     </feature>
     <name>Greek</name>
     <description>Fresh from Boat to Home .</description>
